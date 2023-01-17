@@ -1,37 +1,50 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { BsCheck2Circle, BsFiles } from "react-icons/bs";
-import { GrHomeRounded } from "react-icons/gr";
+import { GoHome } from "react-icons/go";
 import { MdOutlineRunningWithErrors } from "react-icons/md";
 
-const links = [
-    {
-        name: 'Tasks do dia',
-        path: '/',
-        icon: <GrHomeRounded />,
-    },
-    {
-        name: 'Todas as tasks',
-        path: '/allTasks',
-        icon: <BsFiles />,
-    },
-    {
-        name: 'Tasks concluídas',
-        path: '/completedTasks',
-        icon: <BsCheck2Circle />,
-    },
-    {
-        name: 'Tasks incompletas',
-        path: '/uncompletedTasks',
-        icon: <MdOutlineRunningWithErrors />,
-    },
-];
+interface NavLinksProps {
+    classActive?: string;
+};
 
-export default function NavLinks() {
+export default function NavLinks({ classActive }: NavLinksProps) {
+    const route = useRouter();
+    const currentPath = route.asPath;
+
+    const links = [
+        {
+            name: 'Tasks do dia',
+            path: '/',
+            icon: <GoHome className={`${currentPath === '/' ? 'fill-rose-600' : ''}`} />,
+        },
+        {
+            name: 'Todas as tasks',
+            path: '/allTasks',
+            icon: <BsFiles className={`${currentPath === '/allTasks' ? 'fill-rose-600' : ''}`} />,
+        },
+        {
+            name: 'Tasks concluídas',
+            path: '/completedTasks',
+            icon: <BsCheck2Circle className={`${currentPath === '/completedTasks' ? 'fill-rose-600' : ''}`} />,
+        },
+        {
+            name: 'Tasks incompletas',
+            path: '/uncompletedTasks',
+            icon: <MdOutlineRunningWithErrors className={`${currentPath === '/uncompletedTasks' ? 'fill-rose-600' : ''}`} />,
+        },
+    ];
+
     return (
         <nav className="w-full">
             <ul className="w-full flex flex-col gap-4">
                 {links.map(link => (
-                    <li key={link.path} className="px-4 py-2 rounded-md cursor-pointer transition hover:bg-slate-200">
+
+                    <li
+                        key={link.path}
+                        className={`px-4 py-2 rounded-md cursor-pointer transition hover:bg-slate-200 
+                        ${currentPath === link.path ? classActive : ''}`}
+                    >
                         <Link href={link.path} className="flex items-center gap-4">
                             {link.icon}
                             {link.name}

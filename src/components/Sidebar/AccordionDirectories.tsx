@@ -1,5 +1,5 @@
 import { AiOutlineBranches } from 'react-icons/ai';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { IoIosArrowUp } from 'react-icons/io';
 
 interface PropsAccordion {
     title: string;
@@ -27,11 +27,7 @@ export default function AccordionDirectories({ title, children, index, activeInd
                 </div>
 
                 <div className="flex items-center justify-center">
-                    {
-                        (activeIndex === index)
-                            ? <IoIosArrowDown />
-                            : <IoIosArrowUp />
-                    }
+                    <IoIosArrowUp className={`rotate-90 transition ${activeIndex === index ? 'rotate-180' : ''}`} />
                 </div>
             </div>
 
