@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Divider from "../Utilities/Divider";
+import LayoutsMenus from "../Utilities/LayoutMenus";
 import AccordionDirectories from "./AccordionDirectories";
 import BrandMark from "./BrandMark";
 import NavLinks from "./NavLinks";
@@ -8,11 +9,22 @@ export default function Sidebar() {
     const [activeIndex, setActiveIndex] = useState(1);
     const classLinkActive = "text-rose-600 bg-violet-100 border-r-4 border-rose-500 fill-rose-600 dark:bg-slate-700/[.2] dark:text-slate-200 dark:border-slate-200";
 
+    const [showMenu, setShowMenu] = useState(false);
+
+    const closeMenu = () => {
+        console.log('click');
+        showMenu ? false : true;
+    };
+
     return (
-        <section className="bg-slate-50 w-60 xl:w-2/12 p-4 h-screen flex flex-col gap-4 fixed top-0 left-0">
+        <LayoutsMenus
+            menuOpen={showMenu}
+            closeMenuHandler={closeMenu}
+            className="top-0 left-0"
+        >
             <BrandMark />
             <Divider />
-            <div className="flex flex-col gap-4">
+            <nav className="flex flex-col gap-4">
                 <NavLinks classActive={classLinkActive} />
 
                 <AccordionDirectories
@@ -23,7 +35,9 @@ export default function Sidebar() {
                 >
                     This content for directories.
                 </AccordionDirectories>
-            </div>
-        </section>
+            </nav>
+        </LayoutsMenus>
     )
 }
+
+// showSidebar ? "translate-x-0 " : "translate-x-full"
