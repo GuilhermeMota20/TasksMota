@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tasks } from "../../types/Task";
 import SortViews from "../TasksSection/SortViews";
 import TaskItem from "../TasksSection/TaskItem";
