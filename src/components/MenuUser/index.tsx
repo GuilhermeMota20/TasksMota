@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Divider from "../Utilities/Divider";
 import LayoutsMenus from "../Utilities/LayoutMenus";
 import AvatarUser from "./AvatarUser";
 import ProgressTasks from "./ProgressTasks";
@@ -9,7 +8,7 @@ export default function MenuUser() {
 
     const closeMenuUser = () => {
         console.log('click');
-        showMenuUser ? false : true; 
+        showMenuUser ? false : true;
     };
 
     return (

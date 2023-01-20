@@ -2,7 +2,7 @@ import { useState } from "react";
 import Divider from "../Utilities/Divider";
 import LayoutsMenus from "../Utilities/LayoutMenus";
 import AccordionDirectories from "./AccordionDirectories";
-import BrandMark from "./BrandMark";
+import BrandMarkUser from "./BrandMarkUser";
 import NavLinks from "./NavLinks";
 
 export default function Sidebar() {
@@ -22,7 +22,7 @@ export default function Sidebar() {
             closeMenuHandler={closeMenu}
             className="top-0 left-0"
         >
-            <BrandMark />
+            <BrandMarkUser />
             <Divider />
             <nav className="flex flex-col gap-4">
                 <NavLinks classActive={classLinkActive} />

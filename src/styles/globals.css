@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .tasksList>li:first-of-type article {
+        @apply bg-pink-600 text-slate-100;
+    }
+
+    .tasksList>li:first-of-type article .description {
+        @apply text-pink-300;
+    }
+
+    .tasksList>li:first-of-type article>div {
+        @apply border-pink-500;
+    }
+}

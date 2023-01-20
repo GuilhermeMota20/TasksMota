@@ -14,22 +14,22 @@ export default function NavLinks({ classActive }: NavLinksProps) {
 
     const links = [
         {
-            name: 'Tasks do dia',
+            name: 'Tarefas do dia',
             path: '/',
             icon: <GoHome className={`${currentPath === '/' ? 'fill-rose-600' : ''}`} />,
         },
         {
-            name: 'Todas as tasks',
+            name: 'Todas as tarefas',
             path: '/allTasks',
             icon: <BsFiles className={`${currentPath === '/allTasks' ? 'fill-rose-600' : ''}`} />,
         },
         {
-            name: 'Tasks concluídas',
+            name: 'Tarefas concluídas',
             path: '/completedTasks',
             icon: <BsCheck2Circle className={`${currentPath === '/completedTasks' ? 'fill-rose-600' : ''}`} />,
         },
         {
-            name: 'Tasks incompletas',
+            name: 'Tarefas incompletas',
             path: '/uncompletedTasks',
             icon: <MdOutlineRunningWithErrors className={`${currentPath === '/uncompletedTasks' ? 'fill-rose-600' : ''}`} />,
         },
