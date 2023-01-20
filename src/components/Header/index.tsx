@@ -1,13 +1,21 @@
+import MenuUser from '../MenuUser';
+import Sidebar from '../Sidebar';
 import AddNewTask from '../Utilities/AddNewTask';
-import SearchTasks from './SearchTasks';
 import BrandMarkApp from './BrandMarkApp';
+import SearchTasks from './SearchTasks';
 
 export default function Header() {
     return (
-        <header className='flex justify-between items-center relative'>
+        <header className='items-center grid grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 md:flex'>
+            <Sidebar />
+
             <SearchTasks />
             <BrandMarkApp />
-            <AddNewTask />
+
+            <div className='flex flex-1 justify-end'>
+                <AddNewTask />
+                <MenuUser />
+            </div>
         </header>
     )
 }

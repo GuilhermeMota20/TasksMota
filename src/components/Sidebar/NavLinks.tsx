@@ -42,7 +42,7 @@ export default function NavLinks({ classActive }: NavLinksProps) {
 
                     <li
                         key={link.path}
-                        className={`px-4 py-2 rounded-md cursor-pointer transition hover:bg-slate-200 
+                        className={`px-4 py-2 cursor-pointer transition hover:bg-slate-200 
                         ${currentPath === link.path ? classActive : ''}`}
                     >
                         <Link href={link.path} className="flex items-center gap-4">
