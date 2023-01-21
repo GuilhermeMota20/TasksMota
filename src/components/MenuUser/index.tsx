@@ -39,7 +39,7 @@ export default function MenuUser() {
 
             {!showMenuUser && !mediaQueries.xl && (
                 <div className="ml-6 flex items-center" onClick={openMenuUser}>
-                    <AvatarUser />
+                    <AvatarUser className="w-12 h-12" />
                 </div>
             )}
         </>

@@ -13,7 +13,7 @@ export default function Header() {
             <BrandMarkApp />
 
             <div className='flex flex-1 justify-end'>
-                <AddNewTask />
+                <AddNewTask className='sm:static fixed bottom-3 right-3 z-10 sm:z-0 min-w-max shadow-lg shadow-slate-400 sm:shadow-transparent' />
                 <MenuUser />
             </div>
         </header>
