@@ -39,7 +39,6 @@ export default function NavLinks({ classActive }: NavLinksProps) {
         <nav className="w-full">
             <ul className="w-full flex flex-col gap-4">
                 {links.map(link => (
-
                     <li
                         key={link.path}
                         className={`px-4 py-2 cursor-pointer transition hover:bg-slate-200 

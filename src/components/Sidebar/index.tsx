@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useScreenMedia } from "../../services/hooks/useScreenMedia";
-import BtnOppenSidebar from "./BtnOppenSidebar";
 import Divider from "../Utilities/Divider";
 import AccordionDirectories from "./AccordionDirectories";
 import BrandMarkUser from "./BrandMarkUser";
+import BtnOppenSidebar from "./BtnOppenSidebar";
 import NavLinks from "./NavLinks";
 
 export default function Sidebar() {
@@ -19,8 +19,7 @@ export default function Sidebar() {
     return (
         <>
             <section
-                className={`flex flex-col gap-4 bg-slate-100 h-screen w-60 py-4 xl:w-2/12 fixed z-20 top-0 left-0
-                ${showMenu || mediaQueries.xl ? 'block' : 'hidden'}`}
+                className={`flex flex-col gap-4 bg-slate-100 h-screen w-60 py-4 xl:w-2/12 fixed z-20 top-0 left-0 ease-in-out transition-transform duration-300 ${showMenu || mediaQueries.xl ? 'block' : '-translate-x-full'}`}
             >
                 <BrandMarkUser />
                 <Divider />
@@ -46,7 +45,7 @@ export default function Sidebar() {
                 ></div>
             )}
 
-            {!showMenu && (
+            {!mediaQueries.xl && (
                 <div className={`${!mediaQueries.xl ? 'mr-6' : ''}`} onClick={openMenu}>
                     <BtnOppenSidebar />
                 </div>

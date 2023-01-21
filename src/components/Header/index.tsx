@@ -8,7 +8,6 @@ export default function Header() {
     return (
         <header className='items-center grid grid-cols-[1fr_auto_1fr] gap-4 md:gap-0 md:flex'>
             <Sidebar />
-
             <SearchTasks />
             <BrandMarkApp />
 
