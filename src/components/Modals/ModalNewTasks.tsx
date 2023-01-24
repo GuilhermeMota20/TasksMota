@@ -17,6 +17,10 @@ type CreateTaskFormData = {
     dir: string;
 };
 
+interface ModalNewTasksProps {
+    onClose: () => void;
+} 
+
 const createTaskFormSchema = yup.object().shape({
     title: yup.string().required('Titulo obrigatorio'),
     date: yup.string().required('Data obrigatoria'),
@@ -32,9 +36,10 @@ const handleCreateTask = (values: CreateTaskFormData) => {
     console.log(JSON.stringify(values));
 };
 
-export default function ModalNewTasks() {
+export default function ModalNewTasks({ onClose }: ModalNewTasksProps) {
     const [isImportant, setIsImportant] = useState(false);
     const [isCompleted, setIsCompleted] = useState(false);
+    
     const {
         register,
         handleSubmit,
@@ -46,7 +51,7 @@ export default function ModalNewTasks() {
     return (
         <Modal
             title="Adicionar nova tarefa"
-        // onClose={}
+            onClose={onClose}
         >
             <form
                 className="flex flex-col stylesInputsField"

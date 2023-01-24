@@ -29,7 +29,7 @@ export default function MenuUser() {
 
             {showMenuUser && !mediaQueries.xl && (
                 <div
-                    className="fixed cursor-pointer bg-slate-600/[.2] w-full h-full z-10 top-0 left-0"
+                    className="fixed bg-slate-600/[.2] w-full h-full z-10 top-0 left-0"
                     onClick={closeMenuUser}
                 ></div>
             )}

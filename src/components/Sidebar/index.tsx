@@ -40,7 +40,7 @@ export default function Sidebar() {
 
             {showMenu && !mediaQueries.xl && (
                 <div
-                    className="fixed cursor-pointer bg-slate-600/[.2] w-full h-full z-10 top-0 left-0"
+                    className="fixed bg-slate-600/[.2] w-full h-full z-10 top-0 left-0"
                     onClick={closeMenu}
                 ></div>
             )}
