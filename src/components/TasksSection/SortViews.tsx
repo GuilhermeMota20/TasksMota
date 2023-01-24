@@ -3,9 +3,9 @@ import { CiGrid41 } from 'react-icons/ci';
 
 interface SortViewsProps {
     isListInView: boolean;
+    setIsListInView: (status: boolean) => void;
     // sortedBy: string;
     // setSortedBy: (option: string) => void;
-    setIsListInView: (status: boolean) => void;
 };
 
 const sortValues = [

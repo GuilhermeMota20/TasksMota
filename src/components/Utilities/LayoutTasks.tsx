@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Tasks } from "../../types/Task";
 import SortViews from "../TasksSection/SortViews";
 import TaskItem from "../TasksSection/TaskItem";
@@ -17,7 +17,7 @@ export default function LayoutTasks({ title, tasks }: LayoutTasksProps) {
                 {title}
             </h1>
 
-            <SortViews 
+            <SortViews
                 isListInView={isListInView}
                 setIsListInView={setIsListInView}
                 // setSortedBy={}
@@ -25,7 +25,7 @@ export default function LayoutTasks({ title, tasks }: LayoutTasksProps) {
                 // key={}
             />
 
-            <ul className={`tasksList mt-4 grid gap-2 sm:gap-4 xl:gap-6 ${isListInView
+            <ul className={`animate-fade-in-down tasksList mt-4 grid gap-2 sm:gap-4 xl:gap-6 ${isListInView
                 ? "grid-cols-1"
                 : "2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 items-end"
                 }`}

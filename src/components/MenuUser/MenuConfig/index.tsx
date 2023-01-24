@@ -11,7 +11,7 @@ export default function MenuUserConfig() {
         <>
             <button
                 className="bg-white p-2 rounded-md transition hover:shadow-md"
-                onClick={showMenuConfig ? openMenuConfig : closeMenuConfig}
+                onClick={openMenuConfig}
             >
                 <RxGear />
             </button>

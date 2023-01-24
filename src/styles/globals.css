@@ -2,7 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.inputStyles {
+    @apply rounded-lg p-3 outline-transparent border-2 border-transparent focus:outline-none transition;
+}
+
 @layer components {
+    /* .inputStyles::placeholder {
+        @apply text-slate-400;
+    } */
+
+    .stylesInputsField input,
+    .stylesInputsField textarea,
+    .stylesInputsField select {
+        @apply inputStyles mt-1;
+    }
+
+    /* .stylesInputsField label {
+        @apply mb-4 text-slate-600;
+    } */
+
     .tasksList>li:first-of-type article {
         @apply bg-pink-600 text-slate-100;
     }
