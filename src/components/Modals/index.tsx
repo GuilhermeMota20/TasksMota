@@ -5,10 +5,9 @@ interface ModalProps {
     children: React.ReactNode;
     title: string;
     onClose: () => void;
-    isOpen?: boolean;
 }
 
-export default function Modal({ children, title, onClose, isOpen }: ModalProps) {
+export default function Modal({ children, title, onClose }: ModalProps) {
     const closeModalHandler = (event: React.MouseEvent) => {
         if (event.target === event.currentTarget) {
             onClose();   

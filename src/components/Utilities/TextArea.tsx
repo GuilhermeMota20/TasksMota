@@ -4,16 +4,20 @@ import { FieldError } from "react-hook-form";
 interface TextAreaProps {
     placeholder?: string;
     error?: FieldError;
+    value?: string;
+    onChange: (target: any)=> void;
 }
 
-const TextAreaBase: ForwardRefRenderFunction<HTMLTextAreaElement, TextAreaProps> = ({ placeholder, error = null, ...rest }, ref) => {
+const TextAreaBase: ForwardRefRenderFunction<HTMLTextAreaElement, TextAreaProps> = ({ placeholder, error = null, value, onChange, ...rest }, ref) => {
     return (
         <>
             <textarea
                 className="w-full bg-slate-100 text-slate-600 placeholder:text-slate-400 hover:border-pink-600 focus:border-pink-600"
                 placeholder={placeholder}
+                value={value}
                 ref={ref}
                 {...rest}
+                onChange={onChange}
             ></textarea>
 
             {

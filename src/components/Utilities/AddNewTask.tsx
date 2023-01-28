@@ -21,7 +21,7 @@ export default function AddNewTask({ className }: AddNewTaskProps) {
             </button>
 
             {showModal && (
-                <ModalNewTasks onClose={closeModal} />
+                <ModalNewTasks onClose={closeModal} nameForm='Adicionar nova tarefa' />
             )}
         </>
     )
