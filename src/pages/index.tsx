@@ -7,5 +7,5 @@ export default function Home() {
       <Header />
       <TasksSection />
     </section>
-  )
-} 
+  );
+};
