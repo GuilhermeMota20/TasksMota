@@ -10,28 +10,28 @@ interface NavLinksProps {
 
 export default function NavLinks({ classActive }: NavLinksProps) {
     const route = useRouter();
-    const currentPath = route.asPath;
+    const currentPath = route.pathname;
 
     const links = [
         {
             name: 'Tarefas do dia',
-            path: '/',
-            icon: <GoHome className={`${currentPath === '/' ? 'fill-rose-600' : ''}`} />,
+            path: '/TasksOfTheDay',
+            icon: <GoHome className={`${currentPath === '/TasksOfTheDay' ? 'fill-rose-600' : ''}`} />,
         },
         {
             name: 'Todas as tarefas',
-            path: '/allTasks',
-            icon: <BsFiles className={`${currentPath === '/allTasks' ? 'fill-rose-600' : ''}`} />,
+            path: '/AllTasks',
+            icon: <BsFiles className={`${currentPath === '/AllTasks' ? 'fill-rose-600' : ''}`} />,
         },
         {
             name: 'Tarefas concluídas',
-            path: '/completedTasks',
-            icon: <BsCheck2Circle className={`${currentPath === '/completedTasks' ? 'fill-rose-600' : ''}`} />,
+            path: '/CompletedTasks',
+            icon: <BsCheck2Circle className={`${currentPath === '/CompletedTasks' ? 'fill-rose-600' : ''}`} />,
         },
         {
             name: 'Tarefas incompletas',
-            path: '/uncompletedTasks',
-            icon: <MdOutlineRunningWithErrors className={`${currentPath === '/uncompletedTasks' ? 'fill-rose-600' : ''}`} />,
+            path: '/UncompletedTasks',
+            icon: <MdOutlineRunningWithErrors className={`${currentPath === '/UncompletedTasks' ? 'fill-rose-600' : ''}`} />,
         },
     ];
 

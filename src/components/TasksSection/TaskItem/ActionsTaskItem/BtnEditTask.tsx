@@ -15,7 +15,7 @@ export default function BtnEditTask({ task }: BtnEditTaskProps) {
     return (
         <>
             <button
-                title="edit task"
+                title="Editar tarefa"
                 className="transition w-7 sm:w-8 h-6 sm:h-8 grid place-items-center hover:text-slate-700"
                 onClick={openModalEditTask}
             >

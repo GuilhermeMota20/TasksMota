@@ -3,23 +3,17 @@ import { Tasks } from "../../types/Task";
 import { api } from "../api";
 
 export type GetTasksResponse = {
-    totalCount: number;
     tasks: Tasks[];
 };
 
 type UseTasksOptions = {
     initialData: {
         tasks: Tasks[];
-        totalCount: number;
     };
 };
 
-export async function getAllTasks(page: number): Promise<GetTasksResponse> {
-    const { data, headers } = await api.get<{ tasks: Tasks[] }>('AllTasks', {
-        params: { page },
-    });
-
-    const totalCount = Number(headers['x-total-count']);
+export async function getAllTasks(): Promise<GetTasksResponse> {
+    const { data } = await api.get<{ tasks: Tasks[] }>('AllTasks');
 
     const tasks = data.tasks.map(task => ({
         id: task.id,
@@ -37,12 +31,11 @@ export async function getAllTasks(page: number): Promise<GetTasksResponse> {
 
     return {
         tasks,
-        totalCount,
     };
-}
+};
 
-export function useAllTasks(page: number, options?: UseTasksOptions) {
-    return useQuery(['tasks', { page }], () => getAllTasks(page), {
+export function useAllTasks(options?: UseTasksOptions) {
+    return useQuery(['AllTasks'], () => getAllTasks(), {
         staleTime: 1000 * 60 * 10,
         ...options,
     });

@@ -15,7 +15,7 @@ export default function BtnDeleteTask({ taskId }: BtnDeleteTaskProps) {
                 />
             )} */}
             <button
-                title="delete task"
+                title="Deletar tarefa"
                 className="ml-2 transition hover:text-slate-700"
             // onClick={() => setIsModalShown(true)}
             >

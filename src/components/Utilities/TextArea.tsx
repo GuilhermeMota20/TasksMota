@@ -15,6 +15,7 @@ const TextAreaBase: ForwardRefRenderFunction<HTMLTextAreaElement, TextAreaProps>
                 className="w-full bg-slate-100 text-slate-600 placeholder:text-slate-400 hover:border-pink-600 focus:border-pink-600"
                 placeholder={placeholder}
                 value={value}
+                maxLength={80}
                 ref={ref}
                 {...rest}
                 onChange={onChange}

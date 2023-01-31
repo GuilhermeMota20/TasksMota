@@ -1,8 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import * as yup from "yup";
 import Modal from ".";
+import { api } from '../../services/api';
+import { queryClient } from '../../services/queryClient';
 import { Tasks } from '../../types/Task';
 import { Input } from '../Utilities/Input';
 import { InputCheckBox } from '../Utilities/InputCheckBox';
@@ -32,7 +37,9 @@ const createTaskFormSchema = yup.object().shape({
 });
 
 export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: ModalNewTasksProps) {
-    const { register, handleSubmit, formState: { errors } } = useForm<CreateTaskFormData>({
+    const router = useRouter();
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateTaskFormData>({
         resolver: yupResolver(createTaskFormSchema)
     });
 
@@ -62,8 +69,26 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
         return false;
     });
 
-    const handleCreateTask = (values: CreateTaskFormData) => {
-        console.log(JSON.stringify(values));
+    const createTask = useMutation(
+        async (task: CreateTaskFormData) => {
+            const response = await api.post('/AllTasks', {
+                task: {
+                    ...task,
+                }
+            });
+
+            return response.data.task;
+        }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('tasks');
+        },
+    });
+
+    const handleCreateTask: SubmitHandler<CreateTaskFormData> = async values => {
+        await createTask.mutateAsync(values); 
+        reset();
+        onClose();
+        // router.reload();
     };
 
     return (

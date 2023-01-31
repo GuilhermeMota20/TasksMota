@@ -29,7 +29,7 @@ export function makeServer() {
                     return new Date();
                 },
                 description(i: number) {
-                    return faker.commerce.productDescription();
+                    return faker.lorem.words(10);
                 },
                 dir() {
                     return 'master';
@@ -44,33 +44,30 @@ export function makeServer() {
         },
 
         seeds(server) {
-            server.createList('task', 5);
+            server.createList('task', 10);
         },
 
         routes() {
             this.namespace = 'api';
-            this.timing = 3500;
+            this.timing = 750;
 
-            this.get('/AllTasks', function (schema, request) {
-                const { page = 1, per_page = 4 } = request.queryParams;
-
-                const total = schema.all('task').length;
-
-                const pageStart = (Number(page) - 1) * Number(per_page);
-                const pageEnd = pageStart + Number(per_page);
-
+            this.get('/AllTasks', function (schema) {
                 const tasks = this.serialize(schema.all('task'))
-                    .tasks.slice(pageStart, pageEnd);
+                    .tasks.slice();
 
                 return new Response(
                     200,
-                    { 'x-total-count': String(total) },
                     { tasks }
                 );
             });
 
             this.get('/AllTasks/:id');
-            this.post('/AllTasks');
+
+            this.post('/AllTasks', (schema, request) => {
+                const data = JSON.parse(request.requestBody);
+
+                return schema.db.tasks.insert(data);
+            });
 
             this.namespace = '';
             this.passthrough();
