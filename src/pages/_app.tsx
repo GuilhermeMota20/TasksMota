@@ -5,7 +5,7 @@ import { makeServer } from '../services/mirage';
 import { queryClient } from '../services/queryClient';
 import '../styles/globals.css';
 
-makeServer();
+// makeServer();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
