@@ -5,6 +5,10 @@ interface BtnDeleteTaskProps {
 }
 
 export default function BtnDeleteTask({ taskId }: BtnDeleteTaskProps) {
+    const removeTaskHandler = () => {
+
+    }
+    
     return (
         <>
             {/* {showModal && (

@@ -1,3 +1,4 @@
+import { DocumentData } from "firebase/firestore";
 import { useState } from "react";
 import { MoonLoader } from "react-spinners";
 import { Tasks } from "../../types/Task";
@@ -6,7 +7,7 @@ import TaskItem from "../TasksSection/TaskItem";
 
 interface LayoutTasksProps {
     title: string;
-    tasks: Tasks[] | [];
+    tasks: Tasks[] | [] | DocumentData;
     isLoading: boolean;
     error: unknown;
 };

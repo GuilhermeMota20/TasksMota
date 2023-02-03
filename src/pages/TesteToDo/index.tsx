@@ -1,26 +1,24 @@
-import { addDoc, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
+import { useState } from 'react';
 import Header from "../../components/Header";
-import { colRef, db } from "../../Firebase";
+import { db } from "../../Firebase";
 
 export default function TesteToDo() {
     const [todos, setTodos] = useState([]);
 
-    const [subject, setSubject] = useState('');
+    const [title, setSubject] = useState('');
     const [completed, setCompleted] = useState('');
 
-    useEffect(() => {
-
-    }, []);
+    const colRef = collection(db, 'tasks'); 
 
     // get queries data (filter datas)
     const q1 = query(colRef, where('completed', '==', 'completo'));
     //ordenation
-    const q2 = query(colRef, orderBy('subject', 'asc'));
+    const q2 = query(colRef, orderBy('title', 'asc'));
     const q3 = query(colRef, orderBy('createdAt'));
 
     // get todos in real time
-    onSnapshot(q3, (snapshot) => {
+    onSnapshot(colRef, (snapshot) => {
         const todosArray = [];
 
         snapshot.docs.forEach((doc) => {
@@ -37,13 +35,13 @@ export default function TesteToDo() {
     //     console.log(doc.data(), doc.id);
     // })
 
-    // create a new subject
+    // create a new title
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (subject !== '') {
+        if (title !== '') {
             addDoc(colRef, {
-                subject,
+                title,
                 completed,
                 createdAt: serverTimestamp()
             });
@@ -52,18 +50,18 @@ export default function TesteToDo() {
         };
     };
 
-    // delete subject
+    // delete title
     const handleDelete = (id: string) => {
-        deleteDoc(doc(db, 'todos', id))
+        deleteDoc(doc(db, 'tasks', id))
     };
 
-    // edit subject
+    // edit title
     const handlOpenModeEdit = (id: string) => {
-        const docRef = doc(db, 'todos', id);
+        const docRef = doc(db, 'tasks', id);
 
         updateDoc(docRef, {
-            subject,
-            completed,
+            title: 'Editado!',
+            completed: 'completo',
         });
     };
 
@@ -79,7 +77,7 @@ export default function TesteToDo() {
                             type="text"
                             className="p-4 rounded-md"
                             placeholder="nome da tarefa"
-                            value={subject}
+                            value={title}
                             onChange={(e) => setSubject(e.target.value)}
                         />
 
@@ -92,7 +90,7 @@ export default function TesteToDo() {
                             <option value='completo'>Completo</option>
                             <option value='incompleto' >Incompleto</option>
                         </select>
-                        
+
                         <button className="p-4 rounded-md bg-pink-600 text-white transition hover:bg-pink-700">Add</button>
                     </div>
                 </form>
@@ -103,7 +101,7 @@ export default function TesteToDo() {
                             key={todo.id}
                             className='p-4 bg-white rounded-md transition hover:shadow-md flex justify-between items-center'
                         >
-                            <span>{todo.subject}</span>
+                            <span>{todo.title}</span>
 
                             <div className='flex items-center gap-8'>
                                 <button

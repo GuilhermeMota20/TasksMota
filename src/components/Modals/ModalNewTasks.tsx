@@ -1,13 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter } from 'next/router';
+import { addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
-import { SubmitHandler } from 'react-hook-form';
-import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from "yup";
 import Modal from ".";
-import { api } from '../../services/api';
-import { queryClient } from '../../services/queryClient';
+import { db } from "../../Firebase";
 import { Tasks } from '../../types/Task';
 import { Input } from '../Utilities/Input';
 import { InputCheckBox } from '../Utilities/InputCheckBox';
@@ -37,7 +34,6 @@ const createTaskFormSchema = yup.object().shape({
 });
 
 export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: ModalNewTasksProps) {
-    const router = useRouter();
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateTaskFormData>({
         resolver: yupResolver(createTaskFormSchema)
@@ -69,26 +65,19 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
         return false;
     });
 
-    const createTask = useMutation(
-        async (task: CreateTaskFormData) => {
-            const response = await api.post('/AllTasks', {
-                task: {
-                    ...task,
-                }
-            });
+    const ref = collection(db, 'tasks');
 
-            return response.data.task;
-        }, {
-        onSuccess: () => {
-            queryClient.invalidateQueries('tasks');
-        },
-    });
+    const handleCreateTask: SubmitHandler<CreateTaskFormData> = () => {
+        addDoc(ref, {
+            title: title,
+            description: description,
+            date: date,
+            completed: isCompleted,
+            important: isImportant,
+        });
 
-    const handleCreateTask: SubmitHandler<CreateTaskFormData> = async values => {
-        await createTask.mutateAsync(values); 
         reset();
         onClose();
-        // router.reload();
     };
 
     return (
