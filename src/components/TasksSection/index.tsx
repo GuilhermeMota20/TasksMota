@@ -3,16 +3,16 @@ import { Tasks } from "../../types/Task";
 import LayoutTasks from "../Utilities/LayoutTasks";
 
 interface TasksSectionProps {
-    allTasks: Tasks[] | DocumentData;
+    tasks: Tasks[] | DocumentData;
     isLoading: boolean;
     error: FirestoreError;
 }
 
-export default function TasksSection({ allTasks, error, isLoading }: TasksSectionProps) {
+export default function TasksSection({ tasks, error, isLoading }: TasksSectionProps) {
     return (
         <LayoutTasks
             title=""
-            tasks={allTasks}
+            tasks={tasks}
             isLoading={isLoading}
             error={error}
         />

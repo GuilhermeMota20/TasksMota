@@ -67,12 +67,19 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
 
     const ref = collection(db, 'tasks');
 
-    // const handleEditTask
-
     const handleCreateTask: SubmitHandler<CreateTaskFormData> = () => {
         if (task) {
-            onConfirm(task);
-            
+            const teste = {
+                id: task.id,
+                title: title,
+                description: description,
+                date: date,
+                completed: isCompleted,
+                important: isImportant,
+                dir: dir,
+            };
+
+            onConfirm(teste);
             reset();
             onClose();
             return;

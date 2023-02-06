@@ -16,21 +16,14 @@ export default function BtnEditTask({ task }: BtnEditTaskProps) {
 
     const editTaskHandler = (task: Tasks) => {
         const ref = doc(db, 'tasks', task.id);
-        
+
         updateDoc(ref, {
-            // id: task.id,
-            // title: task.title,
-            // description: task.description,
-            // date: task.date,
-            // important: task.important,
-            // completed: task.completed,
-            // dir: task.dir
             ...task
         });
 
         console.log('editado!', task);
     };
- 
+
     return (
         <>
             <button
