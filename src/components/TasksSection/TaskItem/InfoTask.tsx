@@ -1,4 +1,5 @@
 import { BsCalendar4Week } from 'react-icons/bs';
+import { useDateFormated } from '../../../services/hooks/useDateFormated';
 import { Tasks } from "../../../types/Task";
 
 interface InfoTaskProps {
@@ -7,6 +8,8 @@ interface InfoTaskProps {
 }
 
 export default function InfoTask({ task, isListInView }: InfoTaskProps) {
+    const dateFormated = useDateFormated(task.date);
+
     return (
         <div className={`flex flex-col flex-1 ${isListInView ? 'mr-6' : ''}`}>
             <div className={`flex items-center justify-between ${isListInView ? 'mb-1' : 'mb-2'}`}>
@@ -22,10 +25,10 @@ export default function InfoTask({ task, isListInView }: InfoTaskProps) {
                 {task.description}
             </p>
 
-            <time className="mt-auto flex items-center w-full">
+            <div className="mt-auto flex items-center w-full">
                 <BsCalendar4Week className='mr-2 w-4 sm:w-5' />
-                {task.date}
-            </time>
+                {dateFormated}
+            </div>
         </div>
     )
 }

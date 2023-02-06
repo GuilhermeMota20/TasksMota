@@ -4,6 +4,7 @@ import { MoonLoader } from "react-spinners";
 import { Tasks } from "../../types/Task";
 import SortViews from "../TasksSection/SortViews";
 import TaskItem from "../TasksSection/TaskItem";
+import AddNewTask from "./AddNewTask";
 
 interface LayoutTasksProps {
     title: string;
@@ -50,12 +51,7 @@ export default function LayoutTasks({ title, tasks, isLoading, error }: LayoutTa
                     ))}
 
                     <li>
-                        <button
-                            // onClick={()=> void}
-                            className={`border-2 border-dashed border-slate-300 text-slate-400 w-full rounded-md transition hover:bg-slate-300 hover:text-slate-500 ${isListInView ? 'h-20 sm:h-32' : 'h-52 sm:h-64'}`}
-                        >
-                            Add nova tarefa
-                        </button>
+                        <AddNewTask className={`border-2 border-dashed border-slate-300 bg-inherit text-inherit text-slate-400 w-full rounded-md transition hover:bg-slate-300 hover:text-slate-500 ${isListInView ? 'h-20 sm:h-32' : 'h-52 sm:h-64'}`} />
                     </li>
                 </ul>
             )}

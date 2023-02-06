@@ -1,5 +1,7 @@
+import { doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import { SlOptionsVertical } from 'react-icons/sl';
+import { db } from "../../../../Firebase";
 import { Tasks } from "../../../../types/Task";
 import ModalNewTasks from "../../../Modals/ModalNewTasks";
 
@@ -12,6 +14,23 @@ export default function BtnEditTask({ task }: BtnEditTaskProps) {
     const closeModalEditTask = () => setModalEditTaskOpen(false);
     const openModalEditTask = () => setModalEditTaskOpen(true);
 
+    const editTaskHandler = (task: Tasks) => {
+        const ref = doc(db, 'tasks', task.id);
+        
+        updateDoc(ref, {
+            // id: task.id,
+            // title: task.title,
+            // description: task.description,
+            // date: task.date,
+            // important: task.important,
+            // completed: task.completed,
+            // dir: task.dir
+            ...task
+        });
+
+        console.log('editado!', task);
+    };
+ 
     return (
         <>
             <button
@@ -27,7 +46,7 @@ export default function BtnEditTask({ task }: BtnEditTaskProps) {
                     onClose={closeModalEditTask}
                     task={task}
                     nameForm="Editar tarefa"
-                // onConfirm={editTaskHandler}
+                    onConfirm={editTaskHandler}
                 />
             )}
         </>

@@ -53,7 +53,7 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
     });
     const [dir, setDir] = useState<string>(() => {
         if (task) return task.dir;
-        return '';
+        return 'master';
         // return dir[0];
     });
     const [isImportant, setIsImportant] = useState<boolean>(() => {
@@ -67,13 +67,24 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
 
     const ref = collection(db, 'tasks');
 
+    // const handleEditTask
+
     const handleCreateTask: SubmitHandler<CreateTaskFormData> = () => {
+        if (task) {
+            onConfirm(task);
+            
+            reset();
+            onClose();
+            return;
+        };
+
         addDoc(ref, {
             title: title,
             description: description,
             date: date,
             completed: isCompleted,
             important: isImportant,
+            dir: dir,
         });
 
         reset();

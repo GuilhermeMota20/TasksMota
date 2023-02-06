@@ -5,32 +5,6 @@ import { Tasks } from "../../types/Task";
 import LayoutTasks from "../Utilities/LayoutTasks";
 
 export default function TasksSection() {
-    // const tasksConverter: FirestoreDataConverter<formatedTasksProps> = {
-    //     toFirestore(tasks: WithFieldValue<formatedTasksProps>): DocumentData {
-    //         return {
-    //             title: tasks.title,
-    //             description: tasks.description,
-    //             date: tasks.date,
-    //             completed: tasks.completed,
-    //             important: tasks.important,
-    //             dir: tasks.dir,
-    //         };
-    //     },
-    //     fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions): formatedTasksProps {
-    //         const data = snapshot.data(options);
-    //         return {
-    //             ref: snapshot.ref,
-    //             id: snapshot.id,
-    //             title: data.title,
-    //             description: data.description,
-    //             date: data.date,
-    //             completed: data.completed,
-    //             important: data.important,
-    //             dir: data.dir,
-    //         };
-    //     }
-    // };
-
     const ref = collection(db, 'tasks');
 
     const [value, isLoading, error] = useCollection(ref, {
@@ -49,16 +23,11 @@ export default function TasksSection() {
     });
 
     return (
-        <>
-            <LayoutTasks
-                title=""
-                tasks={allTasks}
-                isLoading={isLoading}
-                error={error}
-            />
-
-            {error && <strong>Error: {JSON.stringify(error)}</strong>}
-            {isLoading && <span>Collection: Loading...</span>}
-        </>
+        <LayoutTasks
+            title=""
+            tasks={allTasks}
+            isLoading={isLoading}
+            error={error}
+        />
     )
 };
