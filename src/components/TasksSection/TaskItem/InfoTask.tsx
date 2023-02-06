@@ -20,7 +20,7 @@ export default function InfoTask({ task, isListInView }: InfoTaskProps) {
 
             <p
                 title={task.description}
-                className={`description mb-2 text-slate-500 ${isListInView ? 'line-clamp-2 sm:line-clamp-1' : 'line-clamp-3'}`}
+                className='description mb-2 text-slate-500 line-clamp-1'
             >
                 {task.description}
             </p>
