@@ -31,7 +31,7 @@ export default function LayoutTasks({ title, tasks, isLoading, error }: LayoutTa
             />
 
             {isLoading ? (
-                <div className="flex items-center justify-center m-4">
+                <div className="flex items-center justify-center mt-12">
                     <MoonLoader color="rgb(190, 24, 93)" size={24} />
                 </div>
 

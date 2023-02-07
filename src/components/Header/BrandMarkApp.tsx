@@ -11,9 +11,7 @@ export default function BrandMarkApp() {
 
     return (
         <div className="text-center">
-            <span className="text-slate-600 uppercase font-bold text-sm block xl:hidden">
-                Logo
-            </span>
+            <h1 className="font-bold text-md text-center xl:hidden">ToDoTask <span className="text-pink-600">.</span></h1>
             <time dateTime={dateFormated}>{dateFormated}</time>
         </div>
     )
