@@ -5,7 +5,8 @@ export default class Document extends NextDocument {
     return (
       <Html>
         <Head>
-          <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
+          <meta name="theme-color" content="#000000" />
+          <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         </Head>
 
         <body className='bg-slate-200 select-none'>

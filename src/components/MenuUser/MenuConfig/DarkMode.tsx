@@ -9,8 +9,21 @@ interface DarkModeProps {
 };
 
 export default function DarkMode({ activeIndex, setActiveIndex }: DarkModeProps) {
-    const [isCurrentMode, setIsCurrentMode] = useState<boolean>(true);
-
+    const [isCurrentMode, setIsCurrentMode] = useState<boolean>(()=> {
+        if(typeof window !== "undefined") {
+            const darkModeWasSet = localStorage.getItem("darkmode");
+            if (darkModeWasSet == 'dark') return true;
+            else return false;
+        };
+    });
+    
+    const activeDarkMode = () => {
+        setIsCurrentMode(true);
+    };
+    const disabledDarkMode = () => {
+        setIsCurrentMode(false);
+    };
+    
     useEffect(() => {
         const html = document.querySelector<HTMLHtmlElement>("html")!;
 
@@ -22,19 +35,12 @@ export default function DarkMode({ activeIndex, setActiveIndex }: DarkModeProps)
                 ?.setAttribute("content", "#0f172a");
         } else {
             html.classList.remove("dark");
-            localStorage.removeItem("darkmode");
+            localStorage.setItem("darkmode", "light");
             document
                 .querySelector('meta[name="theme-color"]')
                 ?.setAttribute("content", "#e2e8f0");
-        }
+        };
     }, [isCurrentMode]);
-
-    const activeDarkMode = () => {
-        setIsCurrentMode(true);
-    };
-    const disabledDarkMode = () => {
-        setIsCurrentMode(false);
-    };
 
     return (
         <ConfigAccordion
