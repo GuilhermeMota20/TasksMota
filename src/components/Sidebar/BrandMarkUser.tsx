@@ -7,8 +7,8 @@ export default function BrandMarkUser() {
             <Image src={brand} alt="Gato" width={36} height={36} className='bg-slate-600 rounded-md' />
 
             <div className="flex flex-col">
-                <h3 className="text-sm font-bold text-slate-900">gmota</h3>
-                <span className="text-xs">Team development</span>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-slate-200">gmota</h3>
+                <span className="text-xs dark:text-slate-400">Team development</span>
             </div>
         </div>
     )

@@ -15,11 +15,11 @@ export default function MenuUser() {
     return (
         <>
             <section
-                className={`flex flex-col gap-4 bg-slate-100 h-screen w-60 p-4 xl:w-2/12 fixed z-20 top-0 right-0 ease-in-out transition-transform duration-300 ${showMenuUser || mediaQueries.xl ? 'block' : 'translate-x-full'}`}
+                className={`flex flex-col gap-4 bg-slate-100 dark:bg-darkBlue-800 h-screen w-60 p-4 xl:w-2/12 fixed z-20 top-0 right-0 ease-in-out transition-transform duration-300 ${showMenuUser || mediaQueries.xl ? 'block' : 'translate-x-full'}`}
             >
                 <div className="flex gap-4 items-end justify-end w-full py-2">
                     <MenuUserConfig />
-                    <button className="bg-white p-2 rounded-md transition hover:shadow-md">
+                    <button className="bg-white p-2 rounded-md transition hover:shadow-md dark:bg-darkBlue-700">
                         <IoMdNotificationsOutline />
                     </button>
                     <AvatarUser />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { RxGear } from "react-icons/rx";
 import ChangeColorPrimary from "./ChangeColorprimary";
+import DarkMode from "./DarkMode";
 import HeaderConfig from "./HeaderConfig";
 
 export default function MenuUserConfig() {
@@ -13,7 +14,7 @@ export default function MenuUserConfig() {
     return (
         <>
             <button
-                className="bg-white p-2 rounded-md transition hover:shadow-md"
+                className="bg-white p-2 rounded-md transition hover:shadow-md dark:bg-darkBlue-700"
                 onClick={openMenuConfig}
             >
                 <RxGear />
@@ -23,11 +24,16 @@ export default function MenuUserConfig() {
                 className={`fixed top-0 right-0 h-full w-72 p-4 z-20 ease-in-out opacity-0 transition-transform duration-300 
                 ${showMenuConfig ? 'translate-x-0 opacity-100' : 'translate-x-full'}`}
             >
-                <div className="bg-slate-100 rounded-md flex flex-col gap-4 h-full w-full">
+                <div className="bg-slate-100 dark:bg-darkBlue-800 rounded-md flex flex-col gap-4 h-full w-full">
                     <HeaderConfig />
 
-                    <div className="p-4 mt-16">
+                    <div className="flex flex-col gap-8 mt-20 ">
                         <ChangeColorPrimary
+                            activeIndex={activeIndex}
+                            setActiveIndex={setActiveIndex}
+                        />
+
+                        <DarkMode
                             activeIndex={activeIndex}
                             setActiveIndex={setActiveIndex}
                         />

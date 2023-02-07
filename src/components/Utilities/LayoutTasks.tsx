@@ -18,7 +18,7 @@ export default function LayoutTasks({ title, tasks, isLoading, error }: LayoutTa
 
     return (
         <section>
-            <h1 className="font-medium my-5 text-center sm:text-left sm:my-8 md:text2xl text-lg">
+            <h1 className="font-medium my-5 text-center sm:text-left sm:my-8 md:text2xl text-lg dark:text-slate-200">
                 {title}
             </h1>
 
@@ -51,7 +51,7 @@ export default function LayoutTasks({ title, tasks, isLoading, error }: LayoutTa
                     ))}
 
                     <li>
-                        <AddNewTask className={`border-2 border-dashed border-slate-300 bg-inherit text-inherit text-slate-400 w-full rounded-md transition hover:bg-slate-300 hover:text-slate-500 ${isListInView ? 'h-20 sm:h-32' : 'h-52 sm:h-64'}`} />
+                        <AddNewTask className={`border-2 border-dashed border-slate-300 bg-inherit text-inherit text-slate-400 w-full rounded-md transition hover:bg-slate-300 hover:text-slate-500 dark:border-darkBlue-700 dark:hover:bg-darkBlue-800 dark:hover:text-slate-300 ${isListInView ? 'h-20 sm:h-32' : 'h-52 sm:h-64'}`} />
                     </li>
                 </ul>
             )}
