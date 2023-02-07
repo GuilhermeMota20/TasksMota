@@ -146,14 +146,14 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
 
                 <InputGroup label="Selecionar diretorio">
                     <select
-                        className='bg-slate-100 text-slate-600 placeholder:text-slate-400 hover:border-pink-600 focus:border-pink-600'
+                        className='bg-slate-100 text-slate-600 placeholder:text-slate-400 hover:border-pink-600 focus:border-pink-600 dark:bg-darkBlue-800'
                         value={dir}
                         {...register('dir')}
                         onChange={({ target }: { target: any }) => {
                             setDir(target.value);
                         }}
                     >
-                        <option value="master">master</option>
+                        <option className='dark:bg-darkBlue-800' value="master">master</option>
                     </select>
                 </InputGroup>
 
