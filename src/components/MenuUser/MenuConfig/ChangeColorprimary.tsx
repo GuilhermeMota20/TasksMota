@@ -22,7 +22,7 @@ export default function ChangeColorPrimary({ activeIndex, setActiveIndex }: Chan
         const html = document.querySelector<HTMLHtmlElement>("html")!;
 
         if (isCurrentColorPrimary) {
-            // html.removeAttribute('class');
+            html.removeAttribute('class');
             html.classList.add(isCurrentColorPrimary);
             localStorage.setItem("colorPrimary", isCurrentColorPrimary);
         };

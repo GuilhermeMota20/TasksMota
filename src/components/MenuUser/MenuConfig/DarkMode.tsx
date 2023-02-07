@@ -9,12 +9,7 @@ interface DarkModeProps {
 };
 
 export default function DarkMode({ activeIndex, setActiveIndex }: DarkModeProps) {
-    const [isCurrentMode, setIsCurrentMode] = useState<boolean>(() => {
-        const darkModeWasSet = localStorage.getItem("darkmode");
-
-        if (darkModeWasSet) return true;
-        else return false;
-    });
+    const [isCurrentMode, setIsCurrentMode] = useState<boolean>(true);
 
     useEffect(() => {
         const html = document.querySelector<HTMLHtmlElement>("html")!;
