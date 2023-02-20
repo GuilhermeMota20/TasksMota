@@ -9,11 +9,10 @@ interface BtnDeleteTaskProps {
 }
 
 export default function BtnDeleteTask({ taskId }: BtnDeleteTaskProps) {
-    const [showModal, setIsModalShown] = useState<boolean>(false);
+    const [showModal, setIsModalShown] = useState(false);
 
     const handleDelete = () => {
         deleteDoc(doc(db, 'tasks', taskId));
-        console.log('deletada:', taskId);
     };
 
     return (

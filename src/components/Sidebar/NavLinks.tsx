@@ -1,8 +1,12 @@
+import { collection } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { BsCheck2Circle, BsFiles } from "react-icons/bs";
 import { GoHome } from "react-icons/go";
 import { MdOutlineRunningWithErrors } from "react-icons/md";
+import { db } from "../../Firebase";
+import Directories from "./Directories";
 
 interface NavLinksProps {
     classActive?: string;
@@ -35,6 +39,23 @@ export default function NavLinks({ classActive }: NavLinksProps) {
         },
     ];
 
+    const ref = collection(db, 'directories');
+
+    const [value] = useCollection(ref, {
+        snapshotListenOptions: {
+            includeMetadataChanges: true,
+        }
+    });
+
+    const directories = [];
+
+    value?.docs.map((doc) => {
+        directories.push({
+            ...doc.data(),
+            id: doc.id,
+        });
+    });
+
     return (
         <nav className="w-full">
             <ul className="w-full flex flex-col gap-4">
@@ -50,6 +71,10 @@ export default function NavLinks({ classActive }: NavLinksProps) {
                         </Link>
                     </li>
                 ))}
+
+                <Directories
+                    directories={directories}
+                />
             </ul>
         </nav>
     )

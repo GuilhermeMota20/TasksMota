@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { useScreenMedia } from "../../services/hooks/useScreenMedia";
 import Divider from "../Utilities/Divider";
-import AccordionDirectories from "./AccordionDirectories";
 import BrandMarkUser from "./BrandMarkUser";
 import BtnOppenSidebar from "./BtnOppenSidebar";
 import NavLinks from "./NavLinks";
 
 export default function Sidebar() {
     const mediaQueries = useScreenMedia();
-    const [activeIndex, setActiveIndex] = useState(1);
     const classLinkActive = "text-rose-600 bg-violet-100 border-r-4 border-rose-500 fill-rose-600 dark:bg-slate-700/[.2] dark:text-slate-200 dark:border-slate-200";
 
     const [showMenu, setShowMenu] = useState(false);
@@ -26,15 +24,6 @@ export default function Sidebar() {
 
                 <nav className="flex flex-col gap-4">
                     <NavLinks classActive={classLinkActive} />
-
-                    <AccordionDirectories
-                        title="Diretorios"
-                        index={1}
-                        activeIndex={activeIndex}
-                        setActiveIndex={setActiveIndex}
-                    >
-                        This content for directories.
-                    </AccordionDirectories>
                 </nav>
             </section>
 

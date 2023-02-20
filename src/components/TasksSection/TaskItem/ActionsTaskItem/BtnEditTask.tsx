@@ -10,9 +10,8 @@ interface BtnEditTaskProps {
 }
 
 export default function BtnEditTask({ task }: BtnEditTaskProps) {
-    const [modalEditTaskOpen, setModalEditTaskOpen] = useState<boolean>(false);
-    const closeModalEditTask = () => setModalEditTaskOpen(false);
-    const openModalEditTask = () => setModalEditTaskOpen(true);
+    const [modalEditTaskOpen, setModalEditTaskOpen] = useState(false);
+    const showModalEditTask = () => modalEditTaskOpen ? setModalEditTaskOpen(false) : setModalEditTaskOpen(true);
 
     const editTaskHandler = (task: Tasks) => {
         const ref = doc(db, 'tasks', task.id);
@@ -29,14 +28,14 @@ export default function BtnEditTask({ task }: BtnEditTaskProps) {
             <button
                 title="Editar tarefa"
                 className="transition w-7 sm:w-8 h-6 sm:h-8 grid place-items-center hover:text-slate-700"
-                onClick={openModalEditTask}
+                onClick={showModalEditTask}
             >
                 <SlOptionsVertical className="text-md sm:text-lg" />
             </button>
 
             {modalEditTaskOpen && (
                 <ModalNewTasks
-                    onClose={closeModalEditTask}
+                    onClose={showModalEditTask}
                     task={task}
                     nameForm="Editar tarefa"
                     onConfirm={editTaskHandler}

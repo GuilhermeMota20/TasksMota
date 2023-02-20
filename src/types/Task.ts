@@ -1,3 +1,5 @@
+import { DocumentData, FirestoreError } from "firebase/firestore";
+
 export interface Tasks {
     id: string;
     title: string;
@@ -6,4 +8,11 @@ export interface Tasks {
     completed: boolean;
     important: boolean;
     dir: string;
-}
+};
+
+export interface LayoutTaskSectionProps {
+    title: string;
+    tasks: Tasks[] | DocumentData;
+    isLoading: boolean;
+    error: FirestoreError;
+};

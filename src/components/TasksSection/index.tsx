@@ -1,17 +1,10 @@
-import { DocumentData, FirestoreError } from "firebase/firestore";
-import { Tasks } from "../../types/Task";
+import { LayoutTaskSectionProps } from "../../types/Task";
 import LayoutTasks from "../Utilities/LayoutTasks";
 
-interface TasksSectionProps {
-    tasks: Tasks[] | DocumentData;
-    isLoading: boolean;
-    error: FirestoreError;
-}
-
-export default function TasksSection({ tasks, error, isLoading }: TasksSectionProps) {
+export default function TasksSection({ tasks, error, isLoading, title }: LayoutTaskSectionProps) {
     return (
         <LayoutTasks
-            title=""
+            title={title}
             tasks={tasks}
             isLoading={isLoading}
             error={error}

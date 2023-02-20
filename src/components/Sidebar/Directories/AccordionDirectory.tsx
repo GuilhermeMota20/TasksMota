@@ -1,15 +1,16 @@
+import { ReactNode } from 'react';
 import { AiOutlineBranches } from 'react-icons/ai';
 import { IoIosArrowUp } from 'react-icons/io';
 
 interface PropsAccordion {
     title: string;
-    children: any;
+    children: ReactNode;
     index: number;
     activeIndex: number;
     setActiveIndex: any;
 }
 
-export default function AccordionDirectories({ title, children, index, activeIndex, setActiveIndex }: PropsAccordion) {
+export default function AccordionDirectory({ title, children, index, activeIndex, setActiveIndex }: PropsAccordion) {
     const handleSetIndex = (index: number) =>
         activeIndex !== index
             ? setActiveIndex(index)
@@ -17,7 +18,7 @@ export default function AccordionDirectories({ title, children, index, activeInd
 
     return (
         <div className='flex flex-col px-4 rounded-sm'>
-            <div onClick={() => handleSetIndex(index)} className='flex justify-between items-center cursor-pointer'>
+            <div onClick={() => handleSetIndex(index)} className='flex justify-between items-center cursor-pointer mb-3'>
                 <div className='flex items-center gap-4'>
                     <AiOutlineBranches />
 
@@ -32,9 +33,9 @@ export default function AccordionDirectories({ title, children, index, activeInd
             </div>
 
             {(activeIndex === index) && (
-                <div className="shadow-3xl shadow-cyan-500/50 p-4">
+                <>
                     {children}
-                </div>
+                </>
             )}
         </div>
     );

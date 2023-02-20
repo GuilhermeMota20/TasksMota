@@ -6,15 +6,13 @@ import { Tasks } from "../../types/Task";
 
 export default function AllTasks() {
     const ref = collection(db, 'tasks');
-
     const [value, isLoading, error] = useCollection(ref, {
         snapshotListenOptions: {
             includeMetadataChanges: true,
         }
     });
-
+    
     const allTasks: Array<Tasks | DocumentData> = [];
-
     value?.docs.map((doc) => {
         allTasks.push({
             ...doc.data(),
@@ -23,6 +21,6 @@ export default function AllTasks() {
     });
 
     return (
-        <LayoutPage tasks={allTasks} error={error} isLoading={isLoading} />
+        <LayoutPage title={`Todas as tarefas ( ${allTasks.length} )`} tasks={allTasks} error={error} isLoading={isLoading} />
     );
 };

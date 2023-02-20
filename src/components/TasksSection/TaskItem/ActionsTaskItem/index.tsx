@@ -11,7 +11,7 @@ interface AcrionsTaskItemProps {
 
 export default function ActionsTaskItem({ task, isListInView }: AcrionsTaskItemProps) {
     return (
-        <div className={`flex border-dashed border-slate-200 ${isListInView ? 'items-center' : 'border-t-2 w-full pt-4 mt-4'}`}>
+        <div className={`flex border-dashed border-slate-200 dark:border-slate-700 ${isListInView ? 'items-center' : 'border-t-2 w-full pt-4 mt-4'}`}>
             <BtnToggleCompleted isListInView={isListInView} taskCompleted={task.completed} taskId={task.id} />
             <BtnMarkAsImportant taskImportant={task.important} taskId={task.id} />
             <BtnDeleteTask taskId={task.id} />

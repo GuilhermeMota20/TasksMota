@@ -24,6 +24,6 @@ export default function UncompletedTasks() {
     });
 
     return (
-        <LayoutPage tasks={UncompletedTasks} error={error} isLoading={isLoading} />
+        <LayoutPage title={`Tarefas incompletas ( ${UncompletedTasks.length} )`} tasks={UncompletedTasks} error={error} isLoading={isLoading} />
     )
 }

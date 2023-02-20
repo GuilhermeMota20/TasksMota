@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from "yup";
 import Modal from ".";
@@ -34,6 +35,18 @@ const createTaskFormSchema = yup.object().shape({
 });
 
 export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: ModalNewTasksProps) {
+    const refDir = collection(db, 'directories');
+    const [valueDir] = useCollection(refDir, {
+        snapshotListenOptions: {
+            includeMetadataChanges: true,
+        }
+    });
+    const directories = valueDir?.docs.map((dir)=> {
+        return {
+            ...dir.data(),
+        };
+    });
+    console.log(directories);
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateTaskFormData>({
         resolver: yupResolver(createTaskFormSchema)
@@ -54,7 +67,7 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
     const [dir, setDir] = useState<string>(() => {
         if (task) return task.dir;
         return 'master';
-        // return dir[0];
+        // return directories[0];
     });
     const [isImportant, setIsImportant] = useState<boolean>(() => {
         if (task) return task.important;
@@ -66,7 +79,6 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
     });
 
     const ref = collection(db, 'tasks');
-
     const handleCreateTask: SubmitHandler<CreateTaskFormData> = () => {
         if (task) {
             const teste = {
@@ -153,7 +165,9 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
                             setDir(target.value);
                         }}
                     >
-                        <option className='dark:bg-darkBlue-800' value="master">master</option>
+                        {directories?.map((directory, index) => (
+                            <option key={index} className='dark:bg-darkBlue-800' value={directory.dir}>{directory.dir}</option>
+                        ))}
                     </select>
                 </InputGroup>
 

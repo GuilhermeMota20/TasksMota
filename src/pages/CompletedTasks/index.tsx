@@ -24,6 +24,6 @@ export default function CompletedTasks() {
     });
 
     return (
-        <LayoutPage tasks={CompletedTasks} error={error} isLoading={isLoading} />
+        <LayoutPage title={`Tarefas concluídas ( ${CompletedTasks.length} )`} tasks={CompletedTasks} error={error} isLoading={isLoading} />
     )
 }
