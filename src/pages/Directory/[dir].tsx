@@ -1,11 +1,10 @@
-import { collection, DocumentData, query, where } from "firebase/firestore";
-import { db } from "../../Firebase";
+import { collection, query, where } from "firebase/firestore";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import LayoutPage from "../../components/Utilities/LayoutPage";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { Tasks } from "../../types/Task";
 import { useRouter } from "next/router";
+import { useCollection } from "react-firebase-hooks/firestore";
+import LayoutPage from "../../components/Utilities/LayoutPage";
+import { db } from "../../Firebase";
 
 export default function DirTasks({ dir }) {
     const route = useRouter();
@@ -30,7 +29,7 @@ export default function DirTasks({ dir }) {
 
     return (
         <>
-            <Head>{dir}</Head>
+            <Head>ToDoTask. | {dir}</Head>
             <LayoutPage title={`Diretorio master ( ${dirTasks.length} )`} tasks={dirTasks} error={error} isLoading={isLoading} />
         </>
     )

@@ -1,4 +1,5 @@
 import { collection, DocumentData, query, where } from "firebase/firestore";
+import Head from "next/head";
 import { useCollection } from "react-firebase-hooks/firestore";
 import LayoutPage from "../../components/Utilities/LayoutPage";
 import { db } from "../../Firebase";
@@ -24,6 +25,9 @@ export default function CompletedTasks() {
     });
 
     return (
-        <LayoutPage title={`Tarefas concluídas ( ${CompletedTasks.length} )`} tasks={CompletedTasks} error={error} isLoading={isLoading} />
+        <>
+            <Head>ToDoTask. | Tarefas concluídas</Head>
+            <LayoutPage title={`Tarefas concluídas ( ${CompletedTasks.length} )`} tasks={CompletedTasks} error={error} isLoading={isLoading} />
+        </>
     )
 }

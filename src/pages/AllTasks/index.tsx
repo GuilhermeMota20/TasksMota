@@ -1,4 +1,5 @@
 import { collection, DocumentData } from "firebase/firestore";
+import Head from "next/head";
 import { useCollection } from "react-firebase-hooks/firestore";
 import LayoutPage from "../../components/Utilities/LayoutPage";
 import { db } from "../../Firebase";
@@ -11,7 +12,7 @@ export default function AllTasks() {
             includeMetadataChanges: true,
         }
     });
-    
+
     const allTasks: Array<Tasks | DocumentData> = [];
     value?.docs.map((doc) => {
         allTasks.push({
@@ -21,6 +22,9 @@ export default function AllTasks() {
     });
 
     return (
-        <LayoutPage title={`Todas as tarefas ( ${allTasks.length} )`} tasks={allTasks} error={error} isLoading={isLoading} />
+        <>
+            <Head>ToDoTask. | Todas as tarefas</Head>
+            <LayoutPage title={`Todas as tarefas ( ${allTasks.length} )`} tasks={allTasks} error={error} isLoading={isLoading} />
+        </>
     );
 };
