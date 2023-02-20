@@ -20,7 +20,7 @@ export default function DirTasks({ dir }) {
         }
     });
 
-    const dirTasks: Array<Tasks | DocumentData> = [];
+    const dirTasks = [];
     value?.docs.map((doc) => {
         dirTasks.push({
             ...doc.data(),
