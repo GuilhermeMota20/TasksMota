@@ -26,7 +26,9 @@ export default function CompletedTasks() {
 
     return (
         <>
-            <Head>ToDoTask. | Tarefas concluídas</Head>
+            <Head>
+                <title>ToDoTask. | Tarefas concluídas</title>
+            </Head>
             <LayoutPage title={`Tarefas concluídas ( ${CompletedTasks.length} )`} tasks={CompletedTasks} error={error} isLoading={isLoading} />
         </>
     )

@@ -29,7 +29,10 @@ export default function DirTasks({ dir }) {
 
     return (
         <>
-            <Head>ToDoTask. | {dir}</Head>
+            <Head>
+                <title>ToDoTask. | Diretorio {dir}</title>
+            </Head>
+
             <LayoutPage title={`Diretorio master ( ${dirTasks.length} )`} tasks={dirTasks} error={error} isLoading={isLoading} />
         </>
     )

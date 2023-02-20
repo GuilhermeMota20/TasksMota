@@ -74,6 +74,7 @@ export default function NavLinks({ classActive }: NavLinksProps) {
 
                 <Directories
                     directories={directories}
+                    classActive={classActive}
                 />
             </ul>
         </nav>

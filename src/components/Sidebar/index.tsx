@@ -17,7 +17,7 @@ export default function Sidebar() {
     return (
         <>
             <section
-                className={`dark:bg-darkBlue-800 flex flex-col gap-4 bg-slate-100 h-screen w-60 py-4 xl:w-2/12 fixed z-20 top-0 left-0 ease-in-out transition-transform duration-300 ${showMenu || mediaQueries.xl ? 'block' : '-translate-x-full'}`}
+                className={`dark:bg-darkBlue-800 flex flex-col gap-4 bg-slate-100 h-screen w-60 py-4 xl:w-2/12 fixed z-20 top-0 left-0 ${showMenu || mediaQueries.xl ? 'block' : 'hidden'}`}
             >
                 <BrandMarkUser />
                 <Divider />

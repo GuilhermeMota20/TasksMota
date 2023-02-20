@@ -23,7 +23,9 @@ export default function AllTasks() {
 
     return (
         <>
-            <Head>ToDoTask. | Todas as tarefas</Head>
+            <Head>
+                <title>ToDoTask. | Todas as tarefas</title>
+            </Head>
             <LayoutPage title={`Todas as tarefas ( ${allTasks.length} )`} tasks={allTasks} error={error} isLoading={isLoading} />
         </>
     );

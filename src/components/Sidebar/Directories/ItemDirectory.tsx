@@ -1,5 +1,6 @@
 import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { db } from "../../../Firebase";
@@ -13,9 +14,14 @@ interface DirectryType {
 
 interface DirectoryProps {
     directory: DirectryType;
+    classActive: string;
 };
 
-export default function ItemDirectory({ directory }: DirectoryProps) {
+export default function ItemDirectory({ directory, classActive }: DirectoryProps) {
+    const route = useRouter();
+    const currentPath = route.asPath;
+    const formattedPath = currentPath.split("/").pop();
+
     const [modalIsShown, setModalIsShown] = useState(false);
     const showModal = () => modalIsShown ? setModalIsShown(false) : setModalIsShown(true);
 
@@ -42,7 +48,7 @@ export default function ItemDirectory({ directory }: DirectoryProps) {
                 />
             )}
 
-            <li className="flex items-center px-4 py-2 cursor-pointer transition hover:bg-slate-200 dark:hover:text-slate-200 dark:hover:bg-transparent">
+            <li className={`flex items-center px-4 py-2 cursor-pointer transition hover:bg-slate-200 dark:hover:text-slate-200 dark:hover:bg-transparent ${formattedPath === directory.dir ? classActive : ''}`}>
                 <Link href={`/Directory/${directory.dir}`} className="flex items-center gap-4">
                     {directory.dir}
                 </Link>

@@ -10,9 +10,10 @@ export interface Directry {
 
 interface DirectoriesProps {
     directories: Directry[];
+    classActive: string;
 };
 
-export default function Directories({ directories }: DirectoriesProps) {
+export default function Directories({ directories, classActive }: DirectoriesProps) {
     const [activeIndex, setActiveIndex] = useState(1);
     const [modalDirIsShown, setModalDirIsShown] = useState(false);
 
@@ -35,7 +36,7 @@ export default function Directories({ directories }: DirectoriesProps) {
                 setActiveIndex={setActiveIndex}
             >
                 {directories.map((directory) => (
-                    <ItemDirectory key={directory.id} directory={directory} />
+                    <ItemDirectory key={directory.id} directory={directory} classActive={classActive} />
                 ))}
 
                 <button
