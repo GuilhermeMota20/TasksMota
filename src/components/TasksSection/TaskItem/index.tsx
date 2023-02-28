@@ -12,7 +12,7 @@ export default function TaskItem({ isListInView, task }: TaskItemProps) {
     return (
         <li key={task.id}>
             <Link
-                href={`/dir/${task.dir}`}
+                href={`/Directory/${task.dir}`}
                 className="ml-auto mr-4 w-min whitespace-nowrap overflow-hidden max-w-[10rem] text-center text-ellipsis bg-rose-200 text-rose-600 px-4 py-1 rounded-t-md transition dark:bg-darkBlue-700 dark:text-slate-200 block hover:bg-rose-300 dark:hover:bg-rose-500"
             >
                 {task.dir}
