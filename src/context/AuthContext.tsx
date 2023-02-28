@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from "../Firebase";
 import { useRouter } from "next/router";
 
@@ -11,6 +11,8 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
+
+    console.log(user)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -45,13 +47,21 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
             })
     };
 
+    const SignInWithGoogle = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then(() => {
+                router.push('/AllTasks');
+            });
+    };
+
     const Logout = async () => {
         setUser(null);
         await signOut(auth);
     };
 
     return (
-        <AuthContext.Provider value={{ user, Signup, Sign, Logout, loading, setLoading }}>
+        <AuthContext.Provider value={{ user, Signup, Sign, Logout, SignInWithGoogle, loading, setLoading }}>
             {children}
         </AuthContext.Provider>
     )
