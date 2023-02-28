@@ -15,8 +15,6 @@ export default function BtnToggleCompleted({ isListInView, taskCompleted, taskId
         updateDoc(docRef, {
             completed: taskCompleted ? false : true 
         });
-
-        console.log('status mudou', taskId);
     };
     
     return (

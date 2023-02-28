@@ -5,26 +5,17 @@ import { useAuth } from "../context/AuthContext";
 export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { user, Sign } = useAuth();
+  const { Sign } = useAuth();
 
-  console.log('MyUser:', user);
-
-  const handleSignup = async (e: any) => {
-    e.preventDefault();
-
-    try {
-      await Sign(email, password);
-
-    } catch (error) {
-      console.log(error.message);
-    };
+  const handleSignup = async () => {
+    await Sign(email, password);
   };
 
   return (
     <>
       <LayoutAuthentication
-        email={email
-        } setEmail={setEmail}
+        email={email}
+        setEmail={setEmail}
         password={password}
         setPassword={setPassword}
         handleFunction={handleSignup}

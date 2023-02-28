@@ -6,16 +6,17 @@ interface InputBaseProps {
     value: string;
     placeholder?: string;
     errors?: FieldError;
+    className?: string;
     onChange: (target: any)=> void;
 }
-const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputBaseProps> = ({ onChange, errors = null, placeholder, type = 'text', value, ...rest }, ref) => {
+const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputBaseProps> = ({ className, onChange, errors = null, placeholder, type = 'text', value, ...rest }, ref) => {
     return (
         <>
             <input
                 type={type}
                 value={value}
                 placeholder={placeholder}
-                className="w-full bg-slate-100 text-slate-600 placeholder:text-slate-400 hover:border-pink-600 focus:border-pink-600 dark:text-slate-400 dark:bg-darkBlue-800"
+                className={`w-full bg-slate-100 text-slate-600 placeholder:text-slate-400 hover:border-pink-600 focus:border-pink-600 dark:text-slate-400 dark:bg-darkBlue-800 ${className}`}
                 autoComplete="off"
                 ref={ref}
                 {...rest}

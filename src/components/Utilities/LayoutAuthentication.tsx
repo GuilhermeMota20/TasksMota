@@ -1,17 +1,34 @@
-import { MoonLoader } from "react-spinners";
-import { useAuth } from "../../context/AuthContext";
-import { FcGoogle } from "react-icons/fc";
-import Divider from "./Divider";
-import { useRouter } from "next/router";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
+import { MoonLoader } from "react-spinners";
+import * as yup from "yup";
+import { useAuth } from "../../context/AuthContext";
+import Divider from "./Divider";
+import { Input } from "./Input";
+import InputGroup from "./InputGroup";
+
+type UserFormData = {
+    email: string;
+    password: string;
+}
+
+const userSchema = yup.object().shape({
+    email: yup.string().required('E-mail obrigatorio'),
+    password: yup.string().required('Senha obrigatoria'),
+});
 
 export default function LayoutAuthentication({ nameForm, email, setEmail, password, setPassword, handleFunction }) {
     const inputClass = "w-full h-full py-3 pl-4 pr-11 rounded-md bg-slate-100 focus:border-solid focus:border-pink-600 outline-transparent border-2 border-slate-200 dark:border-darkBlue-800 hover:border-pink-600 focus:border-pink-600 dark:hover:border-pink-600 dark:focus:border-pink-600 focus:outline-none transition dark:bg-darkBlue-800";
 
+    const router = useRouter();
     const { loading, SignInWithGoogle } = useAuth();
 
-    const router = useRouter();
-    console.log(router.pathname)
+    const { register, handleSubmit, formState: { errors } } = useForm<UserFormData>({
+        resolver: yupResolver(userSchema)
+    });
 
     return (
         <>
@@ -19,33 +36,34 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
                 <div className="text-slate-600 dark:text-slate-400 pt-5 pb-8 sm:pb-16 px-4 md:px-8 md:w-full xl:w-8/12 m-auto min-h-screen flex flex-col  justify-center items-center gap-8">
                     <h2 className="font-bold text-2xl">ToDoTask <span className="text-pink-600">.</span></h2>
 
-                    <form className="form-login flex flex-col gap-4 bg-slate-50 dark:bg-darkBlue-900 p-14 md:w-3/5 rounded-md shadow-md z-10" onSubmit={handleFunction} >
+                    <form className="form-login flex flex-col gap-4 bg-slate-50 dark:bg-darkBlue-900 p-14 md:w-3/5 rounded-md shadow-md z-10" onSubmit={handleSubmit(handleFunction)} >
                         <h1 className="font-medium mb-5 text-lg md:text-2xl">{nameForm}</h1>
 
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="email">E-mail</label>
-                            <input
-                                className={`rounded-md p-2 ${inputClass}`}
-                                type="email" name="email"
+                        <InputGroup label="E-mail">
+                            <Input
+                                type="email"
                                 value={email}
-                                onChange={(({ target }) => {
+                                className={inputClass}
+                                errors={errors.email}
+                                {...register('email')}
+                                onChange={({ target }: { target: any }) => {
                                     setEmail(target.value);
-                                })}
+                                }}
                             />
-                        </div>
+                        </InputGroup>
 
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="password">Senha</label>
-                            <input
-                                className={`rounded-md p-2 ${inputClass}`}
+                        <InputGroup label="Senha">
+                            <Input
                                 type="password"
-                                name="password"
                                 value={password}
-                                onChange={(({ target }) => {
+                                className={inputClass}
+                                errors={errors.password}
+                                {...register('password')}
+                                onChange={({ target }: { target: any }) => {
                                     setPassword(target.value);
-                                })}
+                                }}
                             />
-                        </div>
+                        </InputGroup>
 
                         {loading ? (
                             <button className="bg-pink-600 py-2 w-full mt-4 rounded-md text-white flex items-center justify-center gap-4 cursor-not-allowed" disabled>
@@ -59,7 +77,7 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
 
                         <Divider />
 
-                        <div className="flex items-center justify-between">
+                        <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
                             <Link href={router.pathname !== '/Signup' ? '/Signup' : '/'} className="w-full text-center transition hover:text-pink-600">
                                 {router.pathname !== '/Signup' ? 'Cadastrar uma conta' : 'Acessar sua conta'}
                             </Link>
@@ -86,5 +104,4 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
             <div className="fixed border-r border-dashed border-slate-300 h-full top-0 dark:border-slate-700 right-[80px]"></div>
         </>
     )
-
 }

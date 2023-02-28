@@ -14,8 +14,6 @@ export default function BtnMarkAsImportant({ taskId, taskImportant }: BtnMarkAsI
         updateDoc(docRef, {
             important: taskImportant ? false : true 
         });
-
-        console.log('status mudou', taskId);
     };
 
     return (

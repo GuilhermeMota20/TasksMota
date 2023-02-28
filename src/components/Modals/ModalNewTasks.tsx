@@ -46,7 +46,6 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
             ...dir.data(),
         };
     });
-    console.log(directories);
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateTaskFormData>({
         resolver: yupResolver(createTaskFormSchema)

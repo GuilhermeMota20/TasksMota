@@ -19,8 +19,6 @@ export default function BtnEditTask({ task }: BtnEditTaskProps) {
         updateDoc(ref, {
             ...task
         });
-
-        console.log('editado!', task);
     };
 
     return (

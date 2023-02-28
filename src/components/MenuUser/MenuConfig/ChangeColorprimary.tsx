@@ -47,7 +47,6 @@ export default function ChangeColorPrimary({ activeIndex, setActiveIndex }: Chan
                             name="primaryColor"
                             className={`appearance-none w-6 h-12 rounded-md cursor-pointer border-2 ${option.class} ${isCurrentColorPrimary == option.value ? 'shadow-lg' : ''}`}
                             onChange={(({ target }) => {
-                                console.log(target.value);
                                 setIsCurrentColorPrimary(target.value);
                             })}
                         />
