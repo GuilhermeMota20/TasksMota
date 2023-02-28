@@ -12,7 +12,6 @@
     "@faker-js/faker": "^7.6.0",
     "@fontsource/inter": "^4.5.14",
     "@hookform/resolvers": "^2.9.10",
-    "@next-auth/firebase-adapter": "^0.0.2-canary.207",
     "@next/font": "13.1.1",
     "@react-query-firebase/firestore": "^1.0.0-dev.7",
     "@tailwindcss/line-clamp": "^0.4.2",
