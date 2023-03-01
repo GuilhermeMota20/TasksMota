@@ -8,6 +8,7 @@ import { MoonLoader } from "react-spinners";
 import * as yup from "yup";
 import { useAuth } from "../../context/AuthContext";
 import DarkMode from "../MenuUser/MenuConfig/DarkMode";
+import ModalError from "../Modals/ModalError";
 import Divider from "./Divider";
 import { Input } from "./Input";
 import InputGroup from "./InputGroup";
@@ -18,14 +19,15 @@ type UserFormData = {
 }
 
 const userSchema = yup.object().shape({
-    email: yup.string().required('E-mail obrigatorio'),
-    password: yup.string().required('Senha obrigatoria'),
+    email: yup.string().required('E-mail obrigatorio').email('O e-mail esta incompleto'),
+    password: yup.string().required('Senha obrigatoria').min(8, 'A senha deve ter no minimo 8 caracteres'),
 });
 
 export default function LayoutAuthentication({ nameForm, email, setEmail, password, setPassword, handleFunction }) {
     const inputClass = "w-full h-full py-3 pl-4 pr-11 rounded-md bg-slate-100 focus:border-solid focus:border-pink-600 outline-transparent border-2 border-slate-200 dark:border-darkBlue-800 hover:border-pink-600 focus:border-pink-600 dark:hover:border-pink-600 dark:focus:border-pink-600 focus:outline-none transition dark:bg-darkBlue-800";
 
     const [activeIndex, setActiveIndex] = useState(1);
+    const [showModal, setIsModalShown] = useState(false);
 
     const router = useRouter();
     const { user, loading, SignInWithGoogle } = useAuth();
@@ -38,6 +40,26 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
 
     return (
         <>
+            {router.asPath == '/?Error=sign' && !showModal && (
+                <ModalError
+                    text='Houve um problema ao tentar entrar em sua conta. Por favor, tente novamente.'
+                    onClose={() => {
+                        setIsModalShown(false);
+                        router.push('/');
+                    }}
+                />
+            )}
+
+            {router.asPath == '/Signup?Error=signup' && !showModal && (
+                <ModalError
+                    text='Houve um problema ao tentar entrar em sua conta. Por favor, tente novamente.'
+                    onClose={() => {
+                        setIsModalShown(false);
+                        router.push('/Signup');
+                    }}
+                />
+            )}
+
             <section className="dark:bg-darkBlue-800">
                 <div className="text-slate-600 dark:text-slate-400 pt-5 pb-8 sm:pb-16 px-4 md:px-8 md:w-full xl:w-8/12 m-auto min-h-screen flex flex-col  justify-center items-center gap-8">
                     <div className="absolute bottom-4 right-0 p-2 bg-slate-50 dark:bg-darkBlue-900 rounded-md shadow-lg z-20">
@@ -81,8 +103,8 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
                                 <MoonLoader color="#ffffff" size={18} />
                             </button>
                         ) : (
-                            <button className="bg-pink-600 py-2 w-full mt-4 rounded-md text-white">
-                                {nameForm == 'Cadastre uma conta' ? 'Cadastra' : 'Entrar'}
+                            <button className="bg-pink-600 transition hover:bg-pink-700 py-2 w-full mt-4 rounded-md text-white">
+                                {nameForm == 'Cadastre uma conta' ? 'Cadastrar' : 'Entrar'}
                             </button>
                         )}
 

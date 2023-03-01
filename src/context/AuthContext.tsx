@@ -1,8 +1,7 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut } from "firebase/auth";
-import { auth } from "../Firebase";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithRedirect, signOut } from "firebase/auth";
 import { useRouter } from "next/router";
-import { stringify } from "querystring";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { auth } from "../Firebase";
 
 const AuthContext = createContext<any>({});
 
@@ -12,8 +11,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
-
-    console.log(user);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -38,6 +35,9 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
                 setLoading(true);
                 Sign(email, password);
             })
+            .catch(() => {
+                router.push('/Signup?Error=signup');
+            });
     };
 
     const Sign = (email: string, password: string) => {
@@ -46,14 +46,16 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
                 setLoading(true);
                 router.push('/AllTasks');
             })
+            .catch(() => {
+                router.push('/?Error=sign');
+            });
     };
 
     const provider = new GoogleAuthProvider();
-    
+
     const SignInWithGoogle = async () => {
         await signInWithRedirect(auth, provider)
-            .then((result)=> {
-                console.log(result);
+            .then(() => {
                 router.push('/AllTasks');
             });
     };

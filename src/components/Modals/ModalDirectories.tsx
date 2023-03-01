@@ -58,7 +58,7 @@ export default function ModalDirectories({ onClose, nameForm }: ModalDirectories
                         errors={errors.title}
                         {...register('title')}
                         onChange={({ target }: { target: any }) => {
-                            setTitle(target.value);
+                            setTitle(target.value.replace(/[^\w\s]/gi, '').replace(/\s/g, ''));
                         }}
                     />
                 </InputGroup>
