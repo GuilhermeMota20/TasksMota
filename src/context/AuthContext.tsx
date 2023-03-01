@@ -1,7 +1,8 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut } from "firebase/auth";
 import { auth } from "../Firebase";
 import { useRouter } from "next/router";
+import { stringify } from "querystring";
 
 const AuthContext = createContext<any>({});
 
@@ -11,6 +12,8 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
+
+    console.log(user);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -45,10 +48,12 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
             })
     };
 
-    const SignInWithGoogle = () => {
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
-            .then(() => {
+    const provider = new GoogleAuthProvider();
+    
+    const SignInWithGoogle = async () => {
+        await signInWithRedirect(auth, provider)
+            .then((result)=> {
+                console.log(result);
                 router.push('/AllTasks');
             });
     };

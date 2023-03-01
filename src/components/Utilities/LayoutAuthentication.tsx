@@ -24,7 +24,9 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
     const inputClass = "w-full h-full py-3 pl-4 pr-11 rounded-md bg-slate-100 focus:border-solid focus:border-pink-600 outline-transparent border-2 border-slate-200 dark:border-darkBlue-800 hover:border-pink-600 focus:border-pink-600 dark:hover:border-pink-600 dark:focus:border-pink-600 focus:outline-none transition dark:bg-darkBlue-800";
 
     const router = useRouter();
-    const { loading, SignInWithGoogle } = useAuth();
+    const { user, loading, SignInWithGoogle } = useAuth();
+
+    if (user) router.push('/AllTasks');
 
     const { register, handleSubmit, formState: { errors } } = useForm<UserFormData>({
         resolver: yupResolver(userSchema)
