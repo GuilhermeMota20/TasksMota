@@ -32,4 +32,13 @@
     .tasksList>li:first-of-type article>div {
         @apply border-pink-500;
     }
+
+    // Scroll
+    ::-webkit-scrollbar {
+        @apply  w-2 bg-slate-50 dark:bg-darkBlue-800;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        @apply bg-slate-300 dark:bg-darkBlue-900;
+    }
 }

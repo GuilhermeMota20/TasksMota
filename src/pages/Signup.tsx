@@ -11,7 +11,7 @@ import { auth } from "../Firebase";
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [time, setTime] = useState(30);
+  const [time, setTime] = useState(2 * 60);
   const { Signup } = useAuth();
   const router = useRouter();
 
@@ -21,12 +21,6 @@ export default function Signup() {
   useEffect(() => {
     if (router.asPath == '/Signup?send-email=true') {
       auth.currentUser?.reload();
-
-        // .then(() => {
-        //   if (auth.currentUser?.emailVerified) {
-        //     console.log('AAAAAAAAA', auth.currentUser?.emailVerified);
-        //   };
-        // });
 
       setTimeout(() => setTime(time - 1), 1000);
 

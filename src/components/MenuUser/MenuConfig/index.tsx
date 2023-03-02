@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { RxGear } from "react-icons/rx";
-import { useAuth } from "../../../context/AuthContext";
 import { auth } from "../../../Firebase";
-import { IsUserType } from "../../../types/User";
 import Divider from "../../Utilities/Divider";
 import ChangeColorPrimary from "./ChangeColorprimary";
+import ConfigUser from "./ConfigUser";
 import DarkMode from "./DarkMode";
 import HeaderConfig from "./HeaderConfig";
 
@@ -14,8 +13,6 @@ export default function MenuUserConfig() {
 
     const closeMenuConfig = () => showMenuConfig ? setShowMenuConfig(false) : setShowMenuConfig(true);
     const openMenuConfig = () => !showMenuConfig ? setShowMenuConfig(true) : setShowMenuConfig(false);
-
-    const { user } = useAuth();
 
     const userData = auth.currentUser;
 
@@ -51,6 +48,11 @@ export default function MenuUserConfig() {
                         />
 
                         <DarkMode
+                            activeIndex={activeIndex}
+                            setActiveIndex={setActiveIndex}
+                        />
+
+                        <ConfigUser
                             activeIndex={activeIndex}
                             setActiveIndex={setActiveIndex}
                         />
