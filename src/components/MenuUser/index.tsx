@@ -22,7 +22,7 @@ export default function MenuUser() {
                     <button className="bg-white p-2 rounded-md transition hover:shadow-md dark:bg-darkBlue-700">
                         <IoMdNotificationsOutline />
                     </button>
-                    <AvatarUser />
+                    <AvatarUser className="cursor-default" />
                 </div>
                 <ProgressTasks />
             </section>

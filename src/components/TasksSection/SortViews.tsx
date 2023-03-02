@@ -32,7 +32,7 @@ export default function SortViews({ isListInView, setIsListInView }: SortViewsPr
                 <HiListBullet className={`text-2xl ${isListInView ? 'text-pink-600' : ''}`} />
             </button>
 
-            <select className='py-3 px-4 ml-auto rounded-md bg-slate-100 focus:border-pink-600 outline-transparent border-2 border-transparent hover:border-pink-600 focus:outline-none transition dark:bg-darkBlue-800'>
+            {/* <select className='py-3 px-4 ml-auto rounded-md bg-slate-100 focus:border-pink-600 outline-transparent border-2 border-transparent hover:border-pink-600 focus:outline-none transition dark:bg-darkBlue-800'>
                 <option value="" disabled >Ordernar por</option>
 
                 {sortValues.map(sortValue => (
@@ -44,7 +44,7 @@ export default function SortViews({ isListInView, setIsListInView }: SortViewsPr
                         {sortValue.title}
                     </option>
                 ))}
-            </select>
+            </select> */}
         </div>
     )
 }
