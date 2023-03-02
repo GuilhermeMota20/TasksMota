@@ -17,7 +17,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputBaseProps> = ({
                 value={value}
                 placeholder={placeholder}
                 className={`w-full bg-slate-100 text-slate-600 placeholder:text-slate-400 hover:border-pink-600 focus:border-pink-600 dark:text-slate-400 dark:bg-darkBlue-800 ${className}`}
-                autoComplete="off"
+                // autoComplete="off"
                 ref={ref}
                 {...rest}
                 onChange={onChange}

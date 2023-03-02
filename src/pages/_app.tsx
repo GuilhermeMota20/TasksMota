@@ -7,7 +7,7 @@ import { AuthContextProvider } from '../context/AuthContext';
 import { queryClient } from '../services/queryClient';
 import '../styles/globals.scss';
 
-const noAuthRequired = ['/', '/Signup']
+const noAuthRequired = ['/', '/Signup'];
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

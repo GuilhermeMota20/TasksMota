@@ -1,5 +1,5 @@
 import Image from "next/image";
-import avatarImage from '../../assets/Mota.png';
+import UserAvatar from '../../assets/UserAvatar.svg';
 
 interface AddNewTaskProps {
     className?: string;
@@ -7,6 +7,6 @@ interface AddNewTaskProps {
 
 export default function AvatarUser({ className }: AddNewTaskProps) {
     return (
-        <Image src={avatarImage} width={32} height={32} alt='user' className={`bg-slate-800 rounded-md cursor-pointer transition hover:shadow-lg ${className}`} />
+        <Image src={UserAvatar} width={32} height={32} alt='user' className={`bg-slate-800 rounded-md cursor-pointer transition hover:shadow-lg ${className}`} />
     )
 }

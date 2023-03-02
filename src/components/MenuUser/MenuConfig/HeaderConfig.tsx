@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { AiOutlineLogout } from "react-icons/ai";
-import avatarImage from '../../../assets/Mota.png';
+import UserAvatar from '../../../assets/UserAvatar.svg';
 import { useAuth } from "../../../context/AuthContext";
 
 export default function HeaderConfig() {
@@ -19,7 +19,8 @@ export default function HeaderConfig() {
             ) : (
                 null
             )}
-            <Image src={avatarImage} alt="Avatar" className="rounded-full w-36 absolute top-16 left-14" />
+            <Image src={UserAvatar} alt="Avatar" className="rounded-full w-36 absolute top-16 left-14" />
         </div>
+
     )
 }

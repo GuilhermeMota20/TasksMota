@@ -1,14 +1,14 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithRedirect, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithRedirect, signOut, UserCredential } from "firebase/auth";
 import { useRouter } from "next/router";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { auth } from "../Firebase";
+import { IsUserType } from "../types/User";
 
 const AuthContext = createContext<any>({});
-
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<IsUserType | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
@@ -18,6 +18,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
                 setUser({
                     uid: user.uid,
                     email: user.email,
+                    emailVerified: user ? user?.emailVerified : false,
                 });
             } else {
                 setUser(null);
@@ -29,14 +30,16 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         return () => unsubscribe();
     }, []);
 
-    const Signup = (email: string, password: string) => {
-        return createUserWithEmailAndPassword(auth, email, password)
+    async function Signup(email: string, password: string) {
+        setLoading(true);
+        const newUserCredential: UserCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+        await sendEmailVerification(newUserCredential.user)
             .then(() => {
-                setLoading(true);
-                Sign(email, password);
+                router.push('/Signup?send-email=true');
             })
             .catch(() => {
-                router.push('/Signup?Error=signup');
+                router.push('/Signup?send-email=false');
             });
     };
 
@@ -52,7 +55,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const provider = new GoogleAuthProvider();
-
     const SignInWithGoogle = async () => {
         await signInWithRedirect(auth, provider)
             .then(() => {
@@ -62,7 +64,8 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
     const Logout = async () => {
         setUser(null);
-        await signOut(auth);
+        signOut(auth);
+        router.push('/');
     };
 
     return (

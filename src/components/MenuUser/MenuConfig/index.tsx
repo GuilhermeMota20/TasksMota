@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { RxGear } from "react-icons/rx";
+import { useAuth } from "../../../context/AuthContext";
+import { auth } from "../../../Firebase";
+import { IsUserType } from "../../../types/User";
+import Divider from "../../Utilities/Divider";
 import ChangeColorPrimary from "./ChangeColorprimary";
 import DarkMode from "./DarkMode";
 import HeaderConfig from "./HeaderConfig";
@@ -10,6 +14,10 @@ export default function MenuUserConfig() {
 
     const closeMenuConfig = () => showMenuConfig ? setShowMenuConfig(false) : setShowMenuConfig(true);
     const openMenuConfig = () => !showMenuConfig ? setShowMenuConfig(true) : setShowMenuConfig(false);
+
+    const { user } = useAuth();
+
+    const userData = auth.currentUser;
 
     return (
         <>
@@ -24,10 +32,19 @@ export default function MenuUserConfig() {
                 className={`fixed top-0 right-0 h-full w-72 p-4 z-20 ease-in-out opacity-0 transition-transform duration-300 
                 ${showMenuConfig ? 'translate-x-0 opacity-100' : 'translate-x-full'}`}
             >
-                <div className="bg-slate-100 dark:bg-darkBlue-800 rounded-md flex flex-col gap-4 h-full w-full">
+                <div className="bg-slate-100 dark:bg-darkBlue-800 rounded-md flex flex-col gap-2 h-full w-full">
                     <HeaderConfig />
 
-                    <div className="flex flex-col gap-8 mt-20 ">
+                    <div className="px-4 mt-[5rem] text-center">
+                        <strong>{!userData.displayName ? 'Anonymous' : userData.displayName}</strong>
+                        <p>{userData.email}</p>
+                    </div>
+
+                    <div className="mt-4">
+                        <Divider />
+                    </div>
+
+                    <div className="flex flex-col gap-8 mt-4">
                         <ChangeColorPrimary
                             activeIndex={activeIndex}
                             setActiveIndex={setActiveIndex}

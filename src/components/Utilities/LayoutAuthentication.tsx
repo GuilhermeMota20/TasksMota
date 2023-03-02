@@ -7,6 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import { MoonLoader } from "react-spinners";
 import * as yup from "yup";
 import { useAuth } from "../../context/AuthContext";
+import { auth } from "../../Firebase";
 import DarkMode from "../MenuUser/MenuConfig/DarkMode";
 import ModalError from "../Modals/ModalError";
 import Divider from "./Divider";
@@ -16,7 +17,7 @@ import InputGroup from "./InputGroup";
 type UserFormData = {
     email: string;
     password: string;
-}
+};
 
 const userSchema = yup.object().shape({
     email: yup.string().required('E-mail obrigatorio').email('O e-mail esta incompleto'),
@@ -30,9 +31,9 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
     const [showModal, setIsModalShown] = useState(false);
 
     const router = useRouter();
-    const { user, loading, SignInWithGoogle } = useAuth();
+    const { loading, SignInWithGoogle } = useAuth();
 
-    if (user) router.push('/AllTasks');
+    if (auth.currentUser?.emailVerified) router.push('/AllTasks');
 
     const { register, handleSubmit, formState: { errors } } = useForm<UserFormData>({
         resolver: yupResolver(userSchema)
@@ -61,14 +62,14 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
             )}
 
             <section className="dark:bg-darkBlue-800">
-                <div className="text-slate-600 dark:text-slate-400 pt-5 pb-8 sm:pb-16 px-4 md:px-8 md:w-full xl:w-8/12 m-auto min-h-screen flex flex-col  justify-center items-center gap-8">
+                <div className="text-slate-600 dark:text-slate-400 pt-5 pb-2 px-4 md:px-8 md:w-full xl:w-8/12 m-auto min-h-screen flex flex-col  justify-center items-center gap-8">
                     <div className="absolute bottom-4 right-0 p-2 bg-slate-50 dark:bg-darkBlue-900 rounded-md shadow-lg z-20">
                         <DarkMode activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
                     </div>
 
                     <h2 className="font-bold text-2xl">ToDoTask <span className="text-pink-600">.</span></h2>
 
-                    <form className="form-login flex flex-col gap-4 bg-slate-50 dark:bg-darkBlue-900 p-4 md:p-14 w-full md:w-3/5 rounded-md shadow-lg z-10" onSubmit={handleSubmit(handleFunction)} >
+                    <form className="form-login flex flex-col gap-4 bg-slate-50 dark:bg-darkBlue-900 p-4 md:p-10 w-full md:w-3/5 rounded-md shadow-lg z-10" onSubmit={handleSubmit(handleFunction)} >
 
                         <h1 className="font-medium mb-5 text-lg md:text-2xl">{nameForm}</h1>
 
@@ -116,7 +117,7 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
                             </Link>
 
                             <button type="button" className="w-full flex items-center justify-center gap-4 bg-slate-200 border border-slate-300 transition dark:bg-darkBlue-700 dark:border-darkBlue-800 hover:text-pink-600 hover:bg-slate-300  py-2 rounded-md" onClick={SignInWithGoogle}>
-                                Entrar com o Google
+                                Entrar com Google
                                 <FcGoogle size={18} />
                             </button>
                         </div>
