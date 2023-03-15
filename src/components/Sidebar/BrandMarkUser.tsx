@@ -1,6 +1,3 @@
-import Image from "next/image";
-import brand from '../../assets/favicon_insta.png';
-
 export default function BrandMarkUser() {
     return (
         <div className="flex items-center justify-center px-4 m-4 py-2 gap-4 rounded-md transition">

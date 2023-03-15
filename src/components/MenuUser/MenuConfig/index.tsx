@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { RxGear } from "react-icons/rx";
+import { useAuth } from "../../../context/AuthContext";
 import { auth } from "../../../Firebase";
+import ModalConfirm from "../../Modals/ModalConfirm";
 import Divider from "../../Utilities/Divider";
-import ChangeColorPrimary from "./ChangeColorprimary";
 import ConfigUser from "./ConfigUser";
 import DarkMode from "./DarkMode";
 import HeaderConfig from "./HeaderConfig";
@@ -10,9 +11,15 @@ import HeaderConfig from "./HeaderConfig";
 export default function MenuUserConfig() {
     const [activeIndex, setActiveIndex] = useState(1);
     const [showMenuConfig, setShowMenuConfig] = useState(false);
+    const { Logout } = useAuth();
 
     const closeMenuConfig = () => showMenuConfig ? setShowMenuConfig(false) : setShowMenuConfig(true);
     const openMenuConfig = () => !showMenuConfig ? setShowMenuConfig(true) : setShowMenuConfig(false);
+    const [showModal, setIsModalShown] = useState(false);
+
+    const handleLogout = () => {
+        Logout();
+    };
 
     const userData = auth.currentUser;
 
@@ -42,9 +49,15 @@ export default function MenuUserConfig() {
                     </div>
 
                     <div className="flex flex-col gap-8 mt-4">
-                        <ChangeColorPrimary
+                        {/* <ChangeColorPrimary
                             activeIndex={activeIndex}
                             setActiveIndex={setActiveIndex}
+                        /> */}
+
+                        <ConfigUser
+                            activeIndex={activeIndex}
+                            setActiveIndex={setActiveIndex}
+                            showModalLogout={() => setIsModalShown(true)}
                         />
 
                         <DarkMode
@@ -52,13 +65,17 @@ export default function MenuUserConfig() {
                             setActiveIndex={setActiveIndex}
                         />
 
-                        <ConfigUser
-                            activeIndex={activeIndex}
-                            setActiveIndex={setActiveIndex}
-                        />
                     </div>
                 </div>
             </section>
+
+            {showModal && (
+                <ModalConfirm
+                    onClose={() => setIsModalShown(false)}
+                    text="Você será desconectado da sua conta atual."
+                    onConfirm={handleLogout}
+                />
+            )}
 
             {showMenuConfig && (
                 <div
