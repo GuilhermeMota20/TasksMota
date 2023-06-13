@@ -3,16 +3,20 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { auth, db } from "../../Firebase";
 import LayoutPage from "../../components/Utilities/LayoutPage";
-import { db } from "../../Firebase";
 
 export default function DirTasks({ dir }) {
+    const userData = auth.currentUser;
+
     const route = useRouter();
     const currentPath = route.asPath;
     const formattedPath = currentPath.split("/").pop();
 
     const refTasks = collection(db, 'tasks');
-    const queTasks = query(refTasks, where('dir', '==', formattedPath));
+    const currentUser = where('userUid', '==', userData.uid)
+    const queTasks = query(refTasks, currentUser, where('dir', '==', formattedPath));
+
     const [value, isLoading, error] = useCollection(queTasks, {
         snapshotListenOptions: {
             includeMetadataChanges: true,

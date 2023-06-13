@@ -6,7 +6,6 @@ export default class Document extends NextDocument {
       <Html>
         <Head>
           <meta name="theme-color" content="#000000" />
-          {/* <meta name="primary-color" content="rgb(219 39 119)" /> */}
           <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         </Head>
 

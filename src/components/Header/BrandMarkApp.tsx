@@ -7,7 +7,7 @@ export default function BrandMarkApp() {
         {
             locale: ptBR,
         }
-    )
+    );
 
     return (
         <div className="text-center">

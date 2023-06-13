@@ -5,7 +5,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from "yup";
 import Modal from ".";
-import { db } from "../../Firebase";
+import { auth, db } from "../../Firebase";
 import { Tasks } from '../../types/Task';
 import { Input } from '../Utilities/Input';
 import { InputCheckBox } from '../Utilities/InputCheckBox';
@@ -13,6 +13,7 @@ import InputGroup from '../Utilities/InputGroup';
 import { TextArea } from '../Utilities/TextArea';
 
 type CreateTaskFormData = {
+    userUid: string;
     title: string;
     date: string;
     description: string;
@@ -35,6 +36,8 @@ const createTaskFormSchema = yup.object().shape({
 });
 
 export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: ModalNewTasksProps) {
+    const userData = auth.currentUser;
+
     const refDir = collection(db, 'directories');
     const [valueDir] = useCollection(refDir, {
         snapshotListenOptions: {
@@ -82,6 +85,7 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
         if (task) {
             const teste = {
                 id: task.id,
+                userUid: userData.uid,
                 title: title,
                 description: description,
                 date: date,
@@ -97,6 +101,7 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
         };
 
         addDoc(ref, {
+            userUid: userData.uid,
             title: title,
             description: description,
             date: date,

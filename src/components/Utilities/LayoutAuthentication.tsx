@@ -6,8 +6,8 @@ import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { MoonLoader } from "react-spinners";
 import * as yup from "yup";
-import { useAuth } from "../../context/AuthContext";
 import { auth } from "../../Firebase";
+import { useAuth } from "../../context/AuthContext";
 import DarkMode from "../MenuUser/MenuConfig/DarkMode";
 import ModalError from "../Modals/ModalError";
 import Divider from "./Divider";
@@ -83,6 +83,7 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
                                 onChange={({ target }: { target: any }) => {
                                     setEmail(target.value);
                                 }}
+                                disabled={loading ? true : false}
                             />
                         </InputGroup>
 
@@ -96,6 +97,7 @@ export default function LayoutAuthentication({ nameForm, email, setEmail, passwo
                                 onChange={({ target }: { target: any }) => {
                                     setPassword(target.value);
                                 }}
+                                disabled={loading ? true : false}
                             />
                         </InputGroup>
 

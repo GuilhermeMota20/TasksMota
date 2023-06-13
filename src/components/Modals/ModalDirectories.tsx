@@ -1,13 +1,12 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
+import { SubmitHandler, useForm } from 'react-hook-form';
+import * as yup from "yup";
 import Modal from ".";
+import { auth, db } from "../../Firebase";
 import { Input } from "../Utilities/Input";
 import InputGroup from "../Utilities/InputGroup";
-import * as yup from "yup";
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { db } from "../../Firebase";
-import { addDoc, collection } from "firebase/firestore";
-import { Directry } from "../Sidebar/Directories";
 
 interface ModalDirectoriesProps {
     nameForm: string;
@@ -16,6 +15,7 @@ interface ModalDirectoriesProps {
 
 type CreateDirectoryData = {
     id: string;
+    userUid: string;
     title: string;
 };
 
@@ -24,6 +24,8 @@ const createDirectoryFormSchema = yup.object().shape({
 });
 
 export default function ModalDirectories({ onClose, nameForm }: ModalDirectoriesProps) {
+    const userData = auth.currentUser;
+
     const [title, setTitle] = useState('');
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateDirectoryData>({
@@ -32,9 +34,10 @@ export default function ModalDirectories({ onClose, nameForm }: ModalDirectories
 
     const ref = collection(db, 'directories');
 
-    const handleCreateDirectory:  SubmitHandler<CreateDirectoryData> = () => {
+    const handleCreateDirectory: SubmitHandler<CreateDirectoryData> = () => {
         addDoc(ref, {
-            dir: title, 
+            userUid: userData.uid,
+            dir: title,
         });
 
         reset();

@@ -2,6 +2,7 @@ import { DocumentData, FirestoreError } from "firebase/firestore";
 
 export interface Tasks {
     id: string;
+    userUid?: string;
     title: string;
     description: string;
     date: string;

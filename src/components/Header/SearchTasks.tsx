@@ -2,12 +2,11 @@ import { CiSearch } from "react-icons/ci";
 
 export default function SearchTasks() {
     return (
-        <div className="flex-1 col-span-3 row-start-2 md:pr-10 opacity-0 cursor-default ">
+        <div className="flex-1 col-span-3 row-start-2 md:pr-10">
             <form autoComplete="off" className="relative md:max-w-xs w-full">
                 <label htmlFor="search" className="sr-only"></label>
 
                 <input
-                    disabled
                     type="search"
                     id="search"
                     placeholder="Pesquisar por uma tarefa"
