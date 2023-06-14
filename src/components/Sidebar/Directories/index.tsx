@@ -2,6 +2,8 @@ import { useState } from "react";
 import ModalDirectories from "../../Modals/ModalDirectories";
 import AccordionDirectory from "./AccordionDirectory";
 import ItemDirectory from "./ItemDirectory";
+import Alert from "../../Utilities/Alert";
+import { AlertType } from "../../../types/Alert";
 
 export interface Directry {
     id: string;
@@ -16,16 +18,22 @@ interface DirectoriesProps {
 export default function Directories({ directories, classActive }: DirectoriesProps) {
     const [activeIndex, setActiveIndex] = useState(1);
     const [modalDirIsShown, setModalDirIsShown] = useState(false);
+    const [alert, setAlert] = useState<AlertType | null>(null);
 
     const closeModalDir = () => modalDirIsShown ? setModalDirIsShown(false) : setModalDirIsShown(true);
     const openModalDir = () => !modalDirIsShown ? setModalDirIsShown(true) : setModalDirIsShown(false);
 
     return (
         <>
+            {alert && (
+                <Alert type={alert.type} message={alert.message} />
+            )}
+
             {modalDirIsShown && (
                 <ModalDirectories
                     nameForm="Criar novo diretorio"
                     onClose={closeModalDir}
+                    setAlert={setAlert}
                 />
             )}
 

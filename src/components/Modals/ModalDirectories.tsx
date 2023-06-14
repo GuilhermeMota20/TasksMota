@@ -1,16 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addDoc, collection } from "firebase/firestore";
-import { useState } from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from "yup";
 import Modal from ".";
 import { auth, db } from "../../Firebase";
 import { Input } from "../Utilities/Input";
 import InputGroup from "../Utilities/InputGroup";
+import { AlertType } from '../../types/Alert';
 
 interface ModalDirectoriesProps {
     nameForm: string;
     onClose: () => void;
+    setAlert: React.Dispatch<AlertType | null>
 };
 
 type CreateDirectoryData = {
@@ -23,7 +25,7 @@ const createDirectoryFormSchema = yup.object().shape({
     title: yup.string().required('Titulo obrigatorio'),
 });
 
-export default function ModalDirectories({ onClose, nameForm }: ModalDirectoriesProps) {
+export default function ModalDirectories({ onClose, nameForm, setAlert }: ModalDirectoriesProps) {
     const userData = auth.currentUser;
 
     const [title, setTitle] = useState('');
@@ -35,10 +37,13 @@ export default function ModalDirectories({ onClose, nameForm }: ModalDirectories
     const ref = collection(db, 'directories');
 
     const handleCreateDirectory: SubmitHandler<CreateDirectoryData> = () => {
+        setAlert(null);
+        
         addDoc(ref, {
             userUid: userData.uid,
             dir: title,
-        });
+        }).then(() => setAlert({ type: 'success', message: `Diretorio (${title}) criada com sucesso!` }))
+            .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel criar o diretorio! Por favor, tente novamente.' }));
 
         reset();
         onClose();

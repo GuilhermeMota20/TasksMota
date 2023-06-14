@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addDoc, collection } from 'firebase/firestore';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from "yup";
@@ -11,6 +11,7 @@ import { Input } from '../Utilities/Input';
 import { InputCheckBox } from '../Utilities/InputCheckBox';
 import InputGroup from '../Utilities/InputGroup';
 import { TextArea } from '../Utilities/TextArea';
+import { AlertType } from '../../types/Alert';
 
 type CreateTaskFormData = {
     userUid: string;
@@ -27,6 +28,7 @@ interface ModalNewTasksProps {
     task?: Tasks;
     onClose: () => void;
     onConfirm?: (task: Tasks) => void;
+    setAlert: React.Dispatch<AlertType | null>
 };
 
 const createTaskFormSchema = yup.object().shape({
@@ -35,7 +37,7 @@ const createTaskFormSchema = yup.object().shape({
     description: yup.string().required('Descrição obrigatoria'),
 });
 
-export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: ModalNewTasksProps) {
+export default function ModalNewTasks({ onClose, task, nameForm, onConfirm, setAlert }: ModalNewTasksProps) {
     const userData = auth.currentUser;
 
     const refDir = collection(db, 'directories');
@@ -44,7 +46,7 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
             includeMetadataChanges: true,
         }
     });
-    const directories = valueDir?.docs.map((dir)=> {
+    const directories = valueDir?.docs.map((dir) => {
         return {
             ...dir.data(),
         };
@@ -69,7 +71,6 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
     const [dir, setDir] = useState<string>(() => {
         if (task) return task.dir;
         return 'master';
-        // return directories[0];
     });
     const [isImportant, setIsImportant] = useState<boolean>(() => {
         if (task) return task.important;
@@ -82,8 +83,10 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
 
     const ref = collection(db, 'tasks');
     const handleCreateTask: SubmitHandler<CreateTaskFormData> = () => {
+        setAlert(null);
+
         if (task) {
-            const teste = {
+            const payloadData = {
                 id: task.id,
                 userUid: userData.uid,
                 title: title,
@@ -94,7 +97,7 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
                 dir: dir,
             };
 
-            onConfirm(teste);
+            onConfirm(payloadData);
             reset();
             onClose();
             return;
@@ -108,7 +111,8 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: Mo
             completed: isCompleted,
             important: isImportant,
             dir: dir,
-        });
+        }).then(() => setAlert({ type: 'success', message: `Tarefa (${title}) criada com sucesso!` }))
+            .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel criar a tarefa! Por favor, tente novamente.' }));
 
         reset();
         onClose();
