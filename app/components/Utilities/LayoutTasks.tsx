@@ -1,3 +1,4 @@
+"use client"
 import { DocumentData } from "firebase/firestore";
 import { useState } from "react";
 import { MoonLoader } from "react-spinners";

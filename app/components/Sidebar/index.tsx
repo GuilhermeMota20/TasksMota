@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import { useScreenMedia } from "../../services/hooks/useScreenMedia";
 import Divider from "../Utilities/Divider";

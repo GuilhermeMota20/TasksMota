@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { FiCheckCircle } from "react-icons/fi";
 import { MdOutlineErrorOutline } from "react-icons/md";

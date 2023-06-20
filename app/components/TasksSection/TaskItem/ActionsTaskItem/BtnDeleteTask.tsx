@@ -7,42 +7,42 @@ import { AlertType } from '../../../../types/Alert';
 import Alert from '../../../Utilities/Alert';
 
 interface BtnDeleteTaskProps {
-    taskId: string;
+  taskId: string;
 };
 
 export default function BtnDeleteTask({ taskId }: BtnDeleteTaskProps) {
-    const [showModal, setIsModalShown] = useState(false);
-    const [alert, setAlert] = useState<AlertType | null>(null);
+  const [showModal, setIsModalShown] = useState(false);
+  const [alert, setAlert] = useState<AlertType | null>(null);
 
-    const handleDelete = () => {
-        setAlert(null);
-        
-        deleteDoc(doc(db, 'tasks', taskId))
-            .then(() => setAlert({ type: 'success', message: `Tarefa excluida com sucesso!` }))
-            .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel excluir a tarefa! Por favor, tente novamente.' }));
-    };
+  const handleDelete = () => {
+    setAlert(null);
 
-    return (
-        <>
-            {alert && (
-                <Alert type={alert.type} message={alert.message} />
-            )}
+    deleteDoc(doc(db, 'tasks', taskId))
+      .then(() => setAlert({ type: 'success', message: `Tarefa excluida com sucesso!` }))
+      .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel excluir a tarefa! Por favor, tente novamente.' }));
+  };
 
-            {showModal && (
-                <ModalConfirm
-                    onClose={() => setIsModalShown(false)}
-                    text="Essa tarefa será deletada permanentemente."
-                    onConfirm={handleDelete}
-                />
-            )}
+  return (
+    <>
+      {alert && (
+        <Alert type={alert.type} message={alert.message} />
+      )}
 
-            <button
-                title="Deletar tarefa"
-                className="ml-2 transition hover:text-slate-700"
-                onClick={() => setIsModalShown(true)}
-            >
-                <FaTrashAlt className="text-md sm:text-lg" />
-            </button>
-        </>
-    )
+      {showModal && (
+        <ModalConfirm
+          onClose={() => setIsModalShown(false)}
+          text="Essa tarefa será deletada permanentemente."
+          onConfirm={handleDelete}
+        />
+      )}
+
+      <button
+        title="Deletar tarefa"
+        className="ml-2 transition hover:text-slate-700"
+        onClick={() => setIsModalShown(true)}
+      >
+        <FaTrashAlt className="text-md sm:text-lg" />
+      </button>
+    </>
+  )
 }

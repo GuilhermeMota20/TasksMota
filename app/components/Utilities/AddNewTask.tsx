@@ -1,3 +1,4 @@
+"use client"
 import { useState } from 'react';
 import { AlertType } from '../../types/Alert';
 import ModalNewTasks from "../Modals/ModalNewTasks";
