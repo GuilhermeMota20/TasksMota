@@ -12,7 +12,7 @@ export default function AvatarUser({ className }: AddNewTaskProps) {
 
     return (
         <Image
-            src={userData.photoURL ? userData.photoURL : ''}
+            src={userData?.photoURL ? userData?.photoURL : ''}
             width={32}
             height={32}
             alt={userData?.displayName ? userData?.displayName : 'user'}

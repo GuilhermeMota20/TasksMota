@@ -1,7 +1,6 @@
 'use client'
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
@@ -29,7 +28,6 @@ export default function RootPage() {
   const [password, setPassword] = useState('');
 
   const { Sign } = useAuth();
-  const pathName = usePathname();
 
   const handleSignup = async () => {
     await Sign(email, password);
@@ -60,7 +58,7 @@ export default function RootPage() {
             onChange={({ target }: { target: any }) => {
               setEmail(target.value);
             }}
-            disabled={loading ? true : false}
+            disabled={loading ?? false}
             {...register('email')}
           />
         </InputGroup>
@@ -74,7 +72,7 @@ export default function RootPage() {
             onChange={({ target }: { target: any }) => {
               setPassword(target.value);
             }}
-            disabled={loading ? true : false}
+            disabled={loading ?? false}
             {...register('password')}
           />
         </InputGroup>

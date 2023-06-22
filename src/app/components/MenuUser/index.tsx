@@ -1,3 +1,4 @@
+'use client'
 import { useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { useScreenMedia } from "../../services/hooks/useScreenMedia";

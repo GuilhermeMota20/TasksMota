@@ -4,9 +4,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import LayoutTasks from "../../../components/Utilities/LayoutTasks";
 import { auth, db } from "../../../services/Firebase";
 
-export default async function DirTasks(
-  { params }: { params: { dir: string } }
-) {
+export default async function DirTasks({ params }: { params: { dir: string } }) {
   const userData = auth.currentUser;
 
   const pathName = usePathname();
@@ -14,9 +12,10 @@ export default async function DirTasks(
   const formattedPath = currentPath.split("/").pop();
 
   const refTasks = collection(db, 'tasks');
-  const currentUser = where('userUid', '==', userData.uid)
+  if (userData?.uid) {
+    var currentUser = where('userUid', '==', userData.uid)
+  };
   const queTasks = query(refTasks, currentUser, where('dir', '==', formattedPath));
-
   const [value, isLoading, error] = useCollection(queTasks, {
     snapshotListenOptions: {
       includeMetadataChanges: true,
