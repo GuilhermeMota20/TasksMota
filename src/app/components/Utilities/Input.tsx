@@ -27,7 +27,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputBaseProps> = ({
         type={type}
         value={value}
         placeholder={placeholder}
-        className={`w-full bg-slate-100 text-slate-600 placeholder:text-slate-400 hover:border-pink-600 focus:border-pink-600 dark:text-slate-400 dark:bg-darkBlue-800 ${className}`}
+        className={`w-full bg-slate-100 text-slate-600 placeholder:text-slate-400 hover:border-pink-600 focus:border-pink-600 dark:text-slate-400 dark:bg-darkBlue-800 ${className} ${disabled ? 'cursor-not-allowed brightness-95  opacity-25 hover:border-inherit' : ''}`}
         autoComplete="off"
         ref={ref}
         {...rest}

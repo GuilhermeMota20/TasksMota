@@ -1,3 +1,4 @@
+'use client'
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithRedirect, signOut, UserCredential } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
@@ -50,7 +51,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         router.push('/AllTasks');
       })
       .catch(() => {
-        router.push('/?Error=sign');
+        router.push('/Error=signin');
       });
   };
 

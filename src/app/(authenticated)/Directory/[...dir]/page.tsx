@@ -1,3 +1,4 @@
+"use client" 
 import { collection, query, where } from "firebase/firestore";
 import { usePathname } from "next/navigation";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -8,8 +9,7 @@ export default async function DirTasks({ params }: { params: { dir: string } }) 
   const userData = auth.currentUser;
 
   const pathName = usePathname();
-  const currentPath = pathName;
-  const formattedPath = currentPath.split("/").pop();
+  const formattedPath = pathName.split("/").pop();
 
   const refTasks = collection(db, 'tasks');
   if (userData?.uid) {

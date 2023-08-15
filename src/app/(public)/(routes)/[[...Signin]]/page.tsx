@@ -6,10 +6,10 @@ import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { MoonLoader } from "react-spinners";
 import * as yup from "yup";
-import Divider from "../components/Utilities/Divider";
-import { Input } from "../components/Utilities/Input";
-import InputGroup from "../components/Utilities/InputGroup";
-import { useAuth } from "../context/AuthContext";
+import Divider from "../../../components/Utilities/Divider";
+import { Input } from "../../../components/Utilities/Input";
+import InputGroup from "../../../components/Utilities/InputGroup";
+import { useAuth } from "../../../context/AuthContext";
 
 type UserFormData = {
   email: string;
@@ -24,16 +24,14 @@ const userSchema = yup.object().shape({
 export default function RootPage() {
   const inputClass = "w-full h-full py-3 pl-4 pr-11 rounded-md bg-slate-100 focus:border-solid focus:border-pink-600 outline-transparent border-2 border-slate-200 dark:border-darkBlue-800 hover:border-pink-600 focus:border-pink-600 dark:hover:border-pink-600 dark:focus:border-pink-600 focus:outline-none transition dark:bg-darkBlue-800";
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const { Sign } = useAuth();
+  const { Sign, loading, SignInWithGoogle } = useAuth();
 
-  const handleSignup = async () => {
+  const handleSignin = async () => {
     await Sign(email, password);
   };
-
-  const { loading, SignInWithGoogle } = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm<UserFormData>({
     resolver: yupResolver(userSchema)
@@ -43,7 +41,7 @@ export default function RootPage() {
     <>
       <form
         className="form-login flex flex-col gap-4 bg-slate-50 dark:bg-darkBlue-900 p-4 md:p-10 w-full md:w-3/5 rounded-md shadow-lg z-10"
-        onSubmit={handleSubmit(handleSignup)}
+        onSubmit={handleSubmit(handleSignin)}
       >
         <h1 className="font-medium mb-5 text-lg md:text-2xl">
           Acesse sua conta
@@ -55,11 +53,11 @@ export default function RootPage() {
             value={email}
             className={inputClass}
             errors={errors.email}
+            {...register('email')}
             onChange={({ target }: { target: any }) => {
               setEmail(target.value);
             }}
-            disabled={loading ?? false}
-            {...register('email')}
+            disabled={loading ? true : false}
           />
         </InputGroup>
 
@@ -69,11 +67,11 @@ export default function RootPage() {
             value={password}
             className={inputClass}
             errors={errors.password}
+            {...register('password')}
             onChange={({ target }: { target: any }) => {
               setPassword(target.value);
             }}
-            disabled={loading ?? false}
-            {...register('password')}
+            disabled={loading ? true : false}
           />
         </InputGroup>
 
