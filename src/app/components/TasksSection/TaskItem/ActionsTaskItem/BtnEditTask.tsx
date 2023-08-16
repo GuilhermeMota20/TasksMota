@@ -9,7 +9,7 @@ import Alert from "../../../Utilities/Alert";
 
 interface BtnEditTaskProps {
   task: Tasks;
-}
+};
 
 export default function BtnEditTask({ task }: BtnEditTaskProps) {
   const [modalEditTaskOpen, setModalEditTaskOpen] = useState(false);
@@ -18,6 +18,7 @@ export default function BtnEditTask({ task }: BtnEditTaskProps) {
 
   const editTaskHandler = (task: Tasks) => {
     const ref = doc(db, 'tasks', task.id);
+    setAlert(null);
 
     updateDoc(ref, {
       ...task

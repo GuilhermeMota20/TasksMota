@@ -21,7 +21,7 @@ const userSchema = yup.object().shape({
   password: yup.string().required('Senha obrigatoria').min(8, 'A senha deve ter no minimo 8 caracteres'),
 });
 
-export default function RootPage() {
+export default function Page() {
   const inputClass = "w-full h-full py-3 pl-4 pr-11 rounded-md bg-slate-100 focus:border-solid focus:border-pink-600 outline-transparent border-2 border-slate-200 dark:border-darkBlue-800 hover:border-pink-600 focus:border-pink-600 dark:hover:border-pink-600 dark:focus:border-pink-600 focus:outline-none transition dark:bg-darkBlue-800";
 
   const [email, setEmail] = useState<string>('');

@@ -1,9 +1,9 @@
 'use client'
 import { collection, DocumentData, query, where } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
-import LayoutTasks from "../../components/Utilities/LayoutTasks";
-import { auth, db } from "../../services/Firebase";
-import { Tasks } from "../../types/Task";
+import LayoutTasks from "../../../components/Utilities/LayoutTasks";
+import { auth, db } from "../../../services/Firebase";
+import { Tasks } from "../../../types/Task";
 
 export default function CompletedTasks() {
   const userData = auth.currentUser;

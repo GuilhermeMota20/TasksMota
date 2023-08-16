@@ -13,7 +13,7 @@ export default function AvatarUser({ className }: AddNewTaskProps) {
 
   return (
     <>
-      {/* {userData?.photoURL ? (
+      {userData?.photoURL && (
         <Image
           src={userData?.photoURL}
           width={32}
@@ -21,11 +21,13 @@ export default function AvatarUser({ className }: AddNewTaskProps) {
           alt={userData?.displayName ? userData?.displayName : 'user'}
           className={`bg-slate-800 rounded-md ${!mediaScreen.xl ? 'cursor-pointer' : ''} transition hover:shadow-lg ${className}`}
         />
-      ) : (
+      )}
+
+      {!userData?.photoURL && (
         <div className={`w-8 h-8 rounded-md bg-slate-800 ${!mediaScreen.xl ? 'cursor-pointer' : ''} transition hover:shadow-lg ${className}`}>
           {CapitalizeFirstLetters(userData?.displayName)}
         </div>
-      )} */}
+      )}
     </>
   )
 }

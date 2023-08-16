@@ -24,6 +24,7 @@
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",
     "firebase": "^9.16.0",
+    "framer-motion": "^10.16.0",
     "miragejs": "^0.1.47",
     "next": "^13.4.7-canary.4",
     "next-auth": "^4.19.2",

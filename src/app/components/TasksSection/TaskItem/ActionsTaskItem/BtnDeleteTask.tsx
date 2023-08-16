@@ -15,11 +15,12 @@ export default function BtnDeleteTask({ taskId }: BtnDeleteTaskProps) {
   const [alert, setAlert] = useState<AlertType | null>(null);
 
   const handleDelete = () => {
+    const ref = doc(db, 'tasks', taskId);
     setAlert(null);
 
-    deleteDoc(doc(db, 'tasks', taskId))
-      .then(() => setAlert({ type: 'success', message: `Tarefa excluida com sucesso!` }))
-      .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel excluir a tarefa! Por favor, tente novamente.' }));
+    deleteDoc(ref)
+      .then(() =>{ setAlert({ type: 'success', message: `Tarefa excluida com sucesso!` })})
+      .catch(() => {setAlert({ type: 'error', message: 'Nao foi possivel excluir a tarefa! Por favor, tente novamente.' })});
   };
 
   return (
