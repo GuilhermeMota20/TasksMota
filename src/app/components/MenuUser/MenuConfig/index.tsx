@@ -1,8 +1,11 @@
+import { collection, deleteDoc, getDocs, query, where } from "firebase/firestore";
 import { useState } from "react";
 import { RxGear } from "react-icons/rx";
 import { useAuth } from "../../../context/AuthContext";
-import { auth } from "../../../services/Firebase";
+import { auth, db } from "../../../services/Firebase";
+import { AlertType } from "../../../types/Alert";
 import ModalConfirm from "../../Modals/ModalConfirm";
+import Alert from "../../Utilities/Alert";
 import Divider from "../../Utilities/Divider";
 import ConfigUser from "./ConfigUser";
 import DarkMode from "./DarkMode";
@@ -11,23 +14,52 @@ import HeaderConfig from "./HeaderConfig";
 export default function MenuUserConfig() {
   const [activeIndex, setActiveIndex] = useState(1);
   const [showMenuConfig, setShowMenuConfig] = useState(false);
+  const [alert, setAlert] = useState<AlertType | null>(null);
   const { Logout } = useAuth();
 
-  const closeMenuConfig = () => showMenuConfig ? setShowMenuConfig(false) : setShowMenuConfig(true);
-  const openMenuConfig = () => !showMenuConfig ? setShowMenuConfig(true) : setShowMenuConfig(false);
+  const userData = auth.currentUser;
+
+  const toggleMenuConfig = () => setShowMenuConfig((prev) => !prev);
   const [showModal, setIsModalShown] = useState(false);
 
   const handleLogout = () => {
     Logout();
   };
 
-  const userData = auth.currentUser;
+  const handleDeleteAllTasks = async () => {
+    setAlert(null);
+    setIsModalShown(false);
+
+    try {
+      const ref = collection(db, 'tasks');
+      if (userData?.uid) {
+        var queryRef = query(ref, where('userUid', '==', userData.uid))
+      };
+
+      const querySnapshot = await getDocs(queryRef);
+
+      if (querySnapshot?.size <= 0)
+        return setAlert({ type: 'error', message: `Não existe nenhma tarefa a ser excluida no momento.` });
+
+      querySnapshot?.forEach(async (doc) => {
+        await deleteDoc(doc.ref);
+      });
+
+      setAlert({ type: 'success', message: `Todas as tarefas foram excluídas com sucesso.` });
+    } catch (error) {
+      setAlert({ type: 'error', message: `Erro ao excluir as tarefas. Tente novamente mais tarde.` });
+    };
+  };
 
   return (
     <>
+      {alert && (
+        <Alert type={alert.type} message={alert.message} />
+      )}
+
       <button
         className="bg-white p-2 rounded-md transition hover:shadow-md dark:bg-darkBlue-700"
-        onClick={openMenuConfig}
+        onClick={toggleMenuConfig}
       >
         <RxGear />
       </button>
@@ -46,15 +78,11 @@ export default function MenuUserConfig() {
           </div>
 
           <div className="flex flex-col gap-8 mt-4">
-            {/* <ChangeColorPrimary
-                            activeIndex={activeIndex}
-                            setActiveIndex={setActiveIndex}
-                        /> */}
-
             <ConfigUser
               activeIndex={activeIndex}
               setActiveIndex={setActiveIndex}
               showModalLogout={() => setIsModalShown(true)}
+              showModalDeleteAllTasks={() => setIsModalShown(true)}
             />
 
             <DarkMode
@@ -74,10 +102,18 @@ export default function MenuUserConfig() {
         />
       )}
 
+      {showModal && (
+        <ModalConfirm
+          onClose={() => setIsModalShown(false)}
+          text="Você tem certeza de que deseja apagar todas as suas tarefas? Uma vez feita, não será possível recuperá-las novamente."
+          onConfirm={handleDeleteAllTasks}
+        />
+      )}
+
       {showMenuConfig && (
         <div
           className="fixed bg-slate-600/[.2] w-full h-full z-10 top-0 left-0"
-          onClick={closeMenuConfig}
+          onClick={toggleMenuConfig}
         ></div>
       )}
     </>

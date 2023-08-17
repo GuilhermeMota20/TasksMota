@@ -1,6 +1,5 @@
 'use client'
 import { useState } from "react";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import { useScreenMedia } from "../../services/hooks/useScreenMedia";
 import AvatarUser from "./AvatarUser";
 import MenuUserConfig from "./MenuConfig";
@@ -10,7 +9,7 @@ export default function MenuUser() {
   const mediaQueries = useScreenMedia();
   const [showMenuUser, setShowMenuUser] = useState(false);
 
-  const toggleMenuUser = () => setShowMenuUser((prev)=> !prev)
+  const toggleMenuUser = () => setShowMenuUser((prev) => !prev);
 
   return (
     <>
@@ -19,9 +18,6 @@ export default function MenuUser() {
       >
         <div className="flex gap-4 items-end justify-end w-full py-2">
           <MenuUserConfig />
-          <button className="bg-white p-2 rounded-md transition hover:shadow-md dark:bg-darkBlue-700">
-            <IoMdNotificationsOutline />
-          </button>
           <AvatarUser className="cursor-default" />
         </div>
         <ProgressTasks />

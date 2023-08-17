@@ -3,10 +3,10 @@ export default function ProgressTasks() {
     <>
       <div className="mt-6">
         <span className="flex justify-between mb-2">
-          <span>Todas as tarefas</span> 3/3
+          <span>Todas as tarefas</span> 0/3
         </span>
         <div className="bg-slate-200 w-full h-2 rounded-full overflow-hidden">
-          <div className="bg-pink-600 h-full"></div>
+          <div className="bg-pink-600 h-full hidden"></div>
         </div>
       </div>
 

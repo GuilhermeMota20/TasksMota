@@ -8,10 +8,11 @@ import ConfigAccordion from "./ConfigAccordion";
 interface ConfigUSerProps {
   activeIndex: number;
   setActiveIndex: any;
-  showModalLogout: () => void;
+  showModalLogout?: () => void;
+  showModalDeleteAllTasks?: () => void;
 };
 
-export default function ConfigUser({ activeIndex, setActiveIndex, showModalLogout }: ConfigUSerProps) {
+export default function ConfigUser({ activeIndex, setActiveIndex, showModalLogout, showModalDeleteAllTasks }: ConfigUSerProps) {
   const userData = auth.currentUser;
 
   return (
@@ -26,7 +27,7 @@ export default function ConfigUser({ activeIndex, setActiveIndex, showModalLogou
         <div className="flex flex-col justify-between gap-4">
           {userData && (
             <>
-              <button className="transition hover:text-pink-600 flex items-center gap-4">
+              <button className="transition hover:text-pink-600 flex items-center gap-4" onClick={showModalDeleteAllTasks}>
                 <TbFileShredder size={18} />
                 Deletar tarefas
               </button>

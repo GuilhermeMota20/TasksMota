@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { auth } from "../../../services/Firebase";
-import CapitalizeFirstLetters from "../../../services/hooks/capitalizeFirstLetters";
 
 export default function HeaderConfig() {
   const userData = auth.currentUser;
@@ -15,12 +14,6 @@ export default function HeaderConfig() {
           width={144}
           height={144}
         />
-      )}
-
-      {!userData?.photoURL && (
-        <div className="rounded-full w-36 absolute top-16 left-14">
-          {CapitalizeFirstLetters(userData?.displayName)}
-        </div>
       )}
     </div>
   )
