@@ -11,7 +11,7 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!auth.currentUser) {
       router.push('/');
-    }
+    };
   }, [router, user]);
 
   return (

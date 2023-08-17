@@ -29,7 +29,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     });
 
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
   async function Signup(email: string, password: string) {
     setLoading(true);
