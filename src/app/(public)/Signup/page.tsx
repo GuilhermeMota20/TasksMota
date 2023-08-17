@@ -6,10 +6,10 @@ import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { MoonLoader } from "react-spinners";
 import * as yup from "yup";
-import Divider from "../../../components/Utilities/Divider";
-import { Input } from "../../../components/Utilities/Input";
-import InputGroup from "../../../components/Utilities/InputGroup";
-import { useAuth } from "../../../context/AuthContext";
+import Divider from "../../components/Utilities/Divider";
+import { Input } from "../../components/Utilities/Input";
+import InputGroup from "../../components/Utilities/InputGroup";
+import { useAuth } from "../../context/AuthContext";
 
 type UserFormData = {
   email: string;
