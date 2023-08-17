@@ -37,8 +37,8 @@ export default function MenuUserConfig() {
           <HeaderConfig />
 
           <div className="px-4 mt-[5rem] text-center">
-            <strong>{!userData?.displayName ? 'Anonymous' : userData?.displayName}</strong>
-            <p>{userData?.email}</p>
+            <strong className="line-clamp-1">{!userData?.displayName ? 'Anonymous' : userData?.displayName}</strong>
+            <p className="line-clamp-1">{userData?.email}</p>
           </div>
 
           <div className="mt-4">
