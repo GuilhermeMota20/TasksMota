@@ -1,7 +1,9 @@
 export default function Head() {
   return (
     <>
-      <title>ToDoTask. | Todas as tarefas</title>
+      <head>
+        <title>ToDoTask. | Todas as tarefas</title>
+      </head>
     </>
   );
 }

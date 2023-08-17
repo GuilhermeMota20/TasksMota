@@ -7,7 +7,15 @@ import { queryClient } from './services/queryClient';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathName = usePathname();
-  const noAuthRequired = ['/', '/Signup'];
+  const noAuthRequired = [
+    '/',
+    '/Signup',
+    '/Error=signin',
+    '/Signup?send-email=true',
+    '/Signup?send-email=false',
+    '/Signup?verified-email=true',
+    'Signup?verified-email=false',
+  ];
 
   return (
     <>
