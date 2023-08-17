@@ -25,11 +25,16 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         setUser(null);
       };
 
-      setLoading(false);
+      if (user)
+        setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (user) return router.push('/AllTasks');
+  }, [router, user]);
 
   async function Signup(email: string, password: string) {
     setLoading(true);
@@ -60,6 +65,9 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     await signInWithRedirect(auth, provider)
       .then(() => {
         router.push('/AllTasks');
+      })
+      .catch(() => {
+        router.push('/Error=signin')
       });
   };
 

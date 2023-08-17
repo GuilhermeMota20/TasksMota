@@ -23,6 +23,11 @@ export default function LayoutTasks({ title, tasks, isLoading, error }: LayoutTa
         {title}
       </h1>
 
+      <SortViews
+        isListInView={isListInView}
+        setIsListInView={setIsListInView}
+      />
+
       {isLoading ? (
         <div className="flex items-center justify-center mt-12">
           <MoonLoader color="rgb(190, 24, 93)" size={24} />
