@@ -15,12 +15,13 @@ export default function MenuUserConfig() {
   const [activeIndex, setActiveIndex] = useState(1);
   const [showMenuConfig, setShowMenuConfig] = useState(false);
   const [alert, setAlert] = useState<AlertType | null>(null);
+  const [showModal, setIsModalShown] = useState(false);
+  const [showModalDeleteAllTasks, setShowModalDeleteAllTasks] = useState(false);
   const { Logout } = useAuth();
 
   const userData = auth.currentUser;
 
   const toggleMenuConfig = () => setShowMenuConfig((prev) => !prev);
-  const [showModal, setIsModalShown] = useState(false);
 
   const handleLogout = () => {
     Logout();
@@ -28,7 +29,8 @@ export default function MenuUserConfig() {
 
   const handleDeleteAllTasks = async () => {
     setAlert(null);
-    setIsModalShown(false);
+    setShowModalDeleteAllTasks(false);
+    toggleMenuConfig();
 
     try {
       const ref = collection(db, 'tasks');
@@ -82,7 +84,7 @@ export default function MenuUserConfig() {
               activeIndex={activeIndex}
               setActiveIndex={setActiveIndex}
               showModalLogout={() => setIsModalShown(true)}
-              showModalDeleteAllTasks={() => setIsModalShown(true)}
+              showModalDeleteAllTasks={() => setShowModalDeleteAllTasks(true)}
             />
 
             <DarkMode
@@ -102,9 +104,9 @@ export default function MenuUserConfig() {
         />
       )}
 
-      {showModal && (
+      {showModalDeleteAllTasks && (
         <ModalConfirm
-          onClose={() => setIsModalShown(false)}
+          onClose={() => setShowModalDeleteAllTasks(false)}
           text="Você tem certeza de que deseja apagar todas as suas tarefas? Uma vez feita, não será possível recuperá-las novamente."
           onConfirm={handleDeleteAllTasks}
         />
@@ -112,7 +114,7 @@ export default function MenuUserConfig() {
 
       {showMenuConfig && (
         <div
-          className="fixed bg-slate-600/[.2] w-full h-full z-10 top-0 left-0"
+          className="fixed bg-slate-600/[.2] w-full h-full z-10 top-0 left-0 backdrop-blur-sm"
           onClick={toggleMenuConfig}
         ></div>
       )}
