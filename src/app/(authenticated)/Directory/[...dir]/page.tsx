@@ -2,8 +2,8 @@
 import { collection, query, where } from "firebase/firestore";
 import { usePathname } from "next/navigation";
 import { useCollection } from "react-firebase-hooks/firestore";
-import LayoutTasks from "../../../../components/Utilities/LayoutTasks";
-import { auth, db } from "../../../../services/Firebase";
+import LayoutTasks from "../../../components/Utilities/LayoutTasks";
+import { auth, db } from "../../../services/Firebase";
 
 export default function DirTasks({ params }: { params: { dir: string } }) {
   const userData = auth.currentUser;
