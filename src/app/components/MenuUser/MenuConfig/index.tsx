@@ -10,6 +10,7 @@ import Divider from "../../Utilities/Divider";
 import ConfigUser from "./ConfigUser";
 import DarkMode from "./DarkMode";
 import HeaderConfig from "./HeaderConfig";
+import { useRouter } from "next/navigation";
 
 export default function MenuUserConfig() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -17,7 +18,9 @@ export default function MenuUserConfig() {
   const [alert, setAlert] = useState<AlertType | null>(null);
   const [showModal, setIsModalShown] = useState(false);
   const [showModalDeleteAllTasks, setShowModalDeleteAllTasks] = useState(false);
+  const [showModalDeleteCurrentUser, setShowModalDeleteCurrentUser] = useState(false);
   const { Logout } = useAuth();
+  const router = useRouter();
 
   const userData = auth.currentUser;
 
@@ -53,6 +56,21 @@ export default function MenuUserConfig() {
     };
   };
 
+  const handleDeleteCurrentUser = () => {
+    setAlert(null);
+    setShowModalDeleteCurrentUser(false);
+    toggleMenuConfig();
+
+    userData.delete()
+      .then(() => {
+        handleDeleteAllTasks();
+        handleLogout();
+        router.push('/');
+      }).catch(() => {
+        setAlert({ type: 'error', message: `Erro ao excluir seu acesso. Tente novamente mais tarde.` });
+      });
+  };
+
   return (
     <>
       {alert && (
@@ -85,6 +103,7 @@ export default function MenuUserConfig() {
               setActiveIndex={setActiveIndex}
               showModalLogout={() => setIsModalShown(true)}
               showModalDeleteAllTasks={() => setShowModalDeleteAllTasks(true)}
+              showModalDeleteCurrentUser={() => setShowModalDeleteCurrentUser(true)}
             />
 
             <DarkMode
@@ -109,6 +128,14 @@ export default function MenuUserConfig() {
           onClose={() => setShowModalDeleteAllTasks(false)}
           text="Você tem certeza de que deseja apagar todas as suas tarefas? Uma vez feita, não será possível recuperá-las novamente."
           onConfirm={handleDeleteAllTasks}
+        />
+      )}
+
+      {showModalDeleteCurrentUser && (
+        <ModalConfirm
+          onClose={() => setShowModalDeleteCurrentUser(false)}
+          text="Você tem certeza de que deseja deletar seu acesso? Uma vez feita, não será possível recuperá-la novamente e todas suas informações serão perdidas."
+          onConfirm={handleDeleteCurrentUser}
         />
       )}
 

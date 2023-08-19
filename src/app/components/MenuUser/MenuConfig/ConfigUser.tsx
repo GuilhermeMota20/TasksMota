@@ -10,9 +10,16 @@ interface ConfigUSerProps {
   setActiveIndex: any;
   showModalLogout?: () => void;
   showModalDeleteAllTasks?: () => void;
+  showModalDeleteCurrentUser?: () => void;
 };
 
-export default function ConfigUser({ activeIndex, setActiveIndex, showModalLogout, showModalDeleteAllTasks }: ConfigUSerProps) {
+export default function ConfigUser({
+  activeIndex,
+  setActiveIndex,
+  showModalLogout,
+  showModalDeleteAllTasks,
+  showModalDeleteCurrentUser
+}: ConfigUSerProps) {
   const userData = auth.currentUser;
 
   return (
@@ -31,7 +38,7 @@ export default function ConfigUser({ activeIndex, setActiveIndex, showModalLogou
                 <TbFileShredder size={18} />
                 Deletar tarefas
               </button>
-              <button className="transition hover:text-pink-600 flex items-center gap-4">
+              <button className="transition hover:text-pink-600 flex items-center gap-4" onClick={showModalDeleteCurrentUser}>
                 <BsPersonX size={18} />
                 Deletar conta
               </button>
