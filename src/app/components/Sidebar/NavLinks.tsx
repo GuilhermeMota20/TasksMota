@@ -3,8 +3,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { BsCheck2Circle, BsFiles } from "react-icons/bs";
+import { AiOutlineFire } from "react-icons/ai";
 import { GoHome } from "react-icons/go";
-import { MdOutlineRunningWithErrors } from "react-icons/md";
+import { MdOutlineRunningWithErrors, MdLabelImportantOutline } from "react-icons/md";
 import { db } from "../../services/Firebase";
 import Directories from "./Directories";
 
@@ -17,15 +18,20 @@ export default function NavLinks({ classActive }: NavLinksProps) {
   const currentPath = pathName;
 
   const links = [
-    // {
-    //   name: 'Tarefas do dia',
-    //   path: '/TasksOfTheDay',
-    //   icon: <GoHome className={`${currentPath === '/TasksOfTheDay' ? 'fill-rose-600' : ''}`} />,
-    // },
     {
       name: 'Todas as tarefas',
       path: '/AllTasks',
-      icon: <BsFiles className={`${currentPath === '/AllTasks' ? 'fill-rose-600' : ''}`} />,
+      icon: <GoHome className={`${currentPath === '/AllTasks' ? 'fill-rose-600' : ''}`} />,
+    },
+    {
+      name: 'Tarefas do dia',
+      path: '/TasksOfTheDay',
+      icon: <AiOutlineFire className={`${currentPath === '/TasksOfTheDay' ? 'fill-rose-600' : ''}`} />,
+    },
+    {
+      name: 'Tarefas importantes',
+      path: '/ImportantTasks',
+      icon: <MdLabelImportantOutline className={`${currentPath === '/ImportantTasks' ? 'fill-rose-600' : ''}`} />,
     },
     {
       name: 'Tarefas concluídas',
