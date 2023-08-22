@@ -5,9 +5,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from "yup";
 import Modal from ".";
 import { auth, db } from "../../services/Firebase";
+import { AlertType } from '../../types/Alert';
 import { Input } from "../Utilities/Input";
 import InputGroup from "../Utilities/InputGroup";
-import { AlertType } from '../../types/Alert';
 
 interface ModalDirectoriesProps {
   nameForm: string;
@@ -26,15 +26,33 @@ const createDirectoryFormSchema = yup.object().shape({
 });
 
 export default function ModalDirectories({ onClose, nameForm, setAlert }: ModalDirectoriesProps) {
-  const userData = auth.currentUser;
-
   const [title, setTitle] = useState('');
+  const userData = auth.currentUser;
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateDirectoryData>({
     resolver: yupResolver(createDirectoryFormSchema)
   });
 
   const ref = collection(db, 'directories');
+
+  // const handleVerifiLimitDirectory = () => {
+  //   if (userData?.uid) {
+  //     var currentUser = where('userUid', '==', userData.uid);
+  //   };
+
+  //   const filteredForDirectories = query(ref, currentUser);
+  //   const [valueDir] = useCollection(filteredForDirectories, {
+  //     snapshotListenOptions: {
+  //       includeMetadataChanges: true,
+  //     }
+  //   });
+
+  //   return valueDir?.docs.map((dir) => {
+  //     return {
+  //       ...dir.data(),
+  //     };
+  //   });
+  // };
 
   const handleCreateDirectory: SubmitHandler<CreateDirectoryData> = () => {
     setAlert(null);

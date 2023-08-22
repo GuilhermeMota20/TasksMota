@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, query, where } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -41,7 +41,12 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm, setA
   const userData = auth.currentUser;
 
   const refDir = collection(db, 'directories');
-  const [valueDir] = useCollection(refDir, {
+  if (userData?.uid) {
+    var currentUser = where('userUid', '==', userData.uid);
+  };
+
+  const filteredForDirectories = query(refDir, currentUser);
+  const [valueDir] = useCollection(filteredForDirectories, {
     snapshotListenOptions: {
       includeMetadataChanges: true,
     }
