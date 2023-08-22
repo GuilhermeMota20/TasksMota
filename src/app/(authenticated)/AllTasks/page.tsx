@@ -4,6 +4,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import LayoutTasks from "../../components/Utilities/LayoutTasks";
 import { auth, db } from "../../services/Firebase";
 import { Tasks } from "../../types/Task";
+import { GoHome } from "react-icons/go";
 
 export default function AllTasks() {
   const userData = auth.currentUser;
@@ -31,6 +32,7 @@ export default function AllTasks() {
     <>
       <LayoutTasks
         title={`Todas as tarefas ( ${allTasks.length} )`}
+        icon={<GoHome size={24} style={{ fontWeight: 'bold' }} />}
         tasks={allTasks}
         isLoading={isLoading}
         error={error}

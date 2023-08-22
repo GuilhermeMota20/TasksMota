@@ -5,6 +5,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import LayoutTasks from "../../components/Utilities/LayoutTasks";
 import { auth, db } from "../../services/Firebase";
 import { Tasks } from "../../types/Task";
+import { AiOutlineFire } from "react-icons/ai";
 
 export default function TasksOfTheDay() {
   const userData = auth.currentUser;
@@ -36,6 +37,7 @@ export default function TasksOfTheDay() {
     <>
       <LayoutTasks
         title={`Tarefas do dia ( ${allTasks.length} )`}
+        icon={<AiOutlineFire size={24} style={{ fontWeight: 'bold' }} />}
         tasks={allTasks}
         isLoading={isLoading}
         error={error}

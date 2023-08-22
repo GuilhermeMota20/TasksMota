@@ -5,6 +5,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import LayoutTasks from "../../components/Utilities/LayoutTasks";
 import { auth, db } from "../../services/Firebase";
 import { Tasks } from "../../types/Task";
+import { MdLabelImportantOutline } from "react-icons/md";
 
 export default function ImportantTasks() {
   const userData = auth.currentUser;
@@ -33,6 +34,7 @@ export default function ImportantTasks() {
     <>
       <LayoutTasks
         title={`Tarefas importantes ( ${allTasks.length} )`}
+        icon={<MdLabelImportantOutline size={24} style={{ fontWeight: 'bold' }} />}
         tasks={allTasks}
         isLoading={isLoading}
         error={error}

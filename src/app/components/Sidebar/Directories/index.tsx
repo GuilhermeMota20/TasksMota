@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AlertType } from "../../../types/Alert";
 import ModalDirectories from "../../Modals/ModalDirectories";
+import Alert from "../../Utilities/Alert";
 import AccordionDirectory from "./AccordionDirectory";
 import ItemDirectory from "./ItemDirectory";
-import Alert from "../../Utilities/Alert";
-import { AlertType } from "../../../types/Alert";
+import { usePathname } from "next/navigation";
 
 export interface Directry {
   id: string;
@@ -20,8 +21,15 @@ export default function Directories({ directories, classActive }: DirectoriesPro
   const [modalDirIsShown, setModalDirIsShown] = useState(false);
   const [alert, setAlert] = useState<AlertType | null>(null);
 
-  const closeModalDir = () => modalDirIsShown ? setModalDirIsShown(false) : setModalDirIsShown(true);
-  const openModalDir = () => !modalDirIsShown ? setModalDirIsShown(true) : setModalDirIsShown(false);
+  const pathName = usePathname();
+  const containsDirectory = pathName.includes('Directory');
+
+  const toggleModalDir = () => setModalDirIsShown((prev) => !prev);
+
+  useEffect(() => {
+    if (containsDirectory)
+      setActiveIndex(3);
+  }, [containsDirectory, pathName]);
 
   return (
     <>
@@ -32,7 +40,7 @@ export default function Directories({ directories, classActive }: DirectoriesPro
       {modalDirIsShown && (
         <ModalDirectories
           nameForm="Criar novo diretorio"
-          onClose={closeModalDir}
+          onClose={toggleModalDir}
           setAlert={setAlert}
         />
       )}
@@ -49,7 +57,7 @@ export default function Directories({ directories, classActive }: DirectoriesPro
 
         <button
           className="px-3 py-1 border-slate-300 dark:border-slate-700 border-2 mt-4 rounded-md border-dashed hover:text-pink-500"
-          onClick={openModalDir}
+          onClick={toggleModalDir}
         >
           + Novo
         </button>

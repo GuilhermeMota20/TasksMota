@@ -2,6 +2,7 @@
 import { collection, DocumentData, query, where } from "firebase/firestore";
 import Head from "next/head";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { MdOutlineRunningWithErrors } from "react-icons/md";
 import LayoutTasks from "../../components/Utilities/LayoutTasks";
 import { auth, db } from "../../services/Firebase";
 import { Tasks } from "../../types/Task";
@@ -36,6 +37,7 @@ export default function UncompletedTasks() {
       </Head>
       <LayoutTasks
         title={`Tarefas incompletas ( ${UncompletedTasks.length} )`}
+        icon={<MdOutlineRunningWithErrors size={24} style={{ fontWeight: 'bold' }} />}
         tasks={UncompletedTasks}
         isLoading={isLoading}
         error={error}

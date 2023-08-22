@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
-import { db } from "../../../services/Firebase";
+import { auth, db } from "../../../services/Firebase";
 import ModalConfirm from "../../Modals/ModalConfirm";
 
 interface DirectryType {
@@ -21,17 +21,21 @@ export default function ItemDirectory({ directory, classActive }: DirectoryProps
   const pathName = usePathname();
   const currentPath = pathName;
   const formattedPath = currentPath.split("/").pop();
+  const userData = auth.currentUser;
 
   const [modalIsShown, setModalIsShown] = useState(false);
   const showModal = () => modalIsShown ? setModalIsShown(false) : setModalIsShown(true);
 
   const handleDeletedDir = () => {
-    const refAllDir = collection(db, 'tasks');
-    const q = query(refAllDir, where('dir', '==', directory.dir));
+    const ref = collection(db, 'tasks');
+    if (userData?.uid) {
+      var currentUser = where('userUid', '==', userData.uid);
+    };
 
+    const queryDir = query(ref, currentUser, where('dir', '==', directory.dir));
     deleteDoc(doc(db, 'directories', directory.id));
 
-    onSnapshot(q, (snapshot) => {
+    onSnapshot(queryDir, (snapshot) => {
       snapshot.docs.forEach((task) => {
         deleteDoc(doc(db, 'tasks', task.id));
       });

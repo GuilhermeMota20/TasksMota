@@ -4,6 +4,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import LayoutTasks from "../../components/Utilities/LayoutTasks";
 import { auth, db } from "../../services/Firebase";
 import { Tasks } from "../../types/Task";
+import { BsCheck2Circle } from "react-icons/bs";
 
 export default function CompletedTasks() {
   const userData = auth.currentUser;
@@ -32,6 +33,7 @@ export default function CompletedTasks() {
     <>
       <LayoutTasks
         title={`Tarefas concluídas ( ${CompletedTasks.length} )`}
+        icon={<BsCheck2Circle size={24} style={{ fontWeight: 'bold' }} />}
         tasks={CompletedTasks}
         isLoading={isLoading}
         error={error}

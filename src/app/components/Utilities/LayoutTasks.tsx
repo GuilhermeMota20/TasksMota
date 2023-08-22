@@ -1,6 +1,6 @@
 "use client"
 import { DocumentData } from "firebase/firestore";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { MoonLoader } from "react-spinners";
 import { Tasks } from "../../types/Task";
 import SortViews from "../TasksSection/SortViews";
@@ -9,19 +9,24 @@ import AddNewTask from "./AddNewTask";
 
 interface LayoutTasksProps {
   title: string;
+  icon?: ReactNode;
   tasks: Tasks[] | [] | DocumentData;
   isLoading: boolean;
   error: unknown;
 };
 
-export default function LayoutTasks({ title, tasks, isLoading, error }: LayoutTasksProps) {
+export default function LayoutTasks({ title, icon, tasks, isLoading, error }: LayoutTasksProps) {
   const [isListInView, setIsListInView] = useState<boolean>(false);
 
   return (
     <section>
-      <h1 className="font-medium my-5 text-center sm:text-left sm:my-8 md:text2xl text-lg dark:text-slate-200">
-        {title}
-      </h1>
+      <div className="flex items-center gap-4">
+        {icon}
+
+        <h1 className="font-medium my-5 text-center sm:text-left sm:my-8 md:text2xl text-lg dark:text-slate-200">
+          {title}
+        </h1>
+      </div>
 
       <SortViews
         isListInView={isListInView}
