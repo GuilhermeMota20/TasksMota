@@ -3,6 +3,7 @@ import { usePathname } from 'next/navigation';
 import { QueryClientProvider } from 'react-query';
 import ProtectedRoute from './components/Utilities/ProtectedRoute';
 import { AuthContextProvider } from './context/AuthContext';
+import { RootHead } from './head';
 import { queryClient } from './services/queryClient';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <html lang="pt-br">
-        <head />
+        <RootHead />
 
         <AuthContextProvider>
           <QueryClientProvider client={queryClient}>
