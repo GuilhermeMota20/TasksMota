@@ -5,6 +5,7 @@ import LayoutTasks from "../../components/Utilities/LayoutTasks";
 import { auth, db } from "../../services/Firebase";
 import { Tasks } from "../../types/Task";
 import { GoHome } from "react-icons/go";
+import Head from "./head";
 
 export default function AllTasks() {
   const userData = auth.currentUser;
@@ -30,6 +31,7 @@ export default function AllTasks() {
 
   return (
     <>
+      <Head />
       <LayoutTasks
         title={`Todas as tarefas ( ${allTasks.length} )`}
         icon={<GoHome size={24} style={{ fontWeight: 'bold' }} />}

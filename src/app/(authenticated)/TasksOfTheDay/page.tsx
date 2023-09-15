@@ -2,10 +2,11 @@
 const { format } = require('date-fns');
 import { collection, DocumentData, query, where } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { AiOutlineFire } from "react-icons/ai";
 import LayoutTasks from "../../components/Utilities/LayoutTasks";
 import { auth, db } from "../../services/Firebase";
 import { Tasks } from "../../types/Task";
-import { AiOutlineFire } from "react-icons/ai";
+import Head from "./head";
 
 export default function TasksOfTheDay() {
   const userData = auth.currentUser;
@@ -35,6 +36,7 @@ export default function TasksOfTheDay() {
 
   return (
     <>
+      <Head />
       <LayoutTasks
         title={`Tarefas do dia ( ${allTasks.length} )`}
         icon={<AiOutlineFire size={24} style={{ fontWeight: 'bold' }} />}

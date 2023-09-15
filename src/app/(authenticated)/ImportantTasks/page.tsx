@@ -6,6 +6,7 @@ import LayoutTasks from "../../components/Utilities/LayoutTasks";
 import { auth, db } from "../../services/Firebase";
 import { Tasks } from "../../types/Task";
 import { MdLabelImportantOutline } from "react-icons/md";
+import Head from "./head";
 
 export default function ImportantTasks() {
   const userData = auth.currentUser;
@@ -32,6 +33,7 @@ export default function ImportantTasks() {
 
   return (
     <>
+      <Head />
       <LayoutTasks
         title={`Tarefas importantes ( ${allTasks.length} )`}
         icon={<MdLabelImportantOutline size={24} style={{ fontWeight: 'bold' }} />}

@@ -2,7 +2,7 @@ export default function Head() {
   return (
     <>
       <head>
-        <title>ToDoTask. | Diretorios</title>
+        <title>ToDoTask. | Tarefas do dia</title>
       </head>
     </>
   )

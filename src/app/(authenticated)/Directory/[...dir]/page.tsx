@@ -5,6 +5,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { AiOutlineBranches } from "react-icons/ai";
 import LayoutTasks from "../../../components/Utilities/LayoutTasks";
 import { auth, db } from "../../../services/Firebase";
+import Head from "./head";
 
 export default function DirTasks({ params }: { params: { dir: string } }) {
   const userData = auth.currentUser;
@@ -16,7 +17,7 @@ export default function DirTasks({ params }: { params: { dir: string } }) {
   if (userData?.uid) {
     var currentUser = where('userUid', '==', userData.uid)
   };
-  
+
   const queTasks = query(refTasks, currentUser, where('dir', '==', formattedPath));
   const [value, isLoading, error] = useCollection(queTasks, {
     snapshotListenOptions: {
@@ -34,6 +35,7 @@ export default function DirTasks({ params }: { params: { dir: string } }) {
 
   return (
     <>
+      <Head />
       <LayoutTasks
         title={`Todas as tarefas ${params?.dir} ( ${dirTasks.length} )`}
         icon={<AiOutlineBranches size={24} style={{ fontWeight: 'bold' }} />}
