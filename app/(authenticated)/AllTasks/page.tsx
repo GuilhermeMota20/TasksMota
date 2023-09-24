@@ -1,39 +1,17 @@
 'use client'
-import { collection, DocumentData, query, where } from "firebase/firestore";
-import { useCollection } from "react-firebase-hooks/firestore";
-import LayoutTasks from "../../components/Utilities/LayoutTasks";
-import { auth, db } from "../../services/Firebase";
-import { Tasks } from "../../types/Task";
 import { GoHome } from "react-icons/go";
+import LayoutTasks from "../../components/Utilities/LayoutTasks";
+import { useAllTasks } from "../../services/hooks/useAllTasks";
 import Head from "./head";
 
 export default function AllTasks() {
-  const userData = auth.currentUser;
-
-  const ref = collection(db, 'tasks');
-  if (userData?.uid) {
-    var queryRef = query(ref, where('userUid', '==', userData.uid))
-  };
-
-  const [value, isLoading, error] = useCollection(queryRef, {
-    snapshotListenOptions: {
-      includeMetadataChanges: true,
-    }
-  });
-
-  const allTasks: Array<Tasks | DocumentData> = [];
-  value?.docs.map((doc) => {
-    allTasks?.push({
-      ...doc?.data(),
-      id: doc?.id,
-    });
-  });
+  const { allTasks, isLoading, error } = useAllTasks();
 
   return (
     <>
       <Head />
       <LayoutTasks
-        title={`Todas as tarefas ( ${allTasks.length} )`}
+        title={`Todas as tarefas ( ${allTasks?.length ?? 0} )`}
         icon={<GoHome size={24} style={{ fontWeight: 'bold' }} />}
         tasks={allTasks}
         isLoading={isLoading}
