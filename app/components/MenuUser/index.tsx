@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useScreenMedia } from "../../services/hooks/useScreenMedia";
 import AvatarUser from "./AvatarUser";
 import MenuUserConfig from "./MenuConfig";
-import ProgressTasks from "./ProgressTasks";
+import TasksDone from "./TasksDone";
 
 export default function MenuUser() {
   const mediaQueries = useScreenMedia();
@@ -20,7 +20,8 @@ export default function MenuUser() {
           <MenuUserConfig />
           <AvatarUser className="cursor-default" />
         </div>
-        <ProgressTasks />
+
+        <TasksDone />
       </section>
 
       {showMenuUser && !mediaQueries.xl && (
