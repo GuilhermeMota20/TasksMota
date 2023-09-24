@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from "yup";
 import Modal from ".";
 import { auth, db } from "../../services/Firebase";
+import { useDirectorys } from '../../services/hooks/useDirectorys';
 import { AlertType } from '../../types/Alert';
 import { Tasks } from '../../types/Task';
 import { Input } from '../Utilities/Input';
@@ -38,24 +39,8 @@ const createTaskFormSchema = yup.object().shape({
 });
 
 export default function ModalNewTasks({ onClose, task, nameForm, onConfirm, setAlert }: ModalNewTasksProps) {
+  const { directorys } = useDirectorys();
   const userData = auth.currentUser;
-
-  const refDir = collection(db, 'directories');
-  if (userData?.uid) {
-    var currentUser = where('userUid', '==', userData.uid);
-  };
-
-  const filteredForDirectories = query(refDir, currentUser);
-  const [valueDir] = useCollection(filteredForDirectories, {
-    snapshotListenOptions: {
-      includeMetadataChanges: true,
-    }
-  });
-  const directories = valueDir?.docs.map((dir) => {
-    return {
-      ...dir.data(),
-    };
-  });
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateTaskFormData>({
     resolver: yupResolver(createTaskFormSchema)
@@ -178,7 +163,7 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm, setA
               setDir(target.value);
             }}
           >
-            {directories?.map((directory, index) => (
+            {directorys?.map((directory, index) => (
               <option key={index} className='dark:bg-darkBlue-800' value={directory.dir}>{directory.dir}</option>
             ))}
           </select>

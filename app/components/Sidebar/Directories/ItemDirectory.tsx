@@ -1,19 +1,15 @@
 "use client"
-import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, DocumentData, onSnapshot, query, where } from "firebase/firestore";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { auth, db } from "../../../services/Firebase";
+import { Tasks } from "../../../types/Task";
 import ModalConfirm from "../../Modals/ModalConfirm";
 
-interface DirectryType {
-  id: string;
-  dir: string;
-};
-
 interface DirectoryProps {
-  directory: DirectryType;
+  directory:  DocumentData | Tasks;
   classActive: string;
 };
 

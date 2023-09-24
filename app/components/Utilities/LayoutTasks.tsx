@@ -6,6 +6,8 @@ import { Tasks } from "../../types/Task";
 import SortViews from "../TasksSection/SortViews";
 import TaskItem from "../TasksSection/TaskItem";
 import AddNewTask from "./AddNewTask";
+import error404 from '../../assets/error404.svg';
+import Image from "next/image";
 
 interface LayoutTasksProps {
   title: string;
@@ -39,8 +41,8 @@ export default function LayoutTasks({ title, icon, tasks, isLoading, error }: La
         </div>
 
       ) : error ? (
-        <div className="flex items-center justify-center m-4 text-center">
-          <span>Ocorreu um erro ao obter as tarefas.</span>
+        <div className="flex flex-col items-center justify-center m-4 text-center">
+          <Image src={error404} alt="error404" blurDataURL="" />
         </div>
 
       ) : (

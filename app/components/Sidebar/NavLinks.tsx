@@ -1,12 +1,10 @@
-import { collection, query, where } from "firebase/firestore";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { BsCheck2Circle, BsFiles } from "react-icons/bs";
 import { AiOutlineFire } from "react-icons/ai";
+import { BsCheck2Circle } from "react-icons/bs";
 import { GoHome } from "react-icons/go";
-import { MdOutlineRunningWithErrors, MdLabelImportantOutline } from "react-icons/md";
-import { auth, db } from "../../services/Firebase";
+import { MdLabelImportantOutline, MdOutlineRunningWithErrors } from "react-icons/md";
+import { useDirectorys } from "../../services/hooks/useDirectorys";
 import Directories from "./Directories";
 
 interface NavLinksProps {
@@ -14,9 +12,10 @@ interface NavLinksProps {
 };
 
 export default function NavLinks({ classActive }: NavLinksProps) {
+  const { directorys } = useDirectorys();
+
   const pathName = usePathname();
   const currentPath = pathName;
-  const userData = auth.currentUser;
 
   const links = [
     {
@@ -46,26 +45,6 @@ export default function NavLinks({ classActive }: NavLinksProps) {
     },
   ];
 
-  const ref = collection(db, 'directories');
-  if (userData?.uid) {
-    var currentUser = where('userUid', '==', userData.uid);
-  };
-
-  const filteredForDirectories = query(ref, currentUser);
-  const [value] = useCollection(filteredForDirectories, {
-    snapshotListenOptions: {
-      includeMetadataChanges: true,
-    }
-  });
-
-  const directories = [];
-  value?.docs.map((doc) => {
-    directories.push({
-      ...doc.data(),
-      id: doc.id,
-    });
-  });
-
   return (
     <nav className="w-full">
       <ul className="w-full flex flex-col gap-4">
@@ -82,7 +61,7 @@ export default function NavLinks({ classActive }: NavLinksProps) {
         ))}
 
         <Directories
-          directories={directories}
+          directories={directorys}
           classActive={classActive}
         />
       </ul>

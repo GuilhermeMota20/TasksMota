@@ -1,26 +1,28 @@
+import { addDoc, collection, DocumentData } from "firebase/firestore";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { auth, db } from "../../../services/Firebase";
+import { useDirectorys } from "../../../services/hooks/useDirectorys";
 import { AlertType } from "../../../types/Alert";
+import { Tasks } from "../../../types/Task";
 import ModalDirectories from "../../Modals/ModalDirectories";
 import Alert from "../../Utilities/Alert";
 import AccordionDirectory from "./AccordionDirectory";
 import ItemDirectory from "./ItemDirectory";
-import { usePathname } from "next/navigation";
-
-export interface Directry {
-  id: string;
-  dir: string;
-};
 
 interface DirectoriesProps {
-  directories: Directry[];
+  directories: (Tasks | DocumentData)[];
   classActive: string;
 };
 
 export default function Directories({ directories, classActive }: DirectoriesProps) {
+  const { directorys, isLoading } = useDirectorys();
+
   const [activeIndex, setActiveIndex] = useState(1);
   const [modalDirIsShown, setModalDirIsShown] = useState(false);
   const [alert, setAlert] = useState<AlertType | null>(null);
 
+  const userData = auth.currentUser;
   const pathName = usePathname();
   const containsDirectory = pathName.includes('Directory');
 
@@ -30,6 +32,17 @@ export default function Directories({ directories, classActive }: DirectoriesPro
     if (containsDirectory)
       setActiveIndex(3);
   }, [containsDirectory, pathName]);
+
+  useEffect(() => {
+    if (!isLoading && !directorys.length) {
+      const ref = collection(db, 'directories');
+
+      addDoc(ref, {
+        userUid: userData.uid,
+        dir: "master",
+      });
+    };
+  }, [isLoading, directorys.length, userData.uid]);
 
   return (
     <>
@@ -51,8 +64,8 @@ export default function Directories({ directories, classActive }: DirectoriesPro
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       >
-        {directories.map((directory) => (
-          <ItemDirectory key={directory.id} directory={directory} classActive={classActive} />
+        {directories.map((dir) => (
+          <ItemDirectory key={dir.id} directory={dir} classActive={classActive} />
         ))}
 
         <button

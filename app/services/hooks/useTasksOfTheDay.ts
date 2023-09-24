@@ -2,9 +2,9 @@ import { collection, DocumentData, onSnapshot, query, where } from 'firebase/fir
 import { useEffect, useState } from 'react';
 import { Tasks } from '../../types/Task';
 import { auth, db } from '../Firebase';
-const { format } = require('date-fns');
 
 export const useTasksOfTheDay = () => {
+  const { format } = require('date-fns');
   const [tasksOfTheDay, setTasksOfTheDay] = useState<Array<Tasks | DocumentData>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);

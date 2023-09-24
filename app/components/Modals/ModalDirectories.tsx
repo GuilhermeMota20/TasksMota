@@ -35,25 +35,6 @@ export default function ModalDirectories({ onClose, nameForm, setAlert }: ModalD
 
   const ref = collection(db, 'directories');
 
-  // const handleVerifiLimitDirectory = () => {
-  //   if (userData?.uid) {
-  //     var currentUser = where('userUid', '==', userData.uid);
-  //   };
-
-  //   const filteredForDirectories = query(ref, currentUser);
-  //   const [valueDir] = useCollection(filteredForDirectories, {
-  //     snapshotListenOptions: {
-  //       includeMetadataChanges: true,
-  //     }
-  //   });
-
-  //   return valueDir?.docs.map((dir) => {
-  //     return {
-  //       ...dir.data(),
-  //     };
-  //   });
-  // };
-
   const handleCreateDirectory: SubmitHandler<CreateDirectoryData> = () => {
     setAlert(null);
 
