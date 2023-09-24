@@ -39,7 +39,7 @@ export const useDirectoryTasks = () => {
         fetchDirectoryTasks();
       };
     };
-  }, []);
+  }, [formattedPath]);
 
   return { directoryTasks, isLoading, error };
 };

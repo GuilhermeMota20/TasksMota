@@ -37,7 +37,7 @@ export const useStatusTasks = (
         fetchTasksStatus();
       };
     };
-  }, []);
+  }, [isCompletedTask]);
 
   return { tasks, isLoading, error };
 };
