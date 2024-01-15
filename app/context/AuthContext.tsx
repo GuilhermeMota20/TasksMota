@@ -10,7 +10,11 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IsUserType | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<boolean | undefined>(undefined);
+  const [sendEmailError, setSendEmailError] = useState<boolean | undefined>(undefined);
+  const [showModalEmailVirified, setShowModalEmailVirified] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -32,20 +36,25 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    if (user) return router.push('/AllTasks');
-  }, [router, user]);
+  // useEffect(() => {
+  //   if (user) return router.push('/AllTasks');
+  // }, [router, user]);
 
   async function Signup(email: string, password: string) {
     setLoading(true);
+
     const newUserCredential: UserCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-    await sendEmailVerification(newUserCredential.user)
+    await sendEmailVerification(newUserCredential?.user)
       .then(() => {
-        router.push('/Signup?send-email=true');
+        setSendEmailError(false);
+        setShowModalEmailVirified(true);
+        setLoading(false);
       })
       .catch(() => {
-        router.push('/Signup?send-email=false');
+        setSendEmailError(true);
+        setShowModalEmailVirified(false);
+        setLoading(false);
       });
   };
 
@@ -53,10 +62,11 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         setLoading(true);
+        setLoginError(false);
         router.push('/AllTasks');
       })
       .catch(() => {
-        router.push('/Error=signin');
+        setLoginError(true);
       });
   };
 
@@ -64,10 +74,11 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const SignInWithGoogle = async () => {
     await signInWithRedirect(auth, provider)
       .then(() => {
+        setLoginError(false);
         router.push('/AllTasks');
       })
       .catch(() => {
-        router.push('/Error=signin')
+        setLoginError(true);
       });
   };
 
@@ -78,7 +89,23 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, Signup, Sign, Logout, SignInWithGoogle, loading, setLoading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        Signup,
+        Sign,
+        Logout,
+        SignInWithGoogle,
+        loading,
+        setLoading,
+        loginError,
+        setLoginError,
+        sendEmailError,
+        setSendEmailError,
+        showModalEmailVirified,
+        setShowModalEmailVirified
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

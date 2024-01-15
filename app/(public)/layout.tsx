@@ -1,74 +1,71 @@
 'use client'
 import '@fontsource/inter';
-import Link from 'next/link';
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MoonLoader } from 'react-spinners';
 import DarkMode from "../components/MenuUser/MenuConfig/DarkMode";
 import ModalError from '../components/Modals/ModalError';
 import ModalWarning from '../components/Modals/ModalWarning';
+import { useAuth } from '../context/AuthContext';
 import { auth } from "../services/Firebase";
 import '../styles/globals.scss';
 
 export default function RootLayoutPublic({ children }: { children: React.ReactNode }) {
   const [showModal, setIsModalShown] = useState(false);
   const [activeIndex, setActiveIndex] = useState(1);
+  const [verifiedEmailFailed, setVerifiedEmailFailed] = useState<Boolean | undefined>(undefined);
 
   const router = useRouter();
-  const pathName = usePathname();
+  const {
+    loginError,
+    setLoginError,
+    sendEmailError,
+    showModalEmailVirified,
+    setShowModalEmailVirified
+  } = useAuth();
 
   const [time, setTime] = useState(2 * 60);
   const min = Math.floor(time / 60);
   const seg = time % 60;
 
-  useEffect(() => {
-    if (auth.currentUser?.emailVerified) router.push('/AllTasks');
-  }, [router]);
+  const emailIsVerified = auth.currentUser?.emailVerified;
 
   useEffect(() => {
-    if (pathName == '/Signup?send-email=true') {
+    if (emailIsVerified) router.push('/AllTasks');
+  }, [router, emailIsVerified]);
+
+  useEffect(() => {
+    if (!sendEmailError && showModalEmailVirified) {
       auth.currentUser?.reload();
 
-      setTimeout(() => setTime(time - 1), 1000);
+      setTimeout(() => setTime(time -1), 1000);
 
       if (time <= 0) {
-        setTime(0);
         auth.currentUser?.delete();
-        router.push('Signup?verified-email=false');
+
+        setVerifiedEmailFailed(true);
+        setShowModalEmailVirified(false);
       };
     };
-  }, [router, pathName, time]);
-
-  if (pathName == '/Signup?send-email=false') {
-    auth.currentUser?.delete();
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router, sendEmailError, showModalEmailVirified, time]);
 
   return (
     <>
-      {pathName == '/Error=signin' && !showModal && (
+      {loginError && !showModal && (
         <ModalError
           text='Houve um problema ao tentar entrar em sua conta. Por favor, tente novamente.'
           onClose={() => {
             setIsModalShown(false);
-            router.push('/');
+            setLoginError(false);
           }}
         />
       )}
 
-      {pathName == '/Signup?Error=signup' && !showModal && (
-        <ModalError
-          text='Houve um problema ao tentar entrar em sua conta. Por favor, tente novamente.'
-          onClose={() => {
-            setIsModalShown(false);
-            router.push('/Signup');
-          }}
-        />
-      )}
-
-      {pathName == '/Signup?send-email=true' && (
+      {!sendEmailError && showModalEmailVirified && (
         <ModalWarning
           title="Verifique seu e-mail"
-          text="Para prosseguir, por favor verifque seu e-mail e acesse o link de ativação da conta. Em seguida, volte para o sistema e entre na sua conta. Se você nao ativar no tempo estimado sua conta nao sera criada e o mesmo terá de ser cadastrada novamente e repetir este processo."
+          text="Para prosseguir, por favor verifque seu e-mail e acesse o link de ativação da conta. Em seguida, volte para o sistema e entre na sua conta. Se você nao ativar no tempo estimado sua conta nao sera criada e o mesmo terá de ser cadastrada novamente."
         >
           <strong className="mt-7 ml-auto">
             {`${min.toString().padStart(2, '0')}:${seg.toString().padStart(2, '0')}`}
@@ -80,18 +77,26 @@ export default function RootLayoutPublic({ children }: { children: React.ReactNo
         </ModalWarning>
       )}
 
-      {pathName == '/Signup?verified-email=false' && time <= 0 && (
+      {verifiedEmailFailed && time <= 0 && (
         <ModalWarning
           title="Opps... o tempo acabou!"
           text="Você perdeu o prazo de verificação do e-mail e sua conta não foi criada. Clique em voltar e tente novamente. "
         >
           <div className="mt-7 ml-auto">
-            <Link href='/' className="hover:text-pink-600">Voltar</Link>
+            <button
+              onClick={() => {
+                setVerifiedEmailFailed(false);
+                setTime(2 * 60);
+              }}
+              className="hover:text-pink-600"
+            >
+              Voltar
+            </button>
           </div>
         </ModalWarning>
       )}
 
-      {pathName == '/Signup?send-email=false' && (
+      {sendEmailError && (
         <ModalError
           text="O e-mail inserido não existe. Por favor, insira um e-mail válido!"
           onClose={null}

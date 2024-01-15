@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { auth } from "../../services/Firebase";
-import CapitalizeFirstLetters from "../../services/hooks/capitalizeFirstLetters";
+import RandomAvatar from "../../services/hooks/randomAvatar";
 import { useScreenMedia } from "../../services/hooks/useScreenMedia";
 
 interface AddNewTaskProps {
@@ -10,24 +10,18 @@ interface AddNewTaskProps {
 export default function AvatarUser({ className }: AddNewTaskProps) {
   const userData = auth.currentUser;
   const mediaScreen = useScreenMedia();
+  const randomImage = RandomAvatar();
 
   return (
     <>
-      {userData?.photoURL && (
+      <div className={`flex items-center justify-center bg-slate-100 dark:bg-darkBlue-800 rounded-md ${!mediaScreen.xl ? 'cursor-pointer' : ''} transition hover:shadow-lg ${className}`}>
         <Image
-          src={userData?.photoURL}
+          src={userData?.photoURL ?? randomImage}
           width={32}
           height={32}
           alt={userData?.displayName ? userData?.displayName : 'user'}
-          className={`bg-slate-800 rounded-md ${!mediaScreen.xl ? 'cursor-pointer' : ''} transition hover:shadow-lg ${className}`}
         />
-      )}
-
-      {!userData?.photoURL && (
-        <div className={`w-8 h-8 rounded-md bg-slate-800 ${!mediaScreen.xl ? 'cursor-pointer' : ''} transition hover:shadow-lg ${className}`}>
-          {CapitalizeFirstLetters(userData?.displayName)}
-        </div>
-      )}
+      </div>
     </>
   )
 }
