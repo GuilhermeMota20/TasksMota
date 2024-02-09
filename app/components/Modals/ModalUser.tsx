@@ -91,6 +91,7 @@ export default function ModalUser({ nameForm, onClose, setAlert }: ModalUserProp
               </div>
             </div>
 
+
             <div>
               <p className="mb-3 uppercase font-medium">Avatares disponíveis</p>
               <ul className="grid-cols-5 grid gap-2 sm:gap-3">
@@ -116,7 +117,7 @@ export default function ModalUser({ nameForm, onClose, setAlert }: ModalUserProp
                   className="cursor-pointer"
                   onClick={() => setAvatarSelected({ url: userData?.photoURL, alt: "" })}
                 >
-                  <div className="w-14 h-14 flex-1 rounded-md
+                  <div className="h-full w-full flex-1 rounded-md
                    relative flex items-center justify-center bg-slate-100 dark:bg-darkBlue-700 hover:shadow-md">
                     <RxReload />
                   </div>

@@ -16,7 +16,7 @@ export default function Modal({ children, title, onClose }: ModalProps) {
 
   return (
     <div
-      className="xl:text-base sm:text-sm text-xs fixed bg-slate-600/[.2] top-0 left-0 w-screen h-full z-40 grid place-items-center px-2 text-slate-600 dark:text-slate-200 backdrop-blur-sm overflow-hidden"
+      className="xl:text-base sm:text-sm text-xs fixed bg-slate-600/[.2] top-0 left-0 w-screen h-full z-40 grid place-items-center p-2 text-slate-600 dark:text-slate-200 backdrop-blur-sm overflow-y-auto"
       onClick={closeModalHandler}
     >
       <div className="relative bg-slate-200 dark:bg-darkBlue-900 max-w-lg w-full rounded-md p-3 sm:p-5 flex flex-col justify-star">
