@@ -3,3 +3,8 @@ export interface IsUserType {
   email: string;
   emailVerified: boolean;
 };
+
+export interface IsListAvatarsType {
+  url?: any;
+  alt?: string;
+};

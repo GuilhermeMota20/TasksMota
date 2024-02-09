@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react";
 import { useScreenMedia } from "../../services/hooks/useScreenMedia";
-import AvatarUser from "./AvatarUser";
+import Avatar from "../Utilities/Avatar";
 import MenuUserConfig from "./MenuConfig";
 import TasksDone from "./TasksDone";
 
@@ -18,7 +18,7 @@ export default function MenuUser() {
       >
         <div className="flex gap-4 items-end justify-end w-full py-2">
           <MenuUserConfig />
-          <AvatarUser className="cursor-default" />
+          <Avatar />
         </div>
 
         <TasksDone />
@@ -32,8 +32,8 @@ export default function MenuUser() {
       )}
 
       {!mediaQueries.xl && (
-        <div className="ml-6 flex items-center" onClick={toggleMenuUser}>
-          <AvatarUser className="w-12 h-12" />
+        <div className="ml-6 flex items-center cursor-pointer" onClick={toggleMenuUser}>
+          <Avatar />
         </div>
       )}
     </>

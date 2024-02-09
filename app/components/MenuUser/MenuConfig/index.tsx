@@ -1,16 +1,16 @@
 import { collection, deleteDoc, getDocs, query, where } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { RxGear } from "react-icons/rx";
 import { useAuth } from "../../../context/AuthContext";
 import { auth, db } from "../../../services/Firebase";
 import { AlertType } from "../../../types/Alert";
 import ModalConfirm from "../../Modals/ModalConfirm";
+import ModalUser from "../../Modals/ModalUser";
 import Alert from "../../Utilities/Alert";
-import Divider from "../../Utilities/Divider";
 import ConfigUser from "./ConfigUser";
 import DarkMode from "./DarkMode";
 import HeaderConfig from "./HeaderConfig";
-import { useRouter } from "next/navigation";
 
 export default function MenuUserConfig() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -19,6 +19,8 @@ export default function MenuUserConfig() {
   const [showModal, setIsModalShown] = useState(false);
   const [showModalDeleteAllTasks, setShowModalDeleteAllTasks] = useState(false);
   const [showModalDeleteCurrentUser, setShowModalDeleteCurrentUser] = useState(false);
+  const [showModalUser, setShowModalUser] = useState(false);
+
   const { Logout } = useAuth();
   const router = useRouter();
 
@@ -78,24 +80,17 @@ export default function MenuUserConfig() {
       )}
 
       <button
-        className="bg-white p-2 rounded-md transition hover:shadow-md dark:bg-darkBlue-700"
+        className="bg-white w-12 h-12 p-2 rounded-md flex items-center justify-center transition hover:shadow-md dark:bg-darkBlue-700"
         onClick={toggleMenuConfig}
       >
-        <RxGear />
+        <RxGear width={12} height={12} />
       </button>
 
       <section className={`fixed top-0 right-0 h-full w-72 p-4 z-20 ease-in-out opacity-0 transition-transform duration-300  ${showMenuConfig ? 'translate-x-0 opacity-100' : 'translate-x-full'}`} >
         <div className="bg-slate-100 dark:bg-darkBlue-800 rounded-md flex flex-col gap-2 h-full w-full">
-          <HeaderConfig />
-
-          <div className="px-4 mt-[5rem] text-center">
-            <strong className="line-clamp-1">{!userData?.displayName ? 'Anonymous' : userData?.displayName}</strong>
-            <p className="line-clamp-1">{userData?.email}</p>
-          </div>
-
-          <div className="mt-4">
-            <Divider />
-          </div>
+          <HeaderConfig
+            showModalUser={() => setShowModalUser(true)}
+          />
 
           <div className="flex flex-col gap-8 mt-4">
             <ConfigUser
@@ -110,7 +105,6 @@ export default function MenuUserConfig() {
               activeIndex={activeIndex}
               setActiveIndex={setActiveIndex}
             />
-
           </div>
         </div>
       </section>
@@ -136,6 +130,14 @@ export default function MenuUserConfig() {
           onClose={() => setShowModalDeleteCurrentUser(false)}
           text="Você tem certeza de que deseja deletar seu acesso? Uma vez feita, não será possível recuperá-la novamente e todas suas informações serão perdidas."
           onConfirm={handleDeleteCurrentUser}
+        />
+      )}
+
+      {showModalUser && (
+        <ModalUser
+          nameForm="Configurações de usuário"
+          onClose={() => setShowModalUser(false)}
+          setAlert={setAlert}
         />
       )}
 
