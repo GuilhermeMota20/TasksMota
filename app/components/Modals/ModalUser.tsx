@@ -48,7 +48,7 @@ export default function ModalUser({ nameForm, onClose, setAlert }: ModalUserProp
       displayName: nameUser,
       photoURL: avatarSelected?.url?.src
     }).then(() => setAlert({ type: 'success', message: `Usuário atualizado com sucesso!` }))
-      .catch((error) => setAlert({ type: 'error', message: 'Nao foi possivel atualizar os dados de usuário! Por favor, tente novamente.' }));
+      .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel atualizar os dados de usuário! Por favor, tente novamente.' }));
   };
 
   return (
