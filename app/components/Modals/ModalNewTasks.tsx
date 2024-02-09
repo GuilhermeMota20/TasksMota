@@ -100,7 +100,7 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm, setA
       completed: isCompleted,
       important: isImportant,
       dir: dir,
-    }).then(() => setAlert({ type: 'success', message: `Tarefa (${title}) criada com sucesso!` }))
+    }).then(() => setAlert({ type: 'success', message: `Tarefa criada com sucesso!` }))
       .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel criar a tarefa! Por favor, tente novamente.' }));
 
     reset();

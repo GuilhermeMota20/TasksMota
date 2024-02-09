@@ -41,7 +41,7 @@ export default function ModalDirectories({ onClose, nameForm, setAlert }: ModalD
     addDoc(ref, {
       userUid: userData.uid,
       dir: title,
-    }).then(() => setAlert({ type: 'success', message: `Diretorio (${title}) criada com sucesso!` }))
+    }).then(() => setAlert({ type: 'success', message: `Diretorio criada com sucesso!` }))
       .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel criar o diretorio! Por favor, tente novamente.' }));
 
     reset();

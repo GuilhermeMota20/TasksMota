@@ -22,7 +22,7 @@ export default function BtnEditTask({ task }: BtnEditTaskProps) {
 
     updateDoc(ref, {
       ...task
-    }).then(() => setAlert({ type: 'success', message: `Tarefa (${task?.title}) editada com sucesso!` }))
+    }).then(() => setAlert({ type: 'success', message: `Tarefa editada com sucesso!` }))
       .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel editar a tarefa! Por favor, tente novamente.' }));
   };
 
