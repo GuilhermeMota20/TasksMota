@@ -4,12 +4,13 @@ import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { RxReload } from "react-icons/rx";
+import { toast } from "sonner";
 import * as yup from "yup";
 import Modal from ".";
 import { auth } from "../../services/Firebase";
 import { useListAvatars } from "../../services/hooks/useListAvatars";
 import { useScreenMedia } from "../../services/hooks/useScreenMedia";
-import { AlertType } from "../../types/Alert";
+import { toastStyleTheme } from "../../styles/toastStyle";
 import { IsListAvatarsType } from "../../types/User";
 import Divider from "../Utilities/Divider";
 import { Input } from "../Utilities/Input";
@@ -17,7 +18,6 @@ import InputGroup from "../Utilities/InputGroup";
 
 interface ModalUserProps {
   nameForm: string;
-  setAlert: React.Dispatch<AlertType | null>
   onClose: () => void;
 };
 
@@ -29,10 +29,11 @@ const updateUserData = yup.object().shape({
   nameUser: yup.string().required('Nome de usuario e obrigatorio.'),
 });
 
-export default function ModalUser({ nameForm, onClose, setAlert }: ModalUserProps) {
+export default function ModalUser({ nameForm, onClose }: ModalUserProps) {
   const userData = auth.currentUser;
   const mediaQueries = useScreenMedia();
   const { listAvatars } = useListAvatars();
+  const toastStyle = toastStyleTheme();
 
   const [avatarSelected, setAvatarSelected] = useState<IsListAvatarsType | undefined>();
   const [nameUser, setNameUser] = useState<string>(userData?.displayName);
@@ -42,13 +43,13 @@ export default function ModalUser({ nameForm, onClose, setAlert }: ModalUserProp
   });
 
   const handleUpdateProfile = () => {
-    setAlert(null);
+    onClose();
 
     updateProfile(userData, {
       displayName: nameUser,
       photoURL: avatarSelected?.url?.src
-    }).then(() => setAlert({ type: 'success', message: `Usuário atualizado com sucesso!` }))
-      .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel atualizar os dados de usuário! Por favor, tente novamente.' }));
+    }).then(() => toast.success("Usuário atualizado com sucesso!", toastStyle))
+      .catch(() => toast.error("Nao foi possivel atualizar os dados de usuário! Por favor, tente novamente.", toastStyle));
   };
 
   return (
@@ -91,7 +92,6 @@ export default function ModalUser({ nameForm, onClose, setAlert }: ModalUserProp
               </div>
             </div>
 
-
             <div>
               <p className="mb-3 uppercase font-medium">Avatares disponíveis</p>
               <ul className="grid-cols-5 grid gap-2 sm:gap-3">
@@ -128,7 +128,6 @@ export default function ModalUser({ nameForm, onClose, setAlert }: ModalUserProp
 
           <button
             type="submit"
-            onClick={() => { }}
             className="btn mt-5 bg-pink-600 hover:bg-pink-700 py-3 px-6 text-slate-50 rounded-lg w-full transition"
           >
             Confirmar

@@ -3,10 +3,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { auth, db } from "../../../services/Firebase";
 import { useDirectorys } from "../../../services/hooks/useDirectorys";
-import { AlertType } from "../../../types/Alert";
+import { useModalGlobals } from "../../../services/hooks/useModalsGlobal";
 import { Tasks } from "../../../types/Task";
-import ModalDirectories from "../../Modals/ModalDirectories";
-import Alert from "../../Utilities/Alert";
 import AccordionDirectory from "./AccordionDirectory";
 import ItemDirectory from "./ItemDirectory";
 
@@ -17,16 +15,13 @@ interface DirectoriesProps {
 
 export default function Directories({ directories, classActive }: DirectoriesProps) {
   const { directorys, isLoading } = useDirectorys();
+  const { onOpenNewDirectory } = useModalGlobals();
 
   const [activeIndex, setActiveIndex] = useState(1);
-  const [modalDirIsShown, setModalDirIsShown] = useState(false);
-  const [alert, setAlert] = useState<AlertType | null>(null);
 
   const userData = auth.currentUser;
   const pathName = usePathname();
   const containsDirectory = pathName.includes('Directory');
-
-  const toggleModalDir = () => setModalDirIsShown((prev) => !prev);
 
   useEffect(() => {
     if (containsDirectory)
@@ -46,18 +41,6 @@ export default function Directories({ directories, classActive }: DirectoriesPro
 
   return (
     <>
-      {alert && (
-        <Alert type={alert.type} message={alert.message} />
-      )}
-
-      {modalDirIsShown && (
-        <ModalDirectories
-          nameForm="Criar novo diretorio"
-          onClose={toggleModalDir}
-          setAlert={setAlert}
-        />
-      )}
-
       <AccordionDirectory
         title="Diretorios"
         index={3}
@@ -70,7 +53,7 @@ export default function Directories({ directories, classActive }: DirectoriesPro
 
         <button
           className="px-3 py-1 border-slate-300 dark:border-slate-700 border-2 mt-4 rounded-md border-dashed hover:text-pink-500"
-          onClick={toggleModalDir}
+          onClick={onOpenNewDirectory}
         >
           + Novo
         </button>

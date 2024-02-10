@@ -12,6 +12,8 @@ import { Input } from '../Utilities/Input';
 import { InputCheckBox } from '../Utilities/InputCheckBox';
 import InputGroup from '../Utilities/InputGroup';
 import { TextArea } from '../Utilities/TextArea';
+import { toast } from "sonner";
+import { toastStyleTheme } from '../../styles/toastStyle';
 
 type CreateTaskFormData = {
   userUid: string;
@@ -28,7 +30,6 @@ interface ModalNewTasksProps {
   task?: Tasks;
   onClose: () => void;
   onConfirm?: (task: Tasks) => void;
-  setAlert: React.Dispatch<AlertType | null>
 };
 
 const createTaskFormSchema = yup.object().shape({
@@ -37,8 +38,10 @@ const createTaskFormSchema = yup.object().shape({
   description: yup.string().required('Descrição obrigatoria'),
 });
 
-export default function ModalNewTasks({ onClose, task, nameForm, onConfirm, setAlert }: ModalNewTasksProps) {
+export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: ModalNewTasksProps) {
   const { directorys } = useDirectorys();
+  const toastStyle = toastStyleTheme();
+
   const userData = auth.currentUser;
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateTaskFormData>({
@@ -72,8 +75,6 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm, setA
 
   const ref = collection(db, 'tasks');
   const handleCreateTask: SubmitHandler<CreateTaskFormData> = () => {
-    setAlert(null);
-
     if (task) {
       const payloadData = {
         id: task.id,
@@ -100,8 +101,8 @@ export default function ModalNewTasks({ onClose, task, nameForm, onConfirm, setA
       completed: isCompleted,
       important: isImportant,
       dir: dir,
-    }).then(() => setAlert({ type: 'success', message: `Tarefa criada com sucesso!` }))
-      .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel criar a tarefa! Por favor, tente novamente.' }));
+    }).then(() => toast.success("Tarefa criada com sucesso!", toastStyle))
+      .catch(() => toast.error("Nao foi possivel criar a tarefa! Por favor, tente novamente.", toastStyle));
 
     reset();
     onClose();

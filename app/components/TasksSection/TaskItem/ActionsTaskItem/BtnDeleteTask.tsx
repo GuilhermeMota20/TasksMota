@@ -1,46 +1,23 @@
-import { deleteDoc, doc } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
-import { db } from '../../../../services/Firebase';
-import ModalConfirm from '../../../Modals/ModalConfirm';
-import { AlertType } from '../../../../types/Alert';
-import Alert from '../../../Utilities/Alert';
+import { useModalGlobals } from '../../../../services/hooks/useModalsGlobal';
+import { Tasks } from '../../../../types/Task';
 
 interface BtnDeleteTaskProps {
-  taskId: string;
+  task: Tasks;
 };
 
-export default function BtnDeleteTask({ taskId }: BtnDeleteTaskProps) {
-  const [showModal, setIsModalShown] = useState(false);
-  const [alert, setAlert] = useState<AlertType | null>(null);
-
-  const handleDelete = () => {
-    const ref = doc(db, 'tasks', taskId);
-    setAlert(null);
-
-    deleteDoc(ref)
-      .then(() =>{ setAlert({ type: 'success', message: `Tarefa excluida com sucesso!` })})
-      .catch(() => {setAlert({ type: 'error', message: 'Nao foi possivel excluir a tarefa! Por favor, tente novamente.' })});
-  };
+export default function BtnDeleteTask({ task }: BtnDeleteTaskProps) {
+  const { onOpenDeleteTask, setCurrentTaskSelected } = useModalGlobals();
 
   return (
     <>
-      {alert && (
-        <Alert type={alert.type} message={alert.message} />
-      )}
-
-      {showModal && (
-        <ModalConfirm
-          onClose={() => setIsModalShown(false)}
-          text="Essa tarefa será deletada permanentemente."
-          onConfirm={handleDelete}
-        />
-      )}
-
       <button
         title="Deletar tarefa"
         className="ml-2 transition hover:text-slate-700"
-        onClick={() => setIsModalShown(true)}
+        onClick={() => {
+          setCurrentTaskSelected(task);
+          onOpenDeleteTask();
+        }}
       >
         <FaTrashAlt className="text-md sm:text-lg" />
       </button>

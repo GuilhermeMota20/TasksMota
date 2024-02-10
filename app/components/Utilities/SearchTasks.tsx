@@ -1,8 +1,12 @@
 import { CiSearch } from "react-icons/ci";
 
-export default function SearchTasks() {
+type SearchTasksProps = {
+  className?: string;
+};
+
+export default function SearchTasks({ className }: SearchTasksProps) {
   return (
-    <div className="flex-1 col-span-3 row-start-2 md:pr-10">
+    <div className={`flex-1 col-span-3 row-start-2 md:pr-10 ${className}`}>
       <form autoComplete="off" className="relative md:max-w-xs w-full">
         <label htmlFor="search" className="sr-only"></label>
 

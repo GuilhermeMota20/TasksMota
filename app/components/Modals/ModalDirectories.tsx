@@ -1,18 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addDoc, collection } from "firebase/firestore";
-import React, { useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from "sonner";
 import * as yup from "yup";
 import Modal from ".";
 import { auth, db } from "../../services/Firebase";
-import { AlertType } from '../../types/Alert';
+import { toastStyleTheme } from '../../styles/toastStyle';
 import { Input } from "../Utilities/Input";
 import InputGroup from "../Utilities/InputGroup";
 
 interface ModalDirectoriesProps {
   nameForm: string;
   onClose: () => void;
-  setAlert: React.Dispatch<AlertType | null>
 };
 
 type CreateDirectoryData = {
@@ -25,9 +25,11 @@ const createDirectoryFormSchema = yup.object().shape({
   title: yup.string().required('Titulo obrigatorio'),
 });
 
-export default function ModalDirectories({ onClose, nameForm, setAlert }: ModalDirectoriesProps) {
+export default function ModalDirectories({ onClose, nameForm }: ModalDirectoriesProps) {
   const [title, setTitle] = useState('');
   const userData = auth.currentUser;
+
+  const toastStyle = toastStyleTheme();
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateDirectoryData>({
     resolver: yupResolver(createDirectoryFormSchema)
@@ -36,13 +38,11 @@ export default function ModalDirectories({ onClose, nameForm, setAlert }: ModalD
   const ref = collection(db, 'directories');
 
   const handleCreateDirectory: SubmitHandler<CreateDirectoryData> = () => {
-    setAlert(null);
-
     addDoc(ref, {
       userUid: userData.uid,
       dir: title,
-    }).then(() => setAlert({ type: 'success', message: `Diretorio criada com sucesso!` }))
-      .catch(() => setAlert({ type: 'error', message: 'Nao foi possivel criar o diretorio! Por favor, tente novamente.' }));
+    }).then(() => toast.success("Diretorio criada com sucesso!", toastStyle))
+      .catch(() => toast.error("Nao foi possivel criar o diretorio! Por favor, tente novamente.", toastStyle));
 
     reset();
     onClose();
