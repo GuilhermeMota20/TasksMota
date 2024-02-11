@@ -10,7 +10,7 @@ import Modal from ".";
 import { auth } from "../../services/Firebase";
 import { useListAvatars } from "../../services/hooks/useListAvatars";
 import { useScreenMedia } from "../../services/hooks/useScreenMedia";
-import { toastStyleTheme } from "../../styles/toastStyle";
+import useToastStyleTheme from "../../services/hooks/useToastStyle";
 import { IsListAvatarsType } from "../../types/User";
 import Divider from "../Utilities/Divider";
 import { Input } from "../Utilities/Input";
@@ -33,7 +33,7 @@ export default function ModalUser({ nameForm, onClose }: ModalUserProps) {
   const userData = auth.currentUser;
   const mediaQueries = useScreenMedia();
   const { listAvatars } = useListAvatars();
-  const toastStyle = toastStyleTheme();
+  const toastStyle = useToastStyleTheme();
 
   const [avatarSelected, setAvatarSelected] = useState<IsListAvatarsType | undefined>();
   const [nameUser, setNameUser] = useState<string>(userData?.displayName);

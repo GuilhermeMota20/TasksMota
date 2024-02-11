@@ -6,11 +6,11 @@ import { auth } from "../../services/Firebase";
 import { useModalGlobals } from "../../services/hooks/useModalsGlobal";
 import ModalConfirm from "./ModalConfirm";
 import { toast } from "sonner";
-import { toastStyleTheme } from "../../styles/toastStyle";
+import useToastStyleTheme from "../../services/hooks/useToastStyle";
 
 export default function ModalDeleteUser() {
   const { isOpenDeleteUser, onCloseDeleteUser } = useModalGlobals();
-  const toastStyle = toastStyleTheme();
+  const toastStyle = useToastStyleTheme();
   const router = useRouter();
 
   const userData = auth.currentUser;

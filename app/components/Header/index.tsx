@@ -12,7 +12,7 @@ import AddNewTask from '../Utilities/AddNewTask';
 import Avatar from '../Utilities/Avatar';
 import BrandMarkApp from '../Utilities/BrandMarkApp';
 import SearchTasks from '../Utilities/SearchTasks';
-import NavigationMenuPages from '../Utilities/_NavigationMenuPages';
+import NavigationMenuPages from '../Utilities/NavigationMenuPagesUi';
 
 export default function Header() {
   const mediaQueries = useScreenMedia();
@@ -23,11 +23,11 @@ export default function Header() {
   const listConfigs = useListConfig();
   const listLayout = useListLayout();
 
-  useEffect(() => {
-    if(mediaQueries.md) {
-      onRevertNavHorizontal();
-    };
-  }, [mediaQueries]);
+  // useEffect(() => {
+  //   if(mediaQueries.md) {
+  //     onRevertNavHorizontal();
+  //   };
+  // }, [mediaQueries]);
 
   return (
     <>

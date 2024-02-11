@@ -13,7 +13,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger
-} from "./_NavigationMenuUi"
+} from "./NavigationMenuUi"
 
 interface ListItemProps extends React.ComponentPropsWithoutRef<'a'> {
   title: string;
@@ -157,7 +157,7 @@ const ListItemConfig = React.forwardRef<HTMLButtonElement, ListItemConfigProps>(
     </li>
   )
 })
-ListItem.displayName = "ListItemConfig"
+ListItemConfig.displayName = "ListItemConfig"
 
 const ListItemLayout = React.forwardRef<HTMLButtonElement, ListItemLayoutProps>(({ className, element, action, title, description, ...props }, ref) => {
   return (
@@ -186,4 +186,4 @@ const ListItemLayout = React.forwardRef<HTMLButtonElement, ListItemLayoutProps>(
     </li>
   )
 })
-ListItem.displayName = "ListItemLayout"
+ListItemLayout.displayName = "ListItemLayout"

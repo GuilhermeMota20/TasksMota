@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BsStarFill } from "react-icons/bs";
 import { toast } from "sonner";
 import { db } from "../../../../services/Firebase";
-import { toastStyleTheme } from "../../../../styles/toastStyle";
+import useToastStyleTheme from "../../../../services/hooks/useToastStyle";
 import { AlertType } from "../../../../types/Alert";
 
 interface BtnMarkAsImportantPorps {
@@ -13,7 +13,7 @@ interface BtnMarkAsImportantPorps {
 
 export default function BtnMarkAsImportant({ taskId, taskImportant }: BtnMarkAsImportantPorps) {
   const [alert, setAlert] = useState<AlertType | null>(null);
-  const toastStyle = toastStyleTheme();
+  const toastStyle = useToastStyleTheme();
 
   const handleMarkAsImportant = () => {
     const docRef = doc(db, 'tasks', taskId);

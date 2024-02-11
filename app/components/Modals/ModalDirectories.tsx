@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import * as yup from "yup";
 import Modal from ".";
 import { auth, db } from "../../services/Firebase";
-import { toastStyleTheme } from '../../styles/toastStyle';
+import useToastStyleTheme from '../../services/hooks/useToastStyle';
 import { Input } from "../Utilities/Input";
 import InputGroup from "../Utilities/InputGroup";
 
@@ -29,7 +29,7 @@ export default function ModalDirectories({ onClose, nameForm }: ModalDirectories
   const [title, setTitle] = useState('');
   const userData = auth.currentUser;
 
-  const toastStyle = toastStyleTheme();
+  const toastStyle = useToastStyleTheme();
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateDirectoryData>({
     resolver: yupResolver(createDirectoryFormSchema)

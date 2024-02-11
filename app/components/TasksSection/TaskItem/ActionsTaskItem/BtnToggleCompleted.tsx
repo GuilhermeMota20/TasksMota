@@ -2,7 +2,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import { toast } from "sonner";
 import { db } from "../../../../services/Firebase";
-import { toastStyleTheme } from "../../../../styles/toastStyle";
+import useToastStyleTheme from "../../../../services/hooks/useToastStyle";
 
 interface BtnToggleCompletedProps {
   taskCompleted: boolean;
@@ -11,7 +11,7 @@ interface BtnToggleCompletedProps {
 };
 
 export default function BtnToggleCompleted({ isListInView, taskCompleted, taskId }: BtnToggleCompletedProps) {
-  const toastStyle = toastStyleTheme();
+  const toastStyle = useToastStyleTheme();
 
   const handleMarkAsCompleted = () => {
     const docRef = doc(db, 'tasks', taskId);

@@ -4,12 +4,12 @@ import { collection, deleteDoc, getDocs, query, where } from "firebase/firestore
 import { toast } from "sonner";
 import { auth, db } from "../../services/Firebase";
 import { useModalGlobals } from "../../services/hooks/useModalsGlobal";
-import { toastStyleTheme } from "../../styles/toastStyle";
+import useToastStyleTheme from "../../services/hooks/useToastStyle";
 import ModalConfirm from "./ModalConfirm";
 
 export default function ModalDeleteAllTasks() {
   const { isOpenDeleteTasks, onCloseDeleteTasks } = useModalGlobals();
-  const toastStyle = toastStyleTheme();
+  const toastStyle = useToastStyleTheme();
   const userData = auth.currentUser;
   
   const handleDeleteAllTasks = async () => {

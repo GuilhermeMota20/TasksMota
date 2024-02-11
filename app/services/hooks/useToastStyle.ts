@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-export const toastStyleTheme = () => {
+export default function useToastStyleTheme
+() {
   const [toastStyleTheme, setToastStyleTheme] = useState<any>({});
   const theme = localStorage.getItem('darkmode');
 
@@ -15,7 +16,7 @@ export const toastStyleTheme = () => {
         border: 0,
       }
     };
-  
+
     const darkStyle = {
       style: {
         borderRadius: '10px',

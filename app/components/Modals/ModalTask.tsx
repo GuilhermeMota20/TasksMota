@@ -4,13 +4,13 @@ import { doc, updateDoc } from "firebase/firestore";
 import { toast } from "sonner";
 import { db } from "../../services/Firebase";
 import { useModalGlobals } from "../../services/hooks/useModalsGlobal";
-import { toastStyleTheme } from "../../styles/toastStyle";
+import useToastStyleTheme from "../../services/hooks/useToastStyle";
 import { Tasks } from "../../types/Task";
 import ModalNewTasks from "./ModalNewTasks";
 
 export default function ModalTask() {
   const { isOpenNewTask, onCloseNewTask, currentTaskSelected, setCurrentTaskSelected } = useModalGlobals();
-  const toastStyle = toastStyleTheme();
+  const toastStyle = useToastStyleTheme();
 
   const handleEditTask = (task: Tasks) => {
     const ref = doc(db, 'tasks', task.id);

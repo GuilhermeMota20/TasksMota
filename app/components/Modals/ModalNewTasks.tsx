@@ -1,19 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addDoc, collection } from 'firebase/firestore';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from "sonner";
 import * as yup from "yup";
 import Modal from ".";
 import { auth, db } from "../../services/Firebase";
 import { useDirectorys } from '../../services/hooks/useDirectorys';
-import { AlertType } from '../../types/Alert';
+import useToastStyleTheme from '../../services/hooks/useToastStyle';
 import { Tasks } from '../../types/Task';
 import { Input } from '../Utilities/Input';
 import { InputCheckBox } from '../Utilities/InputCheckBox';
 import InputGroup from '../Utilities/InputGroup';
 import { TextArea } from '../Utilities/TextArea';
-import { toast } from "sonner";
-import { toastStyleTheme } from '../../styles/toastStyle';
 
 type CreateTaskFormData = {
   userUid: string;
@@ -40,7 +39,7 @@ const createTaskFormSchema = yup.object().shape({
 
 export default function ModalNewTasks({ onClose, task, nameForm, onConfirm }: ModalNewTasksProps) {
   const { directorys } = useDirectorys();
-  const toastStyle = toastStyleTheme();
+  const toastStyle = useToastStyleTheme();
 
   const userData = auth.currentUser;
 
