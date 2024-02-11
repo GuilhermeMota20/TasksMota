@@ -23,11 +23,11 @@ export default function Header() {
   const listConfigs = useListConfig();
   const listLayout = useListLayout();
 
-  // useEffect(() => {
-  //   if(mediaQueries.md) {
-  //     onRevertNavHorizontal();
-  //   };
-  // }, [mediaQueries]);
+  useEffect(() => {
+    if(mediaQueries.md) {
+      onRevertNavHorizontal();
+    };
+  }, [mediaQueries]);
 
   return (
     <>
