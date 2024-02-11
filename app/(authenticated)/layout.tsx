@@ -1,19 +1,17 @@
 'use client';
+
 import '@fontsource/inter';
-import React, { useEffect } from "react";
+import React from "react";
+import { Toaster } from "sonner";
 import Header from "../components/Header";
 import { ModalProvider } from '../components/Providers/ModalsProvider';
+import AnimationConfetti from '../components/Utilities/AnimationConfetti';
 import { cn } from '../lib/utils';
 import { useLayoutSystem } from '../services/hooks/useLayoutSystem';
-import { Toaster } from "sonner";
 import '../styles/globals.scss';
 
 export default function RootLayoutTasks({ children }: { children: React.ReactNode }) {
   const { isNavHorizontal, isLayoutExpanded } = useLayoutSystem((state) => state);
-
-  useEffect(() => {
-
-  }, []);
 
   return (
     <>
@@ -30,9 +28,10 @@ export default function RootLayoutTasks({ children }: { children: React.ReactNod
         <Header />
         {children}
       </section>
-      
+
       <ModalProvider />
       <Toaster position="bottom-center" />
+      <AnimationConfetti />
     </>
   )
 }

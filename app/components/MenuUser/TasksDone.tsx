@@ -1,16 +1,11 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useAllTasks } from "../../services/hooks/useAllTasks";
 import { useTasksOfTheDay } from "../../services/hooks/useTasksOfTheDay";
-import AnimationConfetti from "../Utilities/AnimationConfetti";
 
 export default function TasksDone() {
   const { format } = require('date-fns');
   const { allTasks } = useAllTasks();
   const { tasksOfTheDay } = useTasksOfTheDay();
-
-  const [isVisibleConfetti, setIsVisibleConfectti] = useState<boolean>(false);
-  const [time, setTime] = useState(.2 * 60);
 
   const currentDate = new Date();
   const formattedDate = format(currentDate, 'yyyy-MM-dd');
@@ -23,25 +18,8 @@ export default function TasksDone() {
   const todaysTasksToShow = tasksOfTheDay.slice(0, 3);
   const showMore = tasksOfTheDay.length > todaysTasksToShow.length;
 
-  useEffect(() => {
-    setIsVisibleConfectti(false);
-
-    if (percentageTodayTasks === 100 || percentageAllTasks === 100) {
-      setIsVisibleConfectti(true);
-
-      setTimeout(() => setTime(time - 1), 1000);
-
-      if (time <= 0) {
-        setTime(0);
-        setIsVisibleConfectti(false);
-      };
-    };
-  }, [percentageAllTasks, percentageTodayTasks, time]);
-
   return (
     <>
-      {isVisibleConfetti && <AnimationConfetti />}
-
       {tasksOfTheDay.length !== 0 && (
         <div className="mt-8">
           <span className="flex justify-between mb-2">
