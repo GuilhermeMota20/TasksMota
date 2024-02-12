@@ -1,13 +1,13 @@
 "use client"
 import { DocumentData } from "firebase/firestore";
+import Image from "next/image";
 import { ReactNode, useState } from "react";
 import { MoonLoader } from "react-spinners";
+import error404 from '../../assets/images/error404.svg';
 import { Tasks } from "../../types/Task";
 import SortViews from "../TasksSection/SortViews";
 import TaskItem from "../TasksSection/TaskItem";
 import AddNewTask from "./AddNewTask";
-import error404 from '../../assets/error404.svg';
-import Image from "next/image";
 
 interface LayoutTasksProps {
   title: string;

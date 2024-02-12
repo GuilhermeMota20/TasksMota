@@ -6,7 +6,7 @@ type SearchTasksProps = {
 
 export default function SearchTasks({ className }: SearchTasksProps) {
   return (
-    <div className={`flex-1 col-span-3 row-start-2 md:pr-10 ${className}`}>
+    <div className={`flex-1 col-span-3 row-start-2 ${className}`}>
       <form autoComplete="off" className="relative md:max-w-xs w-full">
         <label htmlFor="search" className="sr-only"></label>
 

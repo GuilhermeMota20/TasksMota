@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import { cn } from '../../lib/utils';
 import { useLayoutSystem } from '../../services/hooks/useLayoutSystem';
-import { useListConfig } from '../Utilities/useListConfig';
-import { useListLayout } from '../Utilities/useListLayout';
-import { useListPages } from '../Utilities/useListPages';
+import { useModalGlobals } from '../../services/hooks/useModalsGlobal';
 import { useScreenMedia } from '../../services/hooks/useScreenMedia';
 import { useScrollTop } from '../../services/hooks/useScrollTop';
 import MenuUser from '../MenuUser';
@@ -11,12 +9,18 @@ import Sidebar from '../Sidebar';
 import AddNewTask from '../Utilities/AddNewTask';
 import Avatar from '../Utilities/Avatar';
 import BrandMarkApp from '../Utilities/BrandMarkApp';
-import SearchTasks from '../Utilities/SearchTasks';
+import ButtonTheme from '../Utilities/ButtonTheme';
 import NavigationMenuPages from '../Utilities/NavigationMenuPagesUi';
+import SearchTasks from '../Utilities/SearchTasks';
+import { useListConfig } from '../Utilities/useListConfig';
+import { useListLayout } from '../Utilities/useListLayout';
+import { useListPages } from '../Utilities/useListPages';
 
 export default function Header() {
   const mediaQueries = useScreenMedia();
   const { isNavHorizontal, isLayoutExpanded, onRevertNavHorizontal } = useLayoutSystem((state) => state);
+  const { onOpenConfigUser } = useModalGlobals((state) => state);
+
   const scrolled = useScrollTop();
 
   const listPages = useListPages();
@@ -24,7 +28,7 @@ export default function Header() {
   const listLayout = useListLayout();
 
   useEffect(() => {
-    if(mediaQueries.md) {
+    if (mediaQueries.md) {
       onRevertNavHorizontal();
     };
   }, [mediaQueries]);
@@ -60,7 +64,11 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <SearchTasks className={cn(isNavHorizontal ? "md:pr-0" : "")} />
             <AddNewTask />
-            <Avatar />
+            <ButtonTheme className='h-full' />
+            <Avatar
+              onClick={onOpenConfigUser}
+              className="cursor-pointer"
+            />
           </div>
         </header>
       )}

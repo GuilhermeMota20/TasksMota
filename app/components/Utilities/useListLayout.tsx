@@ -1,8 +1,8 @@
+import { useLayoutSystem } from "../../services/hooks/useLayoutSystem";
+import { ListLayoutType } from "../../types/ListLayout";
 import LayoutExpandidoIcon from "./LayoutExpandido";
 import LayoutHorizontalIcon from "./LayoutHorizontal";
 import LayoutVerticalIcon from "./LayoutVertical";
-import { ListLayoutType } from "../../types/ListLayout";
-import { useLayoutSystem } from "../../services/hooks/useLayoutSystem";
 
 export const useListLayout = (): ListLayoutType[] => {
   const {

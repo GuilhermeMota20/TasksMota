@@ -3,16 +3,15 @@ import '@fontsource/inter';
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MoonLoader } from 'react-spinners';
-import DarkMode from "../components/MenuUser/MenuConfig/DarkMode";
 import ModalError from '../components/Modals/ModalError';
 import ModalWarning from '../components/Modals/ModalWarning';
+import ButtonTheme from '../components/Utilities/ButtonTheme';
 import { useAuth } from '../context/AuthContext';
 import { auth } from "../services/Firebase";
 import '../styles/globals.scss';
 
 export default function RootLayoutPublic({ children }: { children: React.ReactNode }) {
   const [showModal, setIsModalShown] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(1);
   const [verifiedEmailFailed, setVerifiedEmailFailed] = useState<Boolean | undefined>(undefined);
 
   const router = useRouter();
@@ -38,7 +37,7 @@ export default function RootLayoutPublic({ children }: { children: React.ReactNo
     if (!sendEmailError && showModalEmailVirified) {
       auth.currentUser?.reload();
 
-      setTimeout(() => setTime(time -1), 1000);
+      setTimeout(() => setTime(time - 1), 1000);
 
       if (time <= 0) {
         auth.currentUser?.delete();
@@ -47,7 +46,7 @@ export default function RootLayoutPublic({ children }: { children: React.ReactNo
         setShowModalEmailVirified(false);
       };
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, sendEmailError, showModalEmailVirified, time]);
 
   return (
@@ -105,9 +104,7 @@ export default function RootLayoutPublic({ children }: { children: React.ReactNo
 
       <section className="dark:bg-darkBlue-800">
         <div className="text-slate-600 dark:text-slate-400 pt-5 pb-2 px-4 md:px-8 md:w-full xl:w-8/12 m-auto min-h-screen flex flex-col  justify-center items-center gap-8">
-          <div className="absolute bottom-4 right-0 p-2 bg-slate-50 dark:bg-darkBlue-900 rounded-md shadow-lg z-20">
-            <DarkMode activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
-          </div>
+          <ButtonTheme className='absolute top-4 right-4' />
 
           <h2 className="font-bold text-2xl">ToDoTask <span className="text-pink-600">.</span></h2>
 

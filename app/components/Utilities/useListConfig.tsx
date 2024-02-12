@@ -1,11 +1,8 @@
-import { AiOutlineFire, AiOutlineLogout } from "react-icons/ai";
-import { BsCheck2Circle, BsPersonX } from "react-icons/bs";
-import { GoHome } from "react-icons/go";
-import { MdLabelImportantOutline, MdOutlineRunningWithErrors } from "react-icons/md";
+import { AiOutlineLogout } from "react-icons/ai";
+import { BsPersonX } from "react-icons/bs";
+import { TbFileShredder } from "react-icons/tb";
 import { useModalGlobals } from "../../services/hooks/useModalsGlobal";
 import { ListConfigType } from "../../types/ListConfig";
-import { FaUserAstronaut } from "react-icons/fa";
-import { TbFileShredder } from "react-icons/tb";
 
 export const useListConfig = (): ListConfigType[] => {
   const {
@@ -16,12 +13,6 @@ export const useListConfig = (): ListConfigType[] => {
   } = useModalGlobals((state) => state);
 
   return [
-    {
-      icon: <FaUserAstronaut />,
-      title: "Configuracoes de usuario",
-      action: () => onOpenConfigUser(),
-      description: "Nessa opcao, voce podera alterar as suas informacoes de usuaio como nome e avatar.",
-    },
     {
       icon: <TbFileShredder />,
       title: "Deletar tarefas",
