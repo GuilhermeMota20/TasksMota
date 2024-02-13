@@ -15,7 +15,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         <HeaderMarketing />
         {children}
 
-        <div className='fixed box-content -bottom-28 left-0 w-full hidden sm:flex items-center justify-center p-2 z-50 '>
+        <div className='fixed box-content w-full left-0 top-48 sm:-bottom-3/4 flex items-center justify-center p-2 z-10 sm:z-20'>
           <Image
             src={backrgoundLight}
             alt="aaa"
@@ -34,7 +34,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
           />
         </div>
 
-        <div className="fixed -bottom-[40rem] -left-48 w-[400rem] h-2/3 bg-slate-50 rotate-12 dark:bg-darkBlue-700">
+        <div className="fixed -bottom-[40rem] -left-48 w-[400rem] h-2/3 bg-slate-50 rotate-12 dark:bg-darkBlue-700 z-10">
           <div className="absolute w-96 h-16 bg-pink-600 opacity-80 rounded-md top-2/3 sm:-top-6" >
             <div className="absolute w-28 h-16 bg-red-500 opacity-80 rounded-md -top-6" />
           </div>
