@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { RxGear } from "react-icons/rx";
+import { cn } from "../../../lib/utils";
 import { useModalGlobals } from "../../../services/hooks/useModalsGlobal";
 import { useScreenMedia } from "../../../services/hooks/useScreenMedia";
 import ButtonTheme from "../../Utilities/ButtonTheme";
@@ -27,7 +28,10 @@ export default function MenuUserConfig() {
 
       <ButtonTheme className="bg-white" />
 
-      <section className={`fixed top-0 right-0 h-full w-72 p-4 z-20 ease-in-out opacity-0 transition-transform duration-300  ${showMenuConfig ? 'translate-x-0 opacity-100' : 'translate-x-full'}`} >
+      <section className={cn(
+        "fixed top-0 right-0 h-full w-72 p-4 z-20 ease-in-out transition-transform duration-300",
+        showMenuConfig ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+      )} >
         <div className="bg-slate-100 dark:bg-darkBlue-800 rounded-md flex flex-col gap-2 h-full w-full">
           <HeaderConfig
             showModalUser={onOpenConfigUser}

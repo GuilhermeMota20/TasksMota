@@ -1,23 +1,20 @@
 import { doc, updateDoc } from "firebase/firestore";
-import { useState } from "react";
 import { BsStarFill } from "react-icons/bs";
 import { toast } from "sonner";
 import { db } from "../../../../services/Firebase";
 import useToastStyleTheme from "../../../../services/hooks/useToastStyle";
-import { AlertType } from "../../../../types/Alert";
 
 interface BtnMarkAsImportantPorps {
   taskId: string;
   taskImportant: boolean;
+  className?: string;
 };
 
-export default function BtnMarkAsImportant({ taskId, taskImportant }: BtnMarkAsImportantPorps) {
-  const [alert, setAlert] = useState<AlertType | null>(null);
+export default function BtnMarkAsImportant({ taskId, taskImportant, className }: BtnMarkAsImportantPorps) {
   const toastStyle = useToastStyleTheme();
 
   const handleMarkAsImportant = () => {
     const docRef = doc(db, 'tasks', taskId);
-    setAlert(null);
 
     updateDoc(docRef, { important: taskImportant ? false : true })
       .then(() => toast.success(!taskImportant
@@ -37,7 +34,7 @@ export default function BtnMarkAsImportant({ taskId, taskImportant }: BtnMarkAsI
     <>
       <button
         title={`${taskImportant ? 'Desmarca como importante' : 'Marcar como importante'}`}
-        className="transition hover:text-slate-700 ml-auto"
+        className={`transition hover:text-slate-700 ml-auto ${className}`}
         onClick={handleMarkAsImportant}
       >
         <BsStarFill className={`text-md sm:text-lg ${taskImportant ? 'fill-yellow-500' : ''}`} />

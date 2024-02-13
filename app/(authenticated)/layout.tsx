@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import Header from "../components/Header";
 import { ModalProvider } from '../components/Providers/ModalsProvider';
 import AnimationConfetti from '../components/Utilities/AnimationConfetti';
+import SearchCommand from '../components/Utilities/SearchCommand';
 import { cn } from '../lib/utils';
 import { useLayoutSystem } from '../services/hooks/useLayoutSystem';
 import '../styles/globals.scss';
@@ -26,6 +27,7 @@ export default function RootLayoutTasks({ children }: { children: React.ReactNod
             : ""
         )}>
         <Header />
+        <SearchCommand />
         {children}
       </section>
 

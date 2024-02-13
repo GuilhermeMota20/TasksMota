@@ -10,7 +10,7 @@ import AddNewTask from '../Utilities/AddNewTask';
 import Avatar from '../Utilities/Avatar';
 import BrandMarkApp from '../Utilities/BrandMarkApp';
 import ButtonTheme from '../Utilities/ButtonTheme';
-import NavigationMenuPages from '../Utilities/NavigationMenuPagesUi';
+import NavigationMenuPages from '../Ui/NavigationMenuPagesUi';
 import SearchTasks from '../Utilities/SearchTasks';
 import { useListConfig } from '../Utilities/useListConfig';
 import { useListLayout } from '../Utilities/useListLayout';
