@@ -10,6 +10,7 @@ export default function ModalLogout() {
 
   const handleLogout = () => {
     Logout();
+    onCloseLogout();
   };
 
   return (

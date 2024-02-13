@@ -40,10 +40,11 @@ export default function ButtonTheme({ className }: ButtonThemeProps) {
     <>
       <div
         onClick={handleToggleTheme}
-        className={`${className} flex items-center justify-center bg-slate-100 dark:bg-darkBlue-700 rounded-md hover:shadow-md w-12 h-12`}
+        className={`${className} flex items-center justify-center bg-slate-100 dark:bg-darkBlue-700 rounded-md hover:shadow-md w-12 h-12 cursor-pointer`}
       >
         <VscColorMode />
       </div>
     </>
+
   )
 }

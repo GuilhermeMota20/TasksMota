@@ -11,6 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const noAuthRequired = [
     '/',
     '/Signup',
+    '/Signin',
   ];
 
   return (

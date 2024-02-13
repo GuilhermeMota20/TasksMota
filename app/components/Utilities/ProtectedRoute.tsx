@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!auth.currentUser) {
+    if (!auth?.currentUser) {
       router.push('/');
     };
   }, [router, user]);

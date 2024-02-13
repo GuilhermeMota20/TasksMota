@@ -9,6 +9,8 @@ import ButtonTheme from '../components/Utilities/ButtonTheme';
 import { useAuth } from '../context/AuthContext';
 import { auth } from "../services/Firebase";
 import '../styles/globals.scss';
+import { IoReturnDownBack } from "react-icons/io5";
+import ButtonBack from '../components/Utilities/ButtonBack';
 
 export default function RootLayoutPublic({ children }: { children: React.ReactNode }) {
   const [showModal, setIsModalShown] = useState(false);
@@ -104,7 +106,8 @@ export default function RootLayoutPublic({ children }: { children: React.ReactNo
 
       <section className="dark:bg-darkBlue-800">
         <div className="text-slate-600 dark:text-slate-400 pt-5 pb-2 px-4 md:px-8 md:w-full xl:w-8/12 m-auto min-h-screen flex flex-col  justify-center items-center gap-8">
-          <ButtonTheme className='absolute top-4 right-4' />
+          <ButtonBack className='absolute top-4 left-4 sm:left-8' />
+          <ButtonTheme className='absolute top-4 right-4 sm:right-8' />
 
           <h2 className="font-bold text-2xl">ToDoTask <span className="text-pink-600">.</span></h2>
 
