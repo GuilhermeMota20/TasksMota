@@ -2,7 +2,7 @@
 import '@fontsource/inter';
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BarLoader  } from 'react-spinners';
+import { MoonLoader } from 'react-spinners';
 import ModalError from '../components/Modals/ModalError';
 import ModalWarning from '../components/Modals/ModalWarning';
 import ButtonTheme from '../components/Utilities/ButtonTheme';
@@ -73,7 +73,7 @@ export default function RootLayoutPublic({ children }: { children: React.ReactNo
           </strong>
 
           <div className='absolute flex items-center justify-center top-6 right-5'>
-            <BarLoader  color="#fff" size={18} />
+            <MoonLoader color="#fff" size={18} />
           </div>
         </ModalWarning>
       )}
