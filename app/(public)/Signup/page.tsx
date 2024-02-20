@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { MoonLoader } from "react-spinners";
+import { BarLoader  } from "react-spinners";
 import * as yup from "yup";
 import Divider from "../../components/Utilities/Divider";
 import { Input } from "../../components/Utilities/Input";
@@ -79,7 +79,7 @@ export default function Page() {
           <button
             className="bg-pink-600 py-2 w-full mt-4 rounded-md text-white flex items-center justify-center gap-4 cursor-not-allowed" disabled
           >
-            <MoonLoader color="#ffffff" size={18} />
+            <BarLoader  color="#ffffff" size={18} />
           </button>
         ) : (
           <button type="submit" className="bg-pink-600 transition hover:bg-pink-700 py-2 w-full mt-4 rounded-md text-white">

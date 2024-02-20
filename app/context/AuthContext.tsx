@@ -1,5 +1,5 @@
 'use client'
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithRedirect, signOut, UserCredential } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, UserCredential } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { auth } from "../services/Firebase";
@@ -72,7 +72,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   const provider = new GoogleAuthProvider();
   const SignInWithGoogle = async () => {
-    await signInWithRedirect(auth, provider)
+    await signInWithPopup(auth, provider)
       .then(() => {
         setLoginError(false);
         router.push('/AllTasks');

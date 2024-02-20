@@ -19,6 +19,7 @@ export default function Avatar({className, onClick}: AvatarProps) {
         height={48}
         quality={100}
         onClick={onClick}
+        priority
       />
     </>
   )

@@ -18,6 +18,7 @@ export default function ModalDeleteTask() {
       .then(() => toast.success("Tarefa excluida com sucesso!", toastStyle))
       .catch(() => toast.error("Nao foi possivel excluir a tarefa! Por favor, tente novamente.", toastStyle));
 
+    setCurrentTaskSelected(undefined);
     onCloseDeleteTask();
   };
 

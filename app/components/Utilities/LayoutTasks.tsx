@@ -1,9 +1,11 @@
 "use client"
+
 import { DocumentData } from "firebase/firestore";
 import Image from "next/image";
-import { ReactNode, useState } from "react";
-import { MoonLoader } from "react-spinners";
+import { ReactNode } from "react";
+import { BarLoader } from "react-spinners";
 import error404 from '../../assets/images/error404.svg';
+import { useFormatListInView } from "../../services/hooks/useFormatListInView";
 import { Tasks } from "../../types/Task";
 import SortViews from "../TasksSection/SortViews";
 import TaskItem from "../TasksSection/TaskItem";
@@ -18,7 +20,7 @@ interface LayoutTasksProps {
 };
 
 export default function LayoutTasks({ title, icon, tasks, isLoading, error }: LayoutTasksProps) {
-  const [isListInView, setIsListInView] = useState<boolean>(false);
+  const { isListInView } = useFormatListInView();
 
   return (
     <section>
@@ -30,14 +32,11 @@ export default function LayoutTasks({ title, icon, tasks, isLoading, error }: La
         </h1>
       </div>
 
-      <SortViews
-        isListInView={isListInView}
-        setIsListInView={setIsListInView}
-      />
+      <SortViews />
 
       {isLoading ? (
         <div className="flex items-center justify-center mt-12">
-          <MoonLoader color="rgb(190, 24, 93)" size={24} />
+          <BarLoader color="rgb(190, 24, 93)" />
         </div>
 
       ) : error ? (

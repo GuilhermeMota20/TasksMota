@@ -27,7 +27,7 @@ export default function SearchCommand() {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         toggle();
-      }
+      };
     };
 
     document.addEventListener("keydown", down);
